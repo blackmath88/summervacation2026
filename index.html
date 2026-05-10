@@ -729,6 +729,374 @@
   </div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
+    const destinationIntel = {
+      costaBlanca: {
+        title: "Costa Blanca North",
+        category: "Achim Track",
+        vibe: "Mediterranean limestone coast, white towns, villas, warm evenings and climbing culture.",
+        bestBaseAreas: [
+          "Altea hills",
+          "Benissa coast",
+          "Jalón / Xaló Valley",
+          "Moraira outskirts",
+          "Calpe edge, not centre"
+        ],
+        travelFromBasel: {
+          mode: "Drive",
+          feel: "Long but rewarding",
+          approx: "Approx. 14–17h with one overnight stop"
+        },
+        budgetFeel: "Medium",
+        links: {
+          beaches: [
+            ["Cala del Moraig search", "https://www.google.com/search?q=Cala+del+Moraig+Costa+Blanca+family+beach"],
+            ["Playa del Portet search", "https://www.google.com/search?q=Playa+del+Portet+Moraira+family+beach"],
+            ["Costa Blanca North beaches images", "https://www.google.com/search?tbm=isch&q=Costa+Blanca+North+beaches+Altea+Benissa+Moraira"]
+          ],
+          coffeeCulture: [
+            ["Altea old town cafés", "https://www.google.com/search?q=Altea+old+town+cafes"],
+            ["Calpe coffee culture", "https://www.google.com/search?q=Calpe+specialty+coffee+cafes"],
+            ["Jalón Valley cafés", "https://www.google.com/search?q=Jalon+Valley+cafes+restaurants"]
+          ],
+          secondHandDesign: [
+            ["Altea vintage / design shops", "https://www.google.com/search?q=Altea+vintage+design+shops"],
+            ["Costa Blanca flea markets", "https://www.google.com/search?q=Costa+Blanca+flea+markets+vintage"]
+          ],
+          museumsCulture: [
+            ["Altea art galleries", "https://www.google.com/search?q=Altea+art+galleries+old+town"],
+            ["Baños de la Reina Calpe", "https://www.google.com/search?q=Ba%C3%B1os+de+la+Reina+Calpe"]
+          ],
+          climbingOutdoor: [
+            ["Costa Blanca climbing overview", "https://www.google.com/search?q=Costa+Blanca+North+climbing+Calpe+Jalon+Valley"],
+            ["Peñón de Ifach hike/climb", "https://www.google.com/search?q=Pe%C3%B1%C3%B3n+de+Ifach+hike+climbing"],
+            ["Jalón Valley climbing", "https://www.google.com/search?q=Jalon+Valley+climbing+Costa+Blanca"]
+          ],
+          airbnbStrategy: [
+            ["Airbnb Altea", "https://www.airbnb.com/s/Altea--Spain/homes"],
+            ["Airbnb Benissa", "https://www.airbnb.com/s/Benissa--Spain/homes"],
+            ["Airbnb Jalón Valley", "https://www.airbnb.com/s/Jalon--Spain/homes"]
+          ]
+        },
+        stakeholderFit: {
+          achim: "Best mix of climbing, sun, landscape, towns and Mediterranean mood.",
+          fiona: "Villa/pool/outdoor-space potential with warm evenings and easy family rhythm.",
+          kids: "Pool, beach, ice cream, boat trips, town evenings."
+        },
+        risks: [
+          "July heat",
+          "Wrong area can feel too touristy",
+          "Long drive"
+        ],
+        whyMightWin: "Best Achim payoff while still giving the family a classic warm summer setup."
+      },
+
+      northDevon: {
+        title: "North Devon",
+        category: "Achim Track",
+        vibe: "Rugged Atlantic coast, surf beaches, cliffs, Hartland bouldering and classic UK seaside.",
+        bestBaseAreas: [
+          "Woolacombe",
+          "Croyde",
+          "Saunton",
+          "Hartland",
+          "Bude edge"
+        ],
+        travelFromBasel: {
+          mode: "Drive + ferry / Eurotunnel",
+          feel: "Long / complex",
+          approx: "Approx. 12–16h+ depending crossing"
+        },
+        budgetFeel: "High",
+        links: {
+          beaches: [
+            ["Woolacombe Beach", "https://www.google.com/search?q=Woolacombe+Beach+family"],
+            ["Croyde Beach", "https://www.google.com/search?q=Croyde+Beach+family+surf"],
+            ["Saunton Sands", "https://www.google.com/search?q=Saunton+Sands+family+beach"]
+          ],
+          coffeeCulture: [
+            ["Woolacombe cafés", "https://www.google.com/search?q=Woolacombe+cafes"],
+            ["Croyde cafés", "https://www.google.com/search?q=Croyde+cafes+surf"],
+            ["North Devon café guide", "https://www.google.com/search?q=North+Devon+cafes+Woolacombe+Croyde"]
+          ],
+          secondHandDesign: [
+            ["North Devon vintage shops", "https://www.google.com/search?q=North+Devon+vintage+shops"],
+            ["Barnstaple second hand shops", "https://www.google.com/search?q=Barnstaple+second+hand+shops"]
+          ],
+          museumsCulture: [
+            ["Arlington Court National Trust", "https://www.google.com/search?q=Arlington+Court+National+Trust+Devon"],
+            ["Ilfracombe galleries", "https://www.google.com/search?q=Ilfracombe+art+galleries"],
+            ["North Devon museums", "https://www.google.com/search?q=North+Devon+museums+family"]
+          ],
+          climbingOutdoor: [
+            ["Hartland Quay bouldering", "https://www.google.com/search?q=Hartland+Quay+bouldering"],
+            ["Baggy Point walk/climbing", "https://www.google.com/search?q=Baggy+Point+North+Devon+climbing+walk"],
+            ["South West Coast Path North Devon", "https://www.google.com/search?q=South+West+Coast+Path+North+Devon+family"]
+          ],
+          airbnbStrategy: [
+            ["Airbnb Woolacombe", "https://www.airbnb.com/s/Woolacombe--United-Kingdom/homes"],
+            ["Airbnb Croyde", "https://www.airbnb.com/s/Croyde--United-Kingdom/homes"],
+            ["Airbnb Hartland", "https://www.airbnb.com/s/Hartland--United-Kingdom/homes"]
+          ]
+        },
+        stakeholderFit: {
+          achim: "Most rugged adventure option with real bouldering and coastal drama.",
+          fiona: "Classic family beach holiday if the house has garden and beach proximity.",
+          kids: "Sand, waves, rock pools, surf schools and ice cream."
+        },
+        risks: [
+          "Weather variability",
+          "UK high-season prices",
+          "Crossing logistics and left-side driving"
+        ],
+        whyMightWin: "Best adventure-coast feeling and strongest real bouldering credibility."
+      },
+
+      italyLakes: {
+        title: "Italy Lakes / Dolomites",
+        category: "Achim Track",
+        vibe: "Lake + mountain harmony with easiest logistics, family infrastructure and outdoor culture.",
+        bestBaseAreas: [
+          "Arco",
+          "Riva del Garda",
+          "Torbole",
+          "Trentino",
+          "South Tyrol"
+        ],
+        travelFromBasel: {
+          mode: "Drive",
+          feel: "Easy / medium",
+          approx: "Approx. 5–7h"
+        },
+        budgetFeel: "Medium",
+        links: {
+          beaches: [
+            ["Lake Garda family beaches", "https://www.google.com/search?q=Lake+Garda+family+beaches"],
+            ["Lago di Ledro swimming", "https://www.google.com/search?q=Lago+di+Ledro+swimming+family"],
+            ["Lake Molveno family", "https://www.google.com/search?q=Lake+Molveno+family+swimming"]
+          ],
+          coffeeCulture: [
+            ["Arco cafés", "https://www.google.com/search?q=Arco+Italy+cafes"],
+            ["Riva del Garda cafés", "https://www.google.com/search?q=Riva+del+Garda+cafes"],
+            ["South Tyrol coffee culture", "https://www.google.com/search?q=South+Tyrol+cafes+family"]
+          ],
+          secondHandDesign: [
+            ["Trentino design shops", "https://www.google.com/search?q=Trentino+design+shops"],
+            ["Bolzano vintage shops", "https://www.google.com/search?q=Bolzano+vintage+shops"]
+          ],
+          museumsCulture: [
+            ["MART Rovereto", "https://www.google.com/search?q=MART+Rovereto+museum"],
+            ["Lake Garda family museums", "https://www.google.com/search?q=Lake+Garda+family+museums"],
+            ["South Tyrol museums family", "https://www.google.com/search?q=South+Tyrol+family+museums"]
+          ],
+          climbingOutdoor: [
+            ["Garda Trentino family climbing", "https://www.gardatrentino.it/en/discover/family-holidays/active-family/family-climbing"],
+            ["Arco climbing", "https://www.gardatrentino.it/en/outdoor/climbing"],
+            ["Family climbing San Martino Arco", "https://www.google.com/search?q=San+Martino+Arco+family+climbing"]
+          ],
+          airbnbStrategy: [
+            ["Airbnb Arco", "https://www.airbnb.com/s/Arco--Trentino--Italy/homes"],
+            ["Airbnb Riva del Garda", "https://www.airbnb.com/s/Riva-del-Garda--Italy/homes"],
+            ["Airbnb Lake Garda North", "https://www.airbnb.com/s/Lake-Garda--Italy/homes"]
+          ]
+        },
+        stakeholderFit: {
+          achim: "Mountains, lake, climbing and via ferrata without extreme travel.",
+          fiona: "Lowest-friction option with good infrastructure, restaurants, activities and predictable logistics.",
+          kids: "Lake swimming, gelato, cable cars, boats and beginner climbing."
+        },
+        risks: [
+          "Can feel less original if house is too standard",
+          "Garda can be busy",
+          "Needs a good base to avoid tourist congestion"
+        ],
+        whyMightWin: "Highest harmony probability and easiest sell for the whole family."
+      },
+
+      tenerifeNorth: {
+        title: "Tenerife North",
+        category: "Achim Track",
+        vibe: "Volcanic island, lush north coast, ocean pools, dramatic hikes and magical landscape.",
+        bestBaseAreas: [
+          "La Orotava",
+          "Garachico",
+          "Puerto de la Cruz",
+          "El Sauzal",
+          "Anaga / Taganana"
+        ],
+        travelFromBasel: {
+          mode: "Flight + rental car",
+          feel: "Wildcard / medium",
+          approx: "Flight option; no long drive"
+        },
+        budgetFeel: "Medium / High",
+        links: {
+          beaches: [
+            ["Garachico natural pools", "https://www.google.com/search?q=Garachico+natural+pools+Tenerife"],
+            ["Playa Jardín Puerto de la Cruz", "https://www.google.com/search?q=Playa+Jardin+Puerto+de+la+Cruz"],
+            ["Tenerife North beaches", "https://www.google.com/search?q=Tenerife+North+best+beaches+family"]
+          ],
+          coffeeCulture: [
+            ["La Orotava cafés", "https://www.google.com/search?q=La+Orotava+cafes"],
+            ["Puerto de la Cruz cafés", "https://www.google.com/search?q=Puerto+de+la+Cruz+cafes"],
+            ["Tenerife North coffee culture", "https://www.google.com/search?q=Tenerife+North+specialty+coffee"]
+          ],
+          secondHandDesign: [
+            ["Tenerife North artisan shops", "https://www.google.com/search?q=Tenerife+North+artisan+shops"],
+            ["La Orotava design shops", "https://www.google.com/search?q=La+Orotava+design+shops"]
+          ],
+          museumsCulture: [
+            ["Botanical Garden Puerto de la Cruz", "https://www.google.com/search?q=Botanical+Garden+Puerto+de+la+Cruz"],
+            ["Tenerife museums family", "https://www.google.com/search?q=Tenerife+museums+family"],
+            ["La Orotava old town", "https://www.google.com/search?q=La+Orotava+old+town"]
+          ],
+          climbingOutdoor: [
+            ["Teide National Park", "https://www.google.com/search?q=Teide+National+Park+family"],
+            ["Anaga hiking Tenerife", "https://www.google.com/search?q=Anaga+hiking+Tenerife+family"],
+            ["Tenerife climbing bouldering", "https://www.google.com/search?q=Tenerife+climbing+bouldering"]
+          ],
+          airbnbStrategy: [
+            ["Airbnb La Orotava", "https://www.airbnb.com/s/La-Orotava--Spain/homes"],
+            ["Airbnb Garachico", "https://www.airbnb.com/s/Garachico--Spain/homes"],
+            ["Airbnb Puerto de la Cruz", "https://www.airbnb.com/s/Puerto-de-la-Cruz--Spain/homes"]
+          ]
+        },
+        stakeholderFit: {
+          achim: "Most visually magical option: volcano, lava, north coast and hiking.",
+          fiona: "No long car journey, family rentals with pools, strong weather and many activities.",
+          kids: "Volcano island, pools, ocean, animals, cable car and black-sand beaches."
+        },
+        risks: [
+          "Flight and rental car logistics",
+          "Avoid south resort strip",
+          "Teide access rules may change; check current conditions before planning"
+        ],
+        whyMightWin: "Best wildcard: big emotional payoff without the huge road-trip burden."
+      },
+
+      copenhagen: {
+        title: "Copenhagen Coast",
+        category: "Urban Coast — Daughter Perspective",
+        vibe: "Design city, bikes, harbour swimming, beaches, museums and café culture.",
+        bestBaseAreas: [
+          "Østerbro",
+          "Nørrebro",
+          "Amager",
+          "Hellerup",
+          "Helsingør / Louisiana area"
+        ],
+        travelFromBasel: {
+          mode: "Drive or train/flight",
+          feel: "Medium / long",
+          approx: "Drive is long; flight/train possible"
+        },
+        budgetFeel: "High",
+        links: {
+          beaches: [
+            ["Amager Beach", "https://www.google.com/search?q=Amager+Beach+Copenhagen+family"],
+            ["Copenhagen harbour baths", "https://www.google.com/search?q=Copenhagen+harbour+baths+family"],
+            ["Copenhagen beaches", "https://www.google.com/search?q=Copenhagen+best+beaches+family"]
+          ],
+          coffeeCulture: [
+            ["Copenhagen coffee culture", "https://www.google.com/search?q=Copenhagen+specialty+coffee+cafes"],
+            ["Nørrebro cafés", "https://www.google.com/search?q=N%C3%B8rrebro+cafes+Copenhagen"],
+            ["Copenhagen bakeries", "https://www.google.com/search?q=Copenhagen+best+bakeries"]
+          ],
+          secondHandDesign: [
+            ["Copenhagen vintage shops", "https://www.google.com/search?q=Copenhagen+vintage+shops"],
+            ["Vesterbro vintage shops", "https://www.google.com/search?q=Vesterbro+vintage+shops"],
+            ["Copenhagen design shops", "https://www.google.com/search?q=Copenhagen+design+shops"]
+          ],
+          museumsCulture: [
+            ["Louisiana Museum", "https://louisiana.dk/en/plan-your-visit/"],
+            ["Designmuseum Danmark", "https://www.google.com/search?q=Designmuseum+Danmark"],
+            ["ARKEN Museum", "https://www.google.com/search?q=ARKEN+Museum+Copenhagen"]
+          ],
+          climbingOutdoor: [
+            ["Copenhagen outdoor family activities", "https://www.google.com/search?q=Copenhagen+outdoor+family+activities"],
+            ["Copenhagen bouldering gyms", "https://www.google.com/search?q=Copenhagen+bouldering+gym"],
+            ["Copenhagen bike family routes", "https://www.google.com/search?q=Copenhagen+family+bike+routes"]
+          ],
+          airbnbStrategy: [
+            ["Airbnb Copenhagen", "https://www.airbnb.com/s/Copenhagen--Denmark/homes"],
+            ["Airbnb Amager", "https://www.airbnb.com/s/Amager--Copenhagen--Denmark/homes"],
+            ["Airbnb Østerbro", "https://www.airbnb.com/s/Osterbro--Copenhagen--Denmark/homes"]
+          ]
+        },
+        stakeholderFit: {
+          achim: "Urban design, cafés, culture and water; lower climbing but high atmosphere.",
+          fiona: "Safe, structured, bikeable, lots to do, great rainy-day options.",
+          kids: "Bikes, harbour swimming, beach, museums and city freedom."
+        },
+        risks: [
+          "Expensive accommodation",
+          "Less nature/climbing payoff",
+          "Drive still long if not flying"
+        ],
+        whyMightWin: "The strongest Haarlem upgrade: stylish city life plus water."
+      },
+
+      sanSebastian: {
+        title: "San Sebastián",
+        category: "Urban Coast — Daughter Perspective",
+        vibe: "Walkable Basque beach city with surf, food culture, urban beaches and dramatic coast.",
+        bestBaseAreas: [
+          "Gros",
+          "Old Town edge",
+          "Ondarreta",
+          "Antiguo",
+          "Zurriola side"
+        ],
+        travelFromBasel: {
+          mode: "Drive",
+          feel: "Long",
+          approx: "Approx. 11–13h"
+        },
+        budgetFeel: "High",
+        links: {
+          beaches: [
+            ["San Sebastián official beaches", "https://sansebastianturismoa.eus/en/to-do/let-s-go-to-the-beach/"],
+            ["La Concha beach", "https://www.spain.info/en/beach/concha-san-sebastian/"],
+            ["Zurriola surf beach", "https://www.google.com/search?q=Zurriola+Beach+surf+San+Sebastian"]
+          ],
+          coffeeCulture: [
+            ["San Sebastián cafés", "https://www.google.com/search?q=San+Sebastian+cafes+coffee"],
+            ["Gros cafés San Sebastián", "https://www.google.com/search?q=Gros+San+Sebastian+cafes"],
+            ["San Sebastián pintxos", "https://www.google.com/search?q=San+Sebastian+pintxos+family"]
+          ],
+          secondHandDesign: [
+            ["San Sebastián vintage shops", "https://www.google.com/search?q=San+Sebastian+vintage+shops"],
+            ["San Sebastián design shops", "https://www.google.com/search?q=San+Sebastian+design+shops"],
+            ["Basque surf shops San Sebastián", "https://www.google.com/search?q=San+Sebastian+surf+shops"]
+          ],
+          museumsCulture: [
+            ["San Telmo Museum", "https://www.google.com/search?q=San+Telmo+Museum+San+Sebastian"],
+            ["Aquarium San Sebastián", "https://www.google.com/search?q=Aquarium+San+Sebastian+family"],
+            ["San Sebastián tourism official", "https://sansebastianturismoa.eus/en/"]
+          ],
+          climbingOutdoor: [
+            ["San Sebastián surfing", "https://tourism.euskadi.eus/en/tourist-news/san-sebastian-best-place-for-surfing-national-geographic/webtur00-content/en/"],
+            ["Monte Urgull family walk", "https://www.google.com/search?q=Monte+Urgull+family+walk+San+Sebastian"],
+            ["Basque coast hikes San Sebastián", "https://www.google.com/search?q=Basque+coast+hikes+San+Sebastian+family"]
+          ],
+          airbnbStrategy: [
+            ["Airbnb San Sebastián", "https://www.airbnb.com/s/San-Sebastian--Spain/homes"],
+            ["Airbnb Gros", "https://www.airbnb.com/s/Gros--San-Sebastian--Spain/homes"]
+          ]
+        },
+        stakeholderFit: {
+          achim: "Beautiful urban coast, Basque identity, surf and strong atmosphere.",
+          fiona: "Everything close: beach, food, walks, culture, compact city.",
+          kids: "Beach inside the city, waves, old town, snacks and promenade life."
+        },
+        risks: [
+          "Expensive in July",
+          "Accommodation availability",
+          "Less climbing; more surf/city"
+        ],
+        whyMightWin: "Best pure city-beach integration in the whole list."
+      }
+    };
+
     const trackStyles = {
       base: {color: '#b68a38', fill: 'rgba(182,138,56,.18)', label: 'Basel'},
       achim: {color: '#0f2b46', fill: 'rgba(15,43,70,.14)', label: 'Achim Track'},
