@@ -1,17 +1,17 @@
 (function(){
   const data = window.vacationData;
-  const PREF_KEY = "sv26.preferences";
   const FAV_KEY = "sv26.favorites";
   const CONTROL_KEY = "sv26.control";
-  const RANK_KEY = "sv26.ranking";
+  const RATINGS_KEY = "sv26.ratings";
   const VIEWS = ["overview", "compare", "destination", "decide", "map"];
+  const CATEGORY_KEYS = Object.keys(data.preferences);
 
   let portfolioView = "all";
   let controlFilter = "all";
-  let preferences = readJson(PREF_KEY, defaultPreferences());
+  let matrixSort = "fit";
   let favorites = readJson(FAV_KEY, []);
   let control = readJson(CONTROL_KEY, {});
-  let ranking = readJson(RANK_KEY, []);
+  let ratings = readJson(RATINGS_KEY, {});
   let map;
   let mapInitialized = false;
   let summaryRendered = false;
@@ -25,22 +25,46 @@
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  function defaultPreferences(){
-    return Object.fromEntries(Object.entries(data.preferences).map(([key, pref]) => [key, pref.weight]));
-  }
-
   function ensureControl(id){
     if (!control[id]) control[id] = { status: "active", note: "", pro: "", con: "" };
     return control[id];
   }
 
+  function ensureRating(id){
+    if (!ratings[id]) ratings[id] = { scores: {}, weights: {} };
+    if (!ratings[id].scores) ratings[id].scores = {};
+    if (!ratings[id].weights) ratings[id].weights = {};
+    return ratings[id];
+  }
+
+  function getScore(destination, cat){
+    const override = ratings[destination.id]?.scores?.[cat];
+    return override != null ? override : Number(destination.scores[cat] || 0);
+  }
+
+  function getWeight(destination, cat){
+    const override = ratings[destination.id]?.weights?.[cat];
+    return override != null ? override : Number(data.preferences[cat].weight || 0);
+  }
+
+  function setScore(id, cat, value){
+    ensureRating(id).scores[cat] = value;
+    save(RATINGS_KEY, ratings);
+  }
+
+  function setWeight(id, cat, value){
+    ensureRating(id).weights[cat] = value;
+    save(RATINGS_KEY, ratings);
+  }
+
   function fitScore(destination){
     let total = 0;
     let max = 0;
-    Object.keys(data.preferences).forEach(key => {
-      const weight = Number(preferences[key] || 0);
-      total += weight * Number(destination.scores[key] || 0);
-      max += weight * 3;
+    CATEGORY_KEYS.forEach(cat => {
+      const w = getWeight(destination, cat);
+      const s = getScore(destination, cat);
+      total += w * s;
+      max += w * 3;
     });
     return max ? Math.round((total / max) * 100) : 0;
   }
@@ -53,6 +77,11 @@
 
   function icon(name){
     return `<span class="material-symbols-outlined" aria-hidden="true">${name}</span>`;
+  }
+
+  function dots(score){
+    const filled = Math.max(0, Math.min(3, Number(score) || 0));
+    return `<span class="dots dots--${filled}" aria-label="${filled} of 3"><span></span><span></span><span></span></span>`;
   }
 
   function escapeHtml(value){
@@ -89,9 +118,9 @@
 
   function renderView(view, param){
     if (view === "overview") renderOverview();
-    else if (view === "compare") { renderPortfolio(); renderPreferences(); }
+    else if (view === "compare") renderPortfolio();
     else if (view === "destination") renderDestination(param);
-    else if (view === "decide") renderControl();
+    else if (view === "decide") renderMatrix();
     else if (view === "map") {
       if (!mapInitialized) initMap();
       else if (map) setTimeout(() => map.invalidateSize(), 50);
@@ -117,20 +146,16 @@
     summaryRendered = true;
   }
 
-  function topShortlist(limit){
+  function topPicks(limit){
     const candidates = data.destinations
       .filter(d => ensureControl(d.id).status === "active" && favorites.includes(d.id));
-    if (candidates.length === 0) return [];
-    const ranked = ranking
-      .map(id => candidates.find(d => d.id === id))
-      .filter(Boolean);
-    candidates.forEach(d => { if (!ranked.includes(d)) ranked.push(d); });
-    return limit ? ranked.slice(0, limit) : ranked;
+    const sorted = candidates.slice().sort((a, b) => fitScore(b) - fitScore(a));
+    return limit ? sorted.slice(0, limit) : sorted;
   }
 
   function renderOverview(){
     renderSummaryOnce();
-    const top = topShortlist(3);
+    const top = topPicks(3);
     const ol = document.getElementById("overviewShortlist");
     if (top.length === 0) {
       ol.innerHTML = `<li class="overviewShortlist__empty">Star destinations on Compare to build the shortlist.</li>`;
@@ -195,27 +220,53 @@
     `;
   }
 
-  function renderPreferences(){
-    document.getElementById("preferencesGrid").innerHTML = Object.entries(data.preferences).map(([key, pref]) => {
-      const value = Number(preferences[key] || 1);
-      return `
-        <article class="prefCard">
-          <div class="prefCard__head">
-            <span class="prefIcon">${icon(pref.icon)}</span>
-            <div>
-              <strong>${pref.label}</strong>
-              <p>${pref.description}</p>
-            </div>
-          </div>
-          <div class="prefButtons" role="group" aria-label="${pref.label} weight">
-            ${[1,2,3].map(weight => `<button type="button" class="${value === weight ? "is-active" : ""}" data-pref="${key}" data-weight="${weight}">${weight}</button>`).join("")}
-          </div>
-        </article>
-      `;
-    }).join("");
-  }
-
   // ============ DESTINATION DEEP DIVE ============
+
+  function rateGrid(destination){
+    return `
+      <div class="boardRead infoBox--full rateGrid">
+        <div class="boardRead__head">
+          <div>
+            <h4>Rate this destination</h4>
+            <p>Score how this place performs on each category, and how much that category matters for this trip. Defaults are seeded from the research notes.</p>
+          </div>
+          <span class="boardWeight"><strong>${fitScore(destination)}</strong><small>%</small></span>
+        </div>
+        <div class="rateGrid__list">
+          ${CATEGORY_KEYS.map(cat => {
+            const pref = data.preferences[cat];
+            const s = getScore(destination, cat);
+            const w = getWeight(destination, cat);
+            return `
+              <article class="rateRow">
+                <div class="rateRow__label">
+                  <span class="prefIcon">${icon(pref.icon)}</span>
+                  <div>
+                    <strong>${pref.label}</strong>
+                    <p>${pref.description}</p>
+                  </div>
+                </div>
+                <div class="rateRow__controls">
+                  <div class="rateRow__control">
+                    <span class="rateRow__kind">Score</span>
+                    <div class="prefButtons" role="group" aria-label="${pref.label} score for ${destination.title}">
+                      ${[1,2,3].map(v => `<button type="button" class="${s === v ? "is-active" : ""}" data-rate-id="${destination.id}" data-rate-kind="score" data-rate-cat="${cat}" data-rate-value="${v}">${v}</button>`).join("")}
+                    </div>
+                  </div>
+                  <div class="rateRow__control">
+                    <span class="rateRow__kind">Weight</span>
+                    <div class="prefButtons" role="group" aria-label="${pref.label} weight for ${destination.title}">
+                      ${[1,2,3].map(v => `<button type="button" class="${w === v ? "is-active" : ""}" data-rate-id="${destination.id}" data-rate-kind="weight" data-rate-cat="${cat}" data-rate-value="${v}">${v}</button>`).join("")}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            `;
+          }).join("")}
+        </div>
+      </div>
+    `;
+  }
 
   function renderDestination(id){
     const list = data.destinations;
@@ -276,6 +327,8 @@
             </div>
           </div>
 
+          ${rateGrid(destination)}
+
           <div class="argumentGrid">
             ${destination.arguments.map(([person, title, text]) => `<div class="argument"><h4>${person}</h4><strong>${title}</strong><p>${text}</p></div>`).join("")}
           </div>
@@ -314,9 +367,9 @@
     `;
   }
 
-  // ============ DECIDE ============
+  // ============ DECIDE (matrix) ============
 
-  function renderControl(){
+  function renderMatrix(){
     const filtered = data.destinations.filter(destination => {
       const state = ensureControl(destination.id);
       if (controlFilter === "active") return state.status === "active";
@@ -324,33 +377,81 @@
       if (controlFilter === "favorites") return favorites.includes(destination.id);
       return true;
     });
-    document.getElementById("controlGrid").innerHTML = filtered.map(destination => {
+
+    const sorted = filtered.slice().sort((a, b) => {
+      if (matrixSort === "fit") return fitScore(b) - fitScore(a);
+      if (matrixSort === "title") return a.title.localeCompare(b.title);
+      if (CATEGORY_KEYS.includes(matrixSort)) return getScore(b, matrixSort) - getScore(a, matrixSort);
+      return 0;
+    });
+
+    const grid = document.getElementById("matrixGrid");
+    if (!grid) return;
+
+    const header = `
+      <div class="matrixRow matrixRow--head">
+        <div class="matrixCell matrixCell--dest">
+          <button type="button" class="matrixSort ${matrixSort === "title" ? "is-active" : ""}" data-matrix-sort="title">Destination</button>
+        </div>
+        ${CATEGORY_KEYS.map(cat => `
+          <div class="matrixCell matrixCell--cat">
+            <button type="button" class="matrixSort ${matrixSort === cat ? "is-active" : ""}" data-matrix-sort="${cat}" title="${data.preferences[cat].label}">
+              ${icon(data.preferences[cat].icon)}<span>${data.preferences[cat].label}</span>
+            </button>
+          </div>
+        `).join("")}
+        <div class="matrixCell matrixCell--fit">
+          <button type="button" class="matrixSort ${matrixSort === "fit" ? "is-active" : ""}" data-matrix-sort="fit">Fit</button>
+        </div>
+      </div>
+    `;
+
+    const rows = sorted.length ? sorted.map((destination, rank) => {
       const state = ensureControl(destination.id);
-      const active = favorites.includes(destination.id);
+      const fav = favorites.includes(destination.id);
+      const fit = fitScore(destination);
+      const isOut = state.status === "out";
+      const userPro = state.pro && state.pro.trim();
+      const userCon = state.con && state.con.trim();
+      const pros = (userPro ? [userPro] : []).concat(destination.board.pros).slice(0, 4);
+      const cons = (userCon ? [userCon] : []).concat(destination.board.cons).slice(0, 4);
       return `
-        <article class="controlCard ${state.status === "out" ? "is-out" : ""}">
-          <div class="controlCard__top">
-            <div>
-              <h3><a href="#/destination/${destination.id}" class="ghostLink">${destination.title}</a></h3>
-              <span class="chip">${fitScore(destination)}% shared fit</span>
+        <div class="matrixRow ${isOut ? "is-out" : ""} ${fav ? "is-favorite" : ""}">
+          <div class="matrixRowMain">
+            <div class="matrixCell matrixCell--dest">
+              <span class="matrixRank">${matrixSort === "fit" ? rank + 1 : ""}</span>
+              <div class="matrixDest">
+                <span class="card__kicker">${destination.category}</span>
+                <a href="#/destination/${destination.id}" class="matrixDest__title">${destination.title}</a>
+              </div>
+              <button class="iconButton ${fav ? "is-active" : ""}" type="button" data-favorite="${destination.id}" aria-label="Toggle favourite for ${destination.title}">${icon("star")}</button>
             </div>
-            <button class="iconButton ${active ? "is-active" : ""}" type="button" data-favorite="${destination.id}" aria-label="Toggle favourite for ${destination.title}">${icon("star")}</button>
+            ${CATEGORY_KEYS.map(cat => `
+              <div class="matrixCell matrixCell--cat" title="${data.preferences[cat].label}: score ${getScore(destination, cat)}, weight ${getWeight(destination, cat)}">
+                ${dots(getScore(destination, cat))}
+                <span class="weightTag">w${getWeight(destination, cat)}</span>
+              </div>
+            `).join("")}
+            <div class="matrixCell matrixCell--fit">
+              <strong>${fit}%</strong>
+            </div>
           </div>
-          <div class="controlCard__row">
-            <select data-status="${destination.id}" aria-label="Status for ${destination.title}">
-              <option value="active" ${state.status === "active" ? "selected" : ""}>Active</option>
-              <option value="out" ${state.status === "out" ? "selected" : ""}>Out of the race</option>
-            </select>
+          <div class="matrixRowDetail">
+            <div class="matrixDetail__pros">
+              <h5>Pros</h5>
+              <ul>${pros.map(item => `<li>${icon("add_circle")}<span>${escapeHtml(item)}</span></li>`).join("")}</ul>
+            </div>
+            <div class="matrixDetail__cons">
+              <h5>Cons</h5>
+              <ul>${cons.map(item => `<li>${icon("remove_circle")}<span>${escapeHtml(item)}</span></li>`).join("")}</ul>
+            </div>
+            ${state.note && state.note.trim() ? `<div class="matrixDetail__note"><h5>Note</h5><p>${escapeHtml(state.note)}</p></div>` : ""}
           </div>
-          <div class="fieldGrid">
-            <div class="field"><label>Top pro</label><input data-control-field="${destination.id}:pro" value="${escapeAttr(state.pro)}"></div>
-            <div class="field"><label>Top con</label><input data-control-field="${destination.id}:con" value="${escapeAttr(state.con)}"></div>
-          </div>
-          <div class="field"><label>Note</label><textarea data-control-field="${destination.id}:note">${escapeHtml(state.note)}</textarea></div>
-        </article>
+        </div>
       `;
-    }).join("");
-    renderShortlist();
+    }).join("") : `<div class="matrixEmpty">No destinations match this filter.</div>`;
+
+    grid.innerHTML = header + rows;
     renderDecideSummary();
   }
 
@@ -360,7 +461,7 @@
     const active = data.destinations.filter(d => ensureControl(d.id).status === "active");
     const activeFavs = active.filter(d => favorites.includes(d.id));
     const out = data.destinations.filter(d => ensureControl(d.id).status === "out");
-    const top = topShortlist(1)[0];
+    const top = topPicks(1)[0];
     if (top) {
       summaryEl.innerHTML = `${activeFavs.length} active favourite${activeFavs.length === 1 ? "" : "s"} · ${out.length} out · current top: <strong>${top.title}</strong> (${fitScore(top)}% fit).`;
     } else {
@@ -368,39 +469,10 @@
     }
   }
 
-  function renderShortlist(){
-    const candidates = data.destinations
-      .filter(destination => ensureControl(destination.id).status === "active" && favorites.includes(destination.id))
-      .map(destination => destination.id);
-    ranking = ranking.filter(id => candidates.includes(id));
-    candidates.forEach(id => { if (!ranking.includes(id)) ranking.push(id); });
-    save(RANK_KEY, ranking);
-
-    const shortlistEl = document.getElementById("shortlist");
-    if (!shortlistEl) return;
-    const html = ranking.length
-      ? ranking.map((id, index) => {
-        const destination = data.destinations.find(item => item.id === id);
-        return `<li><strong>${index + 1}. ${destination.title}</strong><span class="rankButtons"><button type="button" data-rank-up="${id}" aria-label="Move ${destination.title} up">↑</button><button type="button" data-rank-down="${id}" aria-label="Move ${destination.title} down">↓</button></span></li>`;
-      }).join("")
-      : `<li><span>Star active destinations to build the shortlist.</span></li>`;
-    shortlistEl.innerHTML = html;
-  }
-
   function toggleFavorite(id){
     favorites = favorites.includes(id) ? favorites.filter(item => item !== id) : [...favorites, id];
     save(FAV_KEY, favorites);
     renderActive();
-  }
-
-  function moveRank(id, direction){
-    const index = ranking.indexOf(id);
-    const next = index + direction;
-    if (index < 0 || next < 0 || next >= ranking.length) return;
-    [ranking[index], ranking[next]] = [ranking[next], ranking[index]];
-    save(RANK_KEY, ranking);
-    renderShortlist();
-    renderDecideSummary();
   }
 
   // ============ MAP ============
@@ -434,10 +506,13 @@
     const favorite = event.target.closest("[data-favorite]");
     if (favorite) toggleFavorite(favorite.dataset.favorite);
 
-    const pref = event.target.closest("[data-pref]");
-    if (pref) {
-      preferences[pref.dataset.pref] = Number(pref.dataset.weight);
-      save(PREF_KEY, preferences);
+    const rate = event.target.closest("[data-rate-id]");
+    if (rate) {
+      const id = rate.dataset.rateId;
+      const cat = rate.dataset.rateCat;
+      const value = Number(rate.dataset.rateValue);
+      if (rate.dataset.rateKind === "weight") setWeight(id, cat, value);
+      else setScore(id, cat, value);
       renderActive();
     }
 
@@ -452,13 +527,14 @@
     if (controlBtn) {
       controlFilter = controlBtn.dataset.controlFilter;
       document.querySelectorAll("[data-control-filter]").forEach(button => button.classList.toggle("is-active", button === controlBtn));
-      renderControl();
+      renderMatrix();
     }
 
-    const up = event.target.closest("[data-rank-up]");
-    if (up) moveRank(up.dataset.rankUp, -1);
-    const down = event.target.closest("[data-rank-down]");
-    if (down) moveRank(down.dataset.rankDown, 1);
+    const sortBtn = event.target.closest("[data-matrix-sort]");
+    if (sortBtn) {
+      matrixSort = sortBtn.dataset.matrixSort;
+      renderMatrix();
+    }
   });
 
   document.addEventListener("change", event => {
@@ -466,7 +542,7 @@
     if (!status) return;
     ensureControl(status.dataset.status).status = status.value;
     save(CONTROL_KEY, control);
-    if (getRoute().view === "decide") renderControl();
+    if (getRoute().view === "decide") renderMatrix();
     else renderDecideSummary();
   });
 

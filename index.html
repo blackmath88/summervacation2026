@@ -84,17 +84,7 @@
           </div>
           <div id="portfolio" class="portfolio"></div>
           <p id="emptyPortfolio" class="empty" hidden>No favourites yet. Star a destination to build the shortlist.</p>
-        </section>
-
-        <section class="section preferenceSection">
-          <div class="sectionHead">
-            <div>
-              <p class="eyebrow">Weights</p>
-              <h2>Preference Lab</h2>
-            </div>
-            <p>Set what matters most. Scores update across the portfolio, shortlist, and map popups.</p>
-          </div>
-          <div id="preferencesGrid" class="preferencesGrid"></div>
+          <p class="compareHint">Open any destination to set its per-category scores and weights. Fit % is computed per destination from those values.</p>
         </section>
       </section>
 
@@ -113,22 +103,13 @@
             </div>
             <p id="decideSummary" class="decideSummary"></p>
           </div>
-          <div class="controlLayout">
-            <div>
-              <div class="controlFilters" aria-label="Decide board filter">
-                <button class="is-active" type="button" data-control-filter="all">All</button>
-                <button type="button" data-control-filter="active">Active</button>
-                <button type="button" data-control-filter="out">Out</button>
-                <button type="button" data-control-filter="favorites">Favourites</button>
-              </div>
-              <div id="controlGrid" class="controlGrid"></div>
-            </div>
-            <aside class="shortlist">
-              <p class="eyebrow">Shortlist</p>
-              <h3>Current Ranking</h3>
-              <ol id="shortlist"></ol>
-            </aside>
+          <div class="controlFilters" aria-label="Decide board filter">
+            <button class="is-active" type="button" data-control-filter="all">All</button>
+            <button type="button" data-control-filter="active">Active</button>
+            <button type="button" data-control-filter="out">Out</button>
+            <button type="button" data-control-filter="favorites">Favourites</button>
           </div>
+          <div id="matrixGrid" class="matrixGrid"></div>
         </section>
       </section>
 
