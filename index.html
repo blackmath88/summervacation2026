@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Summer 2026 Family Vacation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Summer vacation home">
+        <span class="brand__mark"></span>
+        <span>Summer 2026</span>
+      </a>
+      <nav class="nav" aria-label="Page sections">
+        <a href="#compare">Compare</a>
+        <a href="#details">Details</a>
+        <a href="#control">Decide</a>
+        <a href="#map">Map</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Family vacation decision board</p>
+          <h1>Pick the trip that actually works.</h1>
+          <p class="hero__text">A focused planning tool for comparing the beautiful options against the real family system: water, scenery, culture, travel effort, house quality, and ease.</p>
+        </div>
+        <aside class="hero__panel" aria-label="Decision principles">
+          <h2>Decision Rule</h2>
+          <p>Choose the best cancellable accommodation in a strong-fit area. A great house can beat a theoretically perfect destination.</p>
+          <div class="hero__checks">
+            <span><span class="material-symbols-outlined">water</span>Daily water</span>
+            <span><span class="material-symbols-outlined">terrain</span>Outdoor payoff</span>
+            <span><span class="material-symbols-outlined">local_cafe</span>Local life</span>
+            <span><span class="material-symbols-outlined">house</span>Easy base</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="summaryGrid" id="summary" aria-label="Current strategic summary"></section>
+
+      <section class="section" id="compare">
+        <div class="sectionHead">
+          <div>
+            <p class="eyebrow">Compare</p>
+            <h2>Destination Portfolio</h2>
+          </div>
+          <div class="sectionHead__side">
+            <div class="segmented" aria-label="Portfolio filter">
+              <button class="is-active" type="button" data-view="all">All</button>
+              <button type="button" data-view="favorites">Favourites</button>
+            </div>
+          </div>
+        </div>
+        <div id="portfolio" class="portfolio"></div>
+        <p id="emptyPortfolio" class="empty" hidden>No favourites yet. Star a destination to build the shortlist.</p>
+      </section>
+
+      <section class="section preferenceSection" id="preferences">
+        <div class="sectionHead">
+          <div>
+            <p class="eyebrow">Weights</p>
+            <h2>Preference Lab</h2>
+          </div>
+          <p>Set what matters most. Scores update across the portfolio, shortlist, and map popups.</p>
+        </div>
+        <div id="preferencesGrid" class="preferencesGrid"></div>
+      </section>
+
+      <section class="section" id="details">
+        <div class="sectionHead">
+          <div>
+            <p class="eyebrow">Deep Dive</p>
+            <h2>Destination Details</h2>
+          </div>
+          <p>Each section keeps the existing content idea, but with cleaner hierarchy and less repeated visual noise.</p>
+        </div>
+        <div id="detailsList" class="detailsList"></div>
+      </section>
+
+      <section class="section controlSection" id="control">
+        <div class="sectionHead">
+          <div>
+            <p class="eyebrow">Decide</p>
+            <h2>Control Center</h2>
+          </div>
+          <p>Status, notes, favourites, and ranking persist locally in this browser.</p>
+        </div>
+        <div class="controlLayout">
+          <div>
+            <div class="controlFilters" aria-label="Control center filter">
+              <button class="is-active" type="button" data-control-filter="all">All</button>
+              <button type="button" data-control-filter="active">Active</button>
+              <button type="button" data-control-filter="out">Out</button>
+              <button type="button" data-control-filter="favorites">Favourites</button>
+            </div>
+            <div id="controlGrid" class="controlGrid"></div>
+          </div>
+          <aside class="shortlist">
+            <p class="eyebrow">Shortlist</p>
+            <h3>Current Ranking</h3>
+            <ol id="shortlist"></ol>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section mapSection" id="map">
+        <div class="sectionHead">
+          <div>
+            <p class="eyebrow">Geography</p>
+            <h2>Map View</h2>
+          </div>
+          <p>Approximate locations from Basel, grouped by travel feel and destination type.</p>
+        </div>
+        <div class="mapShell">
+          <div class="mapLegend">
+            <span><i class="legend legend--base"></i> Basel</span>
+            <span><i class="legend legend--nature"></i> Nature / coast</span>
+            <span><i class="legend legend--urban"></i> Urban coast</span>
+          </div>
+          <div id="vacationMap" class="mapFrame" aria-label="Interactive vacation map"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
