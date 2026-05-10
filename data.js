@@ -9,6 +9,14 @@ window.vacationData = {
     special: { label: "Special Feeling", icon: "star", description: "Memorable, beautiful, emotionally exciting.", weight: 3 },
     calm: { label: "Calm", icon: "spa", description: "Relaxed rhythm, gentle pace, fewer hard edges.", weight: 2 }
   },
+  poiCategories: {
+    beach:            { label: "Beaches",            color: "#0ea5e9", icon: "beach_access" },
+    coffee:           { label: "Coffee",             color: "#92400e", icon: "local_cafe" },
+    fleamarket:       { label: "Flea markets",       color: "#a855f7", icon: "store" },
+    climbing_outdoor: { label: "Climbing (outdoor)", color: "#dc2626", icon: "terrain" },
+    climbing_indoor:  { label: "Climbing gyms",      color: "#f97316", icon: "fitness_center" },
+    museum:           { label: "Museums",            color: "#0f766e", icon: "museum" }
+  },
   summaries: [
     { icon: "emoji_events", title: "1. Costa Blanca", text: "Current emotional leader: scenery, weather, beach, Airbnb fantasy, climbing and atmosphere overlap strongly." },
     { icon: "surfing", title: "2. San Sebastian", text: "Strong shared lifestyle candidate: urbanity, beach, cafes, atmosphere and walkable daily life." },
@@ -40,7 +48,11 @@ window.vacationData = {
         ["Kids", "Pool + beach rhythm", "Clear kid appeal through swimming, beaches, ice cream and village exploring."]
       ],
       highlights: ["Best areas: Calpe, Altea, Benissa and Jalon Valley.", "Main risks: heat, long drive and needing a genuinely easy house.", "Airbnb should have shade, pool, parking and simple beach access."],
-      links: [["Google search", "https://www.google.com/search?q=Costa+Blanca+North+family+holiday"], ["Image search", "https://www.google.com/search?tbm=isch&q=Costa+Blanca+North+Altea+Calpe"], ["Map search", "https://www.google.com/maps/search/Calpe+Altea+Benissa"], ["Airbnb", "https://www.airbnb.com/s/Costa-Blanca--Spain/homes"]]
+      links: [["Google search", "https://www.google.com/search?q=Costa+Blanca+North+family+holiday"], ["Image search", "https://www.google.com/search?tbm=isch&q=Costa+Blanca+North+Altea+Calpe"], ["Map search", "https://www.google.com/maps/search/Calpe+Altea+Benissa"], ["Airbnb", "https://www.airbnb.com/s/Costa-Blanca--Spain/homes"]],
+      pois: [
+        // Seed example — replace with full POI research (see README/research prompt).
+        { name: "Penyal d'Ifac", type: "climbing_outdoor", coords: [38.6313, 0.0784], note: "Iconic limestone climbing rock above Calpe." }
+      ]
     },
     {
       id: "devon",
@@ -66,7 +78,8 @@ window.vacationData = {
         ["Kids", "Sand, waves, rocks", "Big beaches, surf schools, rock pools and classic coastal exploring."]
       ],
       highlights: ["Best areas: Woolacombe, Croyde, Ilfracombe and Combe Martin.", "Main risks: weather, long logistics and July pricing.", "Airbnb should be warm, spacious and close to a beach town."],
-      links: [["Google search", "https://www.google.com/search?q=North+Devon+family+holiday"], ["Image search", "https://www.google.com/search?tbm=isch&q=North+Devon+coast+family"], ["Map search", "https://www.google.com/maps/search/North+Devon+beaches"], ["Airbnb", "https://www.airbnb.com/s/North-Devon--United-Kingdom/homes"]]
+      links: [["Google search", "https://www.google.com/search?q=North+Devon+family+holiday"], ["Image search", "https://www.google.com/search?tbm=isch&q=North+Devon+coast+family"], ["Map search", "https://www.google.com/maps/search/North+Devon+beaches"], ["Airbnb", "https://www.airbnb.com/s/North-Devon--United-Kingdom/homes"]],
+      pois: []
     },
     {
       id: "italy",
@@ -92,7 +105,8 @@ window.vacationData = {
         ["Kids", "Lake days + gelato", "Swimming, boats, cable cars and mountain adventures without a huge leap."]
       ],
       highlights: ["Best areas: Lake Garda north, Ledro, Arco, Riva and Dolomite edges.", "Main risks: tourist density and needing shade/parking.", "Airbnb should be walkable to water or town with outdoor space."],
-      links: [["Google search", "https://www.google.com/search?q=Lake+Garda+family+holiday+Arco"], ["Image search", "https://www.google.com/search?tbm=isch&q=Lake+Garda+Dolomites+family"], ["Map search", "https://www.google.com/maps/search/Riva+del+Garda+Arco"], ["Airbnb", "https://www.airbnb.com/s/Lake-Garda--Italy/homes"]]
+      links: [["Google search", "https://www.google.com/search?q=Lake+Garda+family+holiday+Arco"], ["Image search", "https://www.google.com/search?tbm=isch&q=Lake+Garda+Dolomites+family"], ["Map search", "https://www.google.com/maps/search/Riva+del+Garda+Arco"], ["Airbnb", "https://www.airbnb.com/s/Lake-Garda--Italy/homes"]],
+      pois: []
     },
     {
       id: "tenerife",
@@ -118,7 +132,8 @@ window.vacationData = {
         ["Kids", "Island adventure", "Pools, beaches, lava landscapes and the feeling of a big adventure."]
       ],
       highlights: ["Best areas: Puerto de la Cruz, La Orotava, Garachico and north coast towns.", "Main risks: flight complexity, microclimates and car logistics.", "Airbnb should have terrace, parking and access to pools or beaches."],
-      links: [["Google search", "https://www.google.com/search?q=Tenerife+North+family+holiday"], ["Image search", "https://www.google.com/search?tbm=isch&q=Tenerife+North+natural+pools"], ["Map search", "https://www.google.com/maps/search/Tenerife+North+Garachico"], ["Airbnb", "https://www.airbnb.com/s/Tenerife--Spain/homes"]]
+      links: [["Google search", "https://www.google.com/search?q=Tenerife+North+family+holiday"], ["Image search", "https://www.google.com/search?tbm=isch&q=Tenerife+North+natural+pools"], ["Map search", "https://www.google.com/maps/search/Tenerife+North+Garachico"], ["Airbnb", "https://www.airbnb.com/s/Tenerife--Spain/homes"]],
+      pois: []
     },
     {
       id: "copenhagen",
@@ -144,7 +159,8 @@ window.vacationData = {
         ["Kids", "Playful city water", "Harbour baths, beaches, playgrounds and museums make it easy."]
       ],
       highlights: ["Best areas: Amager, Islands Brygge, Vesterbro, Norrebro and beach access zones.", "Main risks: cost, cool weather and lower nature payoff.", "Airbnb should be bike-friendly and close to transit or water."],
-      links: [["Google search", "https://www.google.com/search?q=Copenhagen+family+harbour+swimming"], ["Image search", "https://www.google.com/search?tbm=isch&q=Copenhagen+beach+harbour+bath"], ["Map search", "https://www.google.com/maps/search/Copenhagen+harbour+baths"], ["Airbnb", "https://www.airbnb.com/s/Copenhagen--Denmark/homes"]]
+      links: [["Google search", "https://www.google.com/search?q=Copenhagen+family+harbour+swimming"], ["Image search", "https://www.google.com/search?tbm=isch&q=Copenhagen+beach+harbour+bath"], ["Map search", "https://www.google.com/maps/search/Copenhagen+harbour+baths"], ["Airbnb", "https://www.airbnb.com/s/Copenhagen--Denmark/homes"]],
+      pois: []
     },
     {
       id: "sansebastian",
@@ -170,7 +186,8 @@ window.vacationData = {
         ["Kids", "Beach city", "Sand, waves, old town walks and easy daily variety."]
       ],
       highlights: ["Best areas: Gros, Antiguo, La Concha edges and nearby coastal towns.", "Main risks: cost, parking and busy July energy.", "Airbnb should avoid car stress and be walkable to beach or transit."],
-      links: [["Google search", "https://www.google.com/search?q=San+Sebastian+family+holiday"], ["Image search", "https://www.google.com/search?tbm=isch&q=San+Sebastian+La+Concha+family"], ["Map search", "https://www.google.com/maps/search/San+Sebastian+Gros+Antiguo"], ["Airbnb", "https://www.airbnb.com/s/San-Sebastian--Spain/homes"]]
+      links: [["Google search", "https://www.google.com/search?q=San+Sebastian+family+holiday"], ["Image search", "https://www.google.com/search?tbm=isch&q=San+Sebastian+La+Concha+family"], ["Map search", "https://www.google.com/maps/search/San+Sebastian+Gros+Antiguo"], ["Airbnb", "https://www.airbnb.com/s/San-Sebastian--Spain/homes"]],
+      pois: []
     },
     {
       id: "malmo",
@@ -196,7 +213,8 @@ window.vacationData = {
         ["Kids", "Bikes and coast", "Easy movement, beaches, parks and a gentle urban holiday."]
       ],
       highlights: ["Best areas: Malmo, Lomma, Ystad and south coast access.", "Main risks: cool weather and weaker wow factor.", "Airbnb should be bright, central and bike/transit friendly."],
-      links: [["Google search", "https://www.google.com/search?q=Malmo+South+Sweden+coast+family"], ["Image search", "https://www.google.com/search?tbm=isch&q=Malmo+beach+Sweden"], ["Map search", "https://www.google.com/maps/search/Malmo+Lomma+Ystad"], ["Airbnb", "https://www.airbnb.com/s/Malmo--Sweden/homes"]]
+      links: [["Google search", "https://www.google.com/search?q=Malmo+South+Sweden+coast+family"], ["Image search", "https://www.google.com/search?tbm=isch&q=Malmo+beach+Sweden"], ["Map search", "https://www.google.com/maps/search/Malmo+Lomma+Ystad"], ["Airbnb", "https://www.airbnb.com/s/Malmo--Sweden/homes"]],
+      pois: []
     },
     {
       id: "lisbon",
@@ -222,7 +240,8 @@ window.vacationData = {
         ["Kids", "Trams and beaches", "Beach days, city adventures, parks and old-town exploration."]
       ],
       highlights: ["Best areas: Cascais, Ericeira, Costa da Caparica and Lisbon neighbourhoods.", "Main risks: heat, hills, cost and car/transit complexity.", "Airbnb should solve shade, transport and easy daily water."],
-      links: [["Google search", "https://www.google.com/search?q=Lisbon+coast+family+holiday"], ["Image search", "https://www.google.com/search?tbm=isch&q=Lisbon+Cascais+family+beach"], ["Map search", "https://www.google.com/maps/search/Lisbon+Cascais+Ericeira"], ["Airbnb", "https://www.airbnb.com/s/Lisbon--Portugal/homes"]]
+      links: [["Google search", "https://www.google.com/search?q=Lisbon+coast+family+holiday"], ["Image search", "https://www.google.com/search?tbm=isch&q=Lisbon+Cascais+family+beach"], ["Map search", "https://www.google.com/maps/search/Lisbon+Cascais+Ericeira"], ["Airbnb", "https://www.airbnb.com/s/Lisbon--Portugal/homes"]],
+      pois: []
     },
     {
       id: "leigh",
@@ -248,7 +267,8 @@ window.vacationData = {
         ["Kids", "Seaside variety", "Beach, piers, cafes and daily variety without complex transfers."]
       ],
       highlights: ["Best areas: Leigh-on-Sea, Old Leigh, Chalkwell and Westcliff-on-Sea.", "Main risks: mixed weather and weak climbing payoff.", "Airbnb should be walkable, bright and close to coast or station."],
-      links: [["Google search", "https://www.google.com/search?q=Leigh-on-Sea+beach+family"], ["Image search", "https://www.google.com/search?tbm=isch&q=Leigh-on-Sea+beach+family+shops+cafes"], ["Map search", "https://www.google.com/maps/search/Leigh-on-Sea+Southend+Chalkwell"], ["Airbnb", "https://www.airbnb.com/s/Leigh~on~Sea--United-Kingdom/homes"]]
+      links: [["Google search", "https://www.google.com/search?q=Leigh-on-Sea+beach+family"], ["Image search", "https://www.google.com/search?tbm=isch&q=Leigh-on-Sea+beach+family+shops+cafes"], ["Map search", "https://www.google.com/maps/search/Leigh-on-Sea+Southend+Chalkwell"], ["Airbnb", "https://www.airbnb.com/s/Leigh~on~Sea--United-Kingdom/homes"]],
+      pois: []
     },
     {
       id: "texel",
@@ -274,7 +294,8 @@ window.vacationData = {
         ["Kids", "Ferry + beach + bikes", "Seals, dunes, village exploration and a simple holiday structure."]
       ],
       highlights: ["Best areas: De Koog, Den Burg, Oudeschild and dune-edge bases.", "Main risks: cooler weather, no climbing and island availability.", "Airbnb should have bike storage and quick beach or dune access."],
-      links: [["Google search", "https://www.google.com/search?q=Texel+beaches+dunes+family"], ["Image search", "https://www.google.com/search?tbm=isch&q=Texel+beaches+dunes+family+bikes"], ["Map search", "https://www.google.com/maps/search/Texel+De+Koog+Den+Burg"], ["Airbnb", "https://www.airbnb.com/s/Texel--Netherlands/homes"]]
+      links: [["Google search", "https://www.google.com/search?q=Texel+beaches+dunes+family"], ["Image search", "https://www.google.com/search?tbm=isch&q=Texel+beaches+dunes+family+bikes"], ["Map search", "https://www.google.com/maps/search/Texel+De+Koog+Den+Burg"], ["Airbnb", "https://www.airbnb.com/s/Texel--Netherlands/homes"]],
+      pois: []
     }
   ]
 };

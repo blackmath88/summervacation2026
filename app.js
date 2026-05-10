@@ -6,9 +6,12 @@
   const PROFILE_KEY = "sv26.profile";
   const VIEWS = ["overview", "compare", "destination", "decide", "map", "profile"];
   const CATEGORY_KEYS = Object.keys(data.preferences);
+  const POI_CATEGORIES = data.poiCategories || {};
+  const POI_TYPE_KEYS = Object.keys(POI_CATEGORIES);
 
   const DEFAULT_PROFILE = {
     homeBase: { name: "Basel", lat: 47.5596, lng: 7.5886 },
+    poiTypes: POI_TYPE_KEYS.slice(),
     people: [
       { id: "achim", name: "Achim", age: 38, role: "dad", interests: ["climbing", "special", "weather"] },
       { id: "fiona", name: "Fiona", age: 37, role: "wife", interests: ["urbanity", "familyEase", "calm"] },
@@ -26,6 +29,8 @@
   let profile = normalizeProfile(readJson(PROFILE_KEY, null));
   let map;
   let mapInitialized = false;
+  let mainMapPoiLayer;
+  let destinationMap;
   let summaryRendered = false;
 
   function readJson(key, fallback){
@@ -42,6 +47,7 @@
     if (!p || typeof p !== "object") return fallback;
     return {
       homeBase: { ...fallback.homeBase, ...(p.homeBase || {}) },
+      poiTypes: Array.isArray(p.poiTypes) ? p.poiTypes.filter(t => POI_CATEGORIES[t]) : fallback.poiTypes,
       people: Array.isArray(p.people) && p.people.length ? p.people : fallback.people
     };
   }
@@ -406,6 +412,8 @@
 
           ${rateGrid(destination)}
 
+          ${poiMapShell(destination)}
+
           <div class="argumentGrid">
             ${destination.arguments.map(([person, title, text]) => `<div class="argument"><h4>${person}</h4><strong>${title}</strong><p>${text}</p></div>`).join("")}
           </div>
@@ -445,6 +453,72 @@
         </div>
       </div>
     `;
+
+    initDestinationMap(destination);
+  }
+
+  function poiMapShell(destination){
+    const pois = Array.isArray(destination.pois) ? destination.pois : [];
+    const counts = {};
+    pois.forEach(poi => { counts[poi.type] = (counts[poi.type] || 0) + 1; });
+    const totalShown = POI_TYPE_KEYS
+      .filter(type => profile.poiTypes.includes(type))
+      .reduce((sum, type) => sum + (counts[type] || 0), 0);
+    return `
+      <div class="boardRead infoBox--full poiMapBlock">
+        <div class="boardRead__head">
+          <div>
+            <h4>Around the area</h4>
+            <p>${pois.length === 0
+              ? "No points of interest yet for this destination. Add them to <code>data.js</code> &rarr; <code>destinations[].pois</code> (see README)."
+              : `${totalShown} of ${pois.length} POIs shown. Toggle categories below or in your Profile.`}</p>
+          </div>
+          <a class="chip chip--link" href="#/map" data-focus-on-map="${destination.id}">${icon("map")} Open in big map</a>
+        </div>
+        <div class="poiLegend">
+          ${POI_TYPE_KEYS.map(type => {
+            const cat = POI_CATEGORIES[type];
+            const on = profile.poiTypes.includes(type);
+            const n = counts[type] || 0;
+            return `<button type="button" class="poiLegend__chip ${on ? "is-active" : ""} ${n === 0 ? "is-empty" : ""}" data-poi-toggle="${type}" style="--poi-color:${cat.color}" aria-pressed="${on}">
+              <span class="poiLegend__dot"></span>${icon(cat.icon)}<span class="poiLegend__label">${cat.label}</span><span class="poiLegend__count">${n}</span>
+            </button>`;
+          }).join("")}
+        </div>
+        <div id="destinationMap" class="destinationMapFrame" aria-label="Map of points of interest for ${escapeAttr(destination.title)}"></div>
+      </div>
+    `;
+  }
+
+  function initDestinationMap(destination){
+    const container = document.getElementById("destinationMap");
+    if (!container || !window.L) return;
+    if (destinationMap) {
+      destinationMap.remove();
+      destinationMap = null;
+    }
+    destinationMap = L.map("destinationMap", { scrollWheelZoom: false }).setView(destination.coords, 11);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(destinationMap);
+
+    // Center marker for the destination
+    const center = L.circleMarker(destination.coords, { radius: 9, color: "#b68a38", fillColor: "#b68a38", fillOpacity: .9, weight: 2 }).addTo(destinationMap);
+    center.bindPopup(`<div class="popup"><h3>${escapeHtml(destination.title)}</h3><p>${escapeHtml(destination.vibe)}</p></div>`);
+
+    const pois = (destination.pois || []).filter(p => profile.poiTypes.includes(p.type) && POI_CATEGORIES[p.type]);
+    pois.forEach(poi => {
+      const cat = POI_CATEGORIES[poi.type];
+      const m = L.circleMarker(poi.coords, { radius: 7, color: cat.color, fillColor: cat.color, fillOpacity: .75, weight: 2 }).addTo(destinationMap);
+      m.bindPopup(`<div class="popup"><h3>${escapeHtml(poi.name)}</h3><p style="color:${cat.color};font-weight:850;text-transform:uppercase;font-size:11px;letter-spacing:.08em">${cat.label}</p>${poi.note ? `<p>${escapeHtml(poi.note)}</p>` : ""}<a target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=${poi.coords[0]},${poi.coords[1]}">Open in Google Maps &rarr;</a></div>`);
+    });
+
+    if (pois.length > 0) {
+      const bounds = L.latLngBounds([destination.coords, ...pois.map(p => p.coords)]);
+      destinationMap.fitBounds(bounds.pad(.2));
+    }
+    setTimeout(() => destinationMap && destinationMap.invalidateSize(), 50);
   }
 
   // ============ DECIDE (matrix) ============
@@ -468,21 +542,16 @@
     const grid = document.getElementById("matrixGrid");
     if (!grid) return;
 
-    const header = `
-      <div class="matrixRow matrixRow--head">
-        <div class="matrixCell matrixCell--dest">
-          <button type="button" class="matrixSort ${matrixSort === "title" ? "is-active" : ""}" data-matrix-sort="title">Destination</button>
-        </div>
+    const sortBar = `
+      <div class="matrixSortBar" role="group" aria-label="Sort destinations">
+        <span class="matrixSortBar__label">Sort by</span>
+        <button type="button" class="matrixSort ${matrixSort === "fit" ? "is-active" : ""}" data-matrix-sort="fit">Fit %</button>
+        <button type="button" class="matrixSort ${matrixSort === "title" ? "is-active" : ""}" data-matrix-sort="title">Title</button>
         ${CATEGORY_KEYS.map(cat => `
-          <div class="matrixCell matrixCell--cat">
-            <button type="button" class="matrixSort ${matrixSort === cat ? "is-active" : ""}" data-matrix-sort="${cat}" title="${data.preferences[cat].label}">
-              ${icon(data.preferences[cat].icon)}<span>${data.preferences[cat].label}</span>
-            </button>
-          </div>
+          <button type="button" class="matrixSort ${matrixSort === cat ? "is-active" : ""}" data-matrix-sort="${cat}" title="Sort by ${data.preferences[cat].label}">
+            ${icon(data.preferences[cat].icon)}<span>${data.preferences[cat].label}</span>
+          </button>
         `).join("")}
-        <div class="matrixCell matrixCell--fit">
-          <button type="button" class="matrixSort ${matrixSort === "fit" ? "is-active" : ""}" data-matrix-sort="fit">Fit</button>
-        </div>
       </div>
     `;
 
@@ -495,44 +564,63 @@
       const userCon = state.con && state.con.trim();
       const pros = (userPro ? [userPro] : []).concat(destination.board.pros).slice(0, 4);
       const cons = (userCon ? [userCon] : []).concat(destination.board.cons).slice(0, 4);
+      const travel = destination.travel === "Flight"
+        ? `${icon("flight")} Flight`
+        : `${icon("directions_car")} ${formatHours(driveHours(destination.coords))}`;
       return `
-        <div class="matrixRow ${isOut ? "is-out" : ""} ${fav ? "is-favorite" : ""}">
-          <div class="matrixRowMain">
-            <div class="matrixCell matrixCell--dest">
-              <span class="matrixRank">${matrixSort === "fit" ? rank + 1 : ""}</span>
-              <div class="matrixDest">
+        <article class="decideCard ${isOut ? "is-out" : ""} ${fav ? "is-favorite" : ""}">
+          <div class="decideCard__image" style="background-image:url('${destination.image}')">
+            ${matrixSort === "fit" ? `<span class="decideCard__rank">#${rank + 1}</span>` : ""}
+          </div>
+          <div class="decideCard__body">
+            <header class="decideCard__head">
+              <div class="decideCard__title">
                 <span class="card__kicker">${destination.category}</span>
-                <a href="#/destination/${destination.id}" class="matrixDest__title">${destination.title}</a>
-                <span class="matrixDest__meta">${destination.travel === "Flight" ? "Flight" : formatHours(driveHours(destination.coords))} · ${destination.climate.avg}° avg</span>
+                <a href="#/destination/${destination.id}" class="decideCard__name">${destination.title}</a>
+                <div class="decideCard__meta">
+                  <span class="chip">${travel} from ${escapeHtml(profile.homeBase.name)}</span>
+                  <span class="chip">${icon("thermostat")} ${destination.climate.low}° / ${destination.climate.avg}° / ${destination.climate.high}°</span>
+                  <span class="chip">${icon("payments")} ${destination.budget}</span>
+                </div>
               </div>
-              <button class="iconButton ${fav ? "is-active" : ""}" type="button" data-favorite="${destination.id}" aria-label="Toggle favourite for ${destination.title}">${icon("star")}</button>
+              <div class="decideCard__score">
+                <span class="boardWeight"><strong>${fit}</strong><small>%</small></span>
+                <button class="iconButton ${fav ? "is-active" : ""}" type="button" data-favorite="${destination.id}" aria-label="Toggle favourite for ${destination.title}">${icon("star")}</button>
+              </div>
+            </header>
+
+            <div class="decideRatings">
+              ${CATEGORY_KEYS.map(cat => {
+                const pref = data.preferences[cat];
+                const s = getScore(destination, cat);
+                const w = getWeight(destination, cat);
+                return `
+                  <div class="decideRating ${matrixSort === cat ? "is-sorted" : ""}" title="${pref.label}: score ${s}, weight ${w}">
+                    <div class="decideRating__head">${icon(pref.icon)}<strong>${pref.label}</strong></div>
+                    <div class="decideRating__row"><span class="decideRating__kind">Score</span>${dots(s)}<span class="decideRating__num">${s}</span></div>
+                    <div class="decideRating__row decideRating__row--weight"><span class="decideRating__kind">Weight</span>${dots(w)}<span class="decideRating__num">${w}</span></div>
+                  </div>
+                `;
+              }).join("")}
             </div>
-            ${CATEGORY_KEYS.map(cat => `
-              <div class="matrixCell matrixCell--cat" title="${data.preferences[cat].label}: score ${getScore(destination, cat)}, weight ${getWeight(destination, cat)}">
-                ${dots(getScore(destination, cat))}
-                <span class="weightTag">w${getWeight(destination, cat)}</span>
+
+            <div class="decideCard__detail">
+              <div class="matrixDetail__pros">
+                <h5>Pros</h5>
+                <ul>${pros.map(item => `<li>${icon("add_circle")}<span>${escapeHtml(item)}</span></li>`).join("")}</ul>
               </div>
-            `).join("")}
-            <div class="matrixCell matrixCell--fit">
-              <strong>${fit}%</strong>
+              <div class="matrixDetail__cons">
+                <h5>Cons</h5>
+                <ul>${cons.map(item => `<li>${icon("remove_circle")}<span>${escapeHtml(item)}</span></li>`).join("")}</ul>
+              </div>
+              ${state.note && state.note.trim() ? `<div class="matrixDetail__note"><h5>Note</h5><p>${escapeHtml(state.note)}</p></div>` : ""}
             </div>
           </div>
-          <div class="matrixRowDetail">
-            <div class="matrixDetail__pros">
-              <h5>Pros</h5>
-              <ul>${pros.map(item => `<li>${icon("add_circle")}<span>${escapeHtml(item)}</span></li>`).join("")}</ul>
-            </div>
-            <div class="matrixDetail__cons">
-              <h5>Cons</h5>
-              <ul>${cons.map(item => `<li>${icon("remove_circle")}<span>${escapeHtml(item)}</span></li>`).join("")}</ul>
-            </div>
-            ${state.note && state.note.trim() ? `<div class="matrixDetail__note"><h5>Note</h5><p>${escapeHtml(state.note)}</p></div>` : ""}
-          </div>
-        </div>
+        </article>
       `;
     }).join("") : `<div class="matrixEmpty">No destinations match this filter.</div>`;
 
-    grid.innerHTML = header + rows;
+    grid.innerHTML = sortBar + rows;
     renderDecideSummary();
   }
 
@@ -584,6 +672,23 @@
               <div class="field"><label>City</label><input data-profile-base="name" value="${escapeAttr(profile.homeBase.name)}" placeholder="Basel"></div>
               <div class="field"><label>Latitude</label><input data-profile-base="lat" type="number" step="0.0001" value="${profile.homeBase.lat}"></div>
               <div class="field"><label>Longitude</label><input data-profile-base="lng" type="number" step="0.0001" value="${profile.homeBase.lng}"></div>
+            </div>
+          </article>
+
+          <article class="profileCard">
+            <div class="profileCard__head">
+              <span class="prefIcon">${icon("map")}</span>
+              <div>
+                <strong>Map points of interest</strong>
+                <p>Toggle which POI types show on destination mini-maps and the focused main map. Add new types in <code>data.js</code> &rarr; <code>poiCategories</code>.</p>
+              </div>
+            </div>
+            <div class="chips">
+              ${POI_TYPE_KEYS.map(type => {
+                const cat = POI_CATEGORIES[type];
+                const on = profile.poiTypes.includes(type);
+                return `<button type="button" class="chip chip--toggle poiChip ${on ? "is-active" : ""}" data-poi-toggle="${type}" style="--poi-color:${cat.color}"><span class="poiChip__dot"></span>${icon(cat.icon)} ${cat.label}</button>`;
+              }).join("")}
             </div>
           </article>
 
@@ -652,13 +757,52 @@
       const travel = destination.travel === "Flight"
         ? `Flight from ${escapeHtml(profile.homeBase.name)}`
         : `${formatHours(driveHours(destination.coords))} from ${escapeHtml(profile.homeBase.name)}`;
-      marker.bindPopup(`<div class="popup"><h3>${destination.title}</h3><p>${destination.vibe}</p><p><strong>${fitScore(destination)}% fit</strong> · ${travel}</p><a href="#/destination/${destination.id}">Open details</a> · <a href="${mapsRouteUrl(destination.coords)}" target="_blank" rel="noreferrer">Driving route ↗</a></div>`);
+      const poiCount = (destination.pois || []).filter(p => profile.poiTypes.includes(p.type)).length;
+      marker.bindPopup(`<div class="popup"><h3>${destination.title}</h3><p>${destination.vibe}</p><p><strong>${fitScore(destination)}% fit</strong> · ${travel}</p><a href="#" data-focus-destination="${destination.id}">${icon("zoom_in")} Show ${poiCount} POIs here</a><br><a href="#/destination/${destination.id}">Open details</a> · <a href="${mapsRouteUrl(destination.coords)}" target="_blank" rel="noreferrer">Driving route &rarr;</a></div>`);
     });
 
     const bounds = L.latLngBounds([homeCoords, ...data.destinations.map(destination => destination.coords)]);
     map.fitBounds(bounds.pad(.18));
     mapInitialized = true;
     setTimeout(() => map.invalidateSize(), 50);
+  }
+
+  function focusOnMainMap(destinationId){
+    const destination = data.destinations.find(d => d.id === destinationId);
+    if (!destination || !map) return;
+    if (mainMapPoiLayer) {
+      map.removeLayer(mainMapPoiLayer);
+      mainMapPoiLayer = null;
+    }
+    map.flyTo(destination.coords, 11, { duration: 0.8 });
+    const pois = (destination.pois || []).filter(p => profile.poiTypes.includes(p.type) && POI_CATEGORIES[p.type]);
+    if (pois.length > 0) {
+      mainMapPoiLayer = L.layerGroup().addTo(map);
+      pois.forEach(poi => {
+        const cat = POI_CATEGORIES[poi.type];
+        const m = L.circleMarker(poi.coords, { radius: 7, color: cat.color, fillColor: cat.color, fillOpacity: .75, weight: 2 });
+        m.bindPopup(`<div class="popup"><h3>${escapeHtml(poi.name)}</h3><p style="color:${cat.color};font-weight:850;text-transform:uppercase;font-size:11px;letter-spacing:.08em">${cat.label}</p>${poi.note ? `<p>${escapeHtml(poi.note)}</p>` : ""}</div>`);
+        mainMapPoiLayer.addLayer(m);
+      });
+    }
+    showResetMapButton(true);
+  }
+
+  function resetMainMapView(){
+    if (!map) return;
+    if (mainMapPoiLayer) {
+      map.removeLayer(mainMapPoiLayer);
+      mainMapPoiLayer = null;
+    }
+    const homeCoords = [profile.homeBase.lat, profile.homeBase.lng];
+    const bounds = L.latLngBounds([homeCoords, ...data.destinations.map(d => d.coords)]);
+    map.flyToBounds(bounds.pad(.18), { duration: 0.8 });
+    showResetMapButton(false);
+  }
+
+  function showResetMapButton(show){
+    const btn = document.getElementById("mapResetBtn");
+    if (btn) btn.hidden = !show;
   }
 
   // ============ EVENT WIRING ============
@@ -727,6 +871,44 @@
       profile.people.push({ id: newId, name: "New person", age: null, role: "", interests: [] });
       save(PROFILE_KEY, profile);
       renderProfile();
+    }
+
+    const poiToggle = event.target.closest("[data-poi-toggle]");
+    if (poiToggle) {
+      const type = poiToggle.dataset.poiToggle;
+      if (!POI_CATEGORIES[type]) return;
+      profile.poiTypes = profile.poiTypes.includes(type)
+        ? profile.poiTypes.filter(t => t !== type)
+        : [...profile.poiTypes, type];
+      save(PROFILE_KEY, profile);
+      const view = getRoute().view;
+      if (view === "destination") renderActive();
+      else if (view === "profile") renderProfile();
+      // refresh main map markers if it's loaded (popup counts changed)
+      if (mapInitialized && map) {
+        resetMap();
+      }
+    }
+
+    const focusLink = event.target.closest("[data-focus-destination]");
+    if (focusLink) {
+      event.preventDefault();
+      const id = focusLink.dataset.focusDestination;
+      if (map && map.closePopup) map.closePopup();
+      focusOnMainMap(id);
+    }
+
+    const focusFromDest = event.target.closest("[data-focus-on-map]");
+    if (focusFromDest) {
+      event.preventDefault();
+      const id = focusFromDest.dataset.focusOnMap;
+      location.hash = "#/map";
+      // Wait for the map view to initialize before focusing.
+      setTimeout(() => focusOnMainMap(id), 200);
+    }
+
+    if (event.target.closest("#mapResetBtn")) {
+      resetMainMapView();
     }
   });
 
