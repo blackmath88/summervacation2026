@@ -147,6 +147,19 @@
     .mapPin--base .mapPin__dot{background:var(--gold)}
     .mapPin--achim .mapPin__dot{background:var(--blue)}
     .mapPin--urban .mapPin__dot{background:var(--green)}
+    .curatedIntel{margin-top:28px;border-radius:32px;background:linear-gradient(180deg,#fff,#f8fafb);border:1px solid var(--line);padding:28px;display:grid;gap:22px}
+    .curatedIntel h3{font-family:Newsreader,Georgia,serif;font-size:28px;line-height:1;margin:0 0 4px;letter-spacing:-.035em}
+    .curatedIntel > p{color:var(--muted);font-size:13px;line-height:1.6;margin:0;margin-bottom:14px}
+    .intelCategories{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .intelCategory{display:flex;flex-direction:column;gap:10px}
+    .intelCategory h4{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:800}
+    .intelLinks{display:flex;flex-direction:column;gap:8px}
+    .intelLink{display:flex;align-items:center;justify-content:space-between;border-radius:18px;background:white;border:1px solid var(--line);padding:12px 14px;font-size:12px;font-weight:800;text-decoration:none;color:var(--ink);transition:all .2s ease}
+    .intelLink:hover{background:var(--soft);border-color:rgba(17,19,21,.12)}
+    .intelLink span{display:block;text-align:left}
+    .intelLink small{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-top:2px;display:block}
+    .intelLink::after{content:'→';color:var(--muted);font-weight:800;margin-left:8px;transition:all .2s ease}
+    .intelLink:hover::after{margin-left:12px;color:var(--ink)}
     .winner{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;margin-top:34px}
     .finalCard{border-radius:32px;background:var(--ink);color:white;padding:36px;box-shadow:var(--shadow)}
     .finalCard h2{font-size:52px;line-height:1}
@@ -260,6 +273,18 @@
           </div>
         </div>
       </div>
+      <div class="curatedIntel">
+        <h3>Curated Intel</h3>
+        <div class="intelCategories">
+          <div class="intelCategory"><h4>Beaches / Water</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Cala+del+Moraig+Costa+Blanca+family+beach" target="_blank"><span>Cala del Moraig<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Playa+del+Portet+Moraira+family+beach" target="_blank"><span>Playa del Portet<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?tbm=isch&q=Costa+Blanca+North+beaches+Altea+Benissa+Moraira" target="_blank"><span>Beach images<small>Image search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Coffee / Culture</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Altea+old+town+cafes" target="_blank"><span>Altea old town<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Jalón+Valley+cafes+restaurants" target="_blank"><span>Jalón Valley<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Calpe+specialty+coffee" target="_blank"><span>Calpe cafés<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Shops / Design</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Altea+vintage+design+shops" target="_blank"><span>Altea vintage<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Costa+Blanca+flea+markets" target="_blank"><span>Flea markets<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Climbing / Outdoor</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Costa+Blanca+climbing+Calpe+Jalon" target="_blank"><span>Climbing overview<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Pen%CC%83o%CC%81n+de+Ifach+climbing" target="_blank"><span>Peñón de Ifach<small>Hike</small></span></a><a class="intelLink" href="https://www.google.com/maps/search/Jalon+Valley+climbing" target="_blank"><span>Jalón climbing<small>Maps</small></span></a></div></div>
+          <div class="intelCategory"><h4>Family / Kids</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Costa+Blanca+North+family+activities" target="_blank"><span>Family activities<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/maps/search/Moraira+water+sports+beach" target="_blank"><span>Water sports<small>Maps</small></span></a></div></div>
+          <div class="intelCategory"><h4>Airbnb Strategy</h4><div class="intelLinks"><a class="intelLink" href="https://www.airbnb.com/s/Altea--Spain/homes" target="_blank"><span>Altea homes<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Benissa--Spain/homes" target="_blank"><span>Benissa homes<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Jalon--Spain/homes" target="_blank"><span>Jalón homes<small>Airbnb</small></span></a></div></div>
+          <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#costa" style="pointer-events:none;cursor:default"><span>Best Achim payoff +<small>family warm summer</small></span></a></div></div>
+        </div>
+      </div>
     </section>
 
     <section id="devon" class="destination">
@@ -302,6 +327,18 @@
             <a target="_blank" href="https://www.google.com/maps/search/Woolacombe+Croyde+Hartland+Quay+Bude">Map search</a>
             <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Woolacombe--United-Kingdom/homes">Airbnb Woolacombe</a>
           </div>
+        </div>
+      </div>
+      <div class="curatedIntel">
+        <h3>Curated Intel</h3>
+        <div class="intelCategories">
+          <div class="intelCategory"><h4>Beaches / Water</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Woolacombe+Beach+family" target="_blank"><span>Woolacombe Beach<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Croyde+Beach+family+surf" target="_blank"><span>Croyde Beach<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Saunton+Sands+family" target="_blank"><span>Saunton Sands<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Coffee / Culture</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Woolacombe+cafes+beach+town" target="_blank"><span>Woolacombe cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Croyde+cafes+surf" target="_blank"><span>Croyde cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=North+Devon+cafes" target="_blank"><span>North Devon guide<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Shops / Design</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=North+Devon+vintage+shops" target="_blank"><span>Vintage shops<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Barnstaple+second+hand+shops" target="_blank"><span>Barnstaple second hand<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Climbing / Outdoor</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Hartland+Quay+bouldering" target="_blank"><span>Hartland Quay<small>Bouldering</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Baggy+Point+climb+walk" target="_blank"><span>Baggy Point<small>Walk</small></span></a><a class="intelLink" href="https://www.google.com/search?q=South+West+Coast+Path+family" target="_blank"><span>Coast Path<small>Walk</small></span></a></div></div>
+          <div class="intelCategory"><h4>Family / Kids</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=North+Devon+family+activities+kids" target="_blank"><span>Family activities<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Woolacombe+rock+pools+kids" target="_blank"><span>Rock pools<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Airbnb Strategy</h4><div class="intelLinks"><a class="intelLink" href="https://www.airbnb.com/s/Woolacombe--United-Kingdom/homes" target="_blank"><span>Woolacombe homes<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Croyde--United-Kingdom/homes" target="_blank"><span>Croyde homes<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Hartland--United-Kingdom/homes" target="_blank"><span>Hartland homes<small>Airbnb</small></span></a></div></div>
+          <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#devon" style="pointer-events:none;cursor:default"><span>Best adventure coast +<small>real bouldering feel</small></span></a></div></div>
         </div>
       </div>
     </section>
@@ -348,6 +385,18 @@
           </div>
         </div>
       </div>
+      <div class="curatedIntel">
+        <h3>Curated Intel</h3>
+        <div class="intelCategories">
+          <div class="intelCategory"><h4>Beaches / Water</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Lake+Garda+family+beaches" target="_blank"><span>Lake Garda beaches<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Lago+di+Ledro+family+swimming" target="_blank"><span>Lago di Ledro<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Lake+Molveno+family" target="_blank"><span>Lake Molveno<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Coffee / Culture</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Arco+Italy+cafes" target="_blank"><span>Arco cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Riva+del+Garda+cafes" target="_blank"><span>Riva del Garda<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=South+Tyrol+cafes+family" target="_blank"><span>South Tyrol<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Shops / Design</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Trentino+design+shops" target="_blank"><span>Trentino design<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Bolzano+vintage+shops" target="_blank"><span>Bolzano vintage<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Climbing / Outdoor</h4><div class="intelLinks"><a class="intelLink" href="https://www.gardatrentino.it/en/outdoor/climbing" target="_blank"><span>Arco climbing<small>Official</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Lake+Garda+via+ferrata+family" target="_blank"><span>Via ferrata<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/maps/search/Arco+family+climbing" target="_blank"><span>Climbing areas<small>Maps</small></span></a></div></div>
+          <div class="intelCategory"><h4>Family / Kids</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Lake+Garda+family+activities+kids" target="_blank"><span>Family activities<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Lake+Garda+cable+car+kids" target="_blank"><span>Cable cars<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Airbnb Strategy</h4><div class="intelLinks"><a class="intelLink" href="https://www.airbnb.com/s/Arco--Trentino--Italy/homes" target="_blank"><span>Arco homes<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Riva-del-Garda--Italy/homes" target="_blank"><span>Riva del Garda<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Lake-Garda--Italy/homes" target="_blank"><span>Lake Garda<small>Airbnb</small></span></a></div></div>
+          <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#italy" style="pointer-events:none;cursor:default"><span>Highest family harmony +<small>easiest logistics</small></span></a></div></div>
+        </div>
+      </div>
     </section>
 
     <section id="tenerife" class="destination">
@@ -390,6 +439,18 @@
             <a target="_blank" href="https://www.google.com/maps/search/Puerto+de+la+Cruz+La+Orotava+Garachico+El+Sauzal+Tenerife">Map search</a>
             <a class="secondary" target="_blank" href="https://www.airbnb.com/s/La-Orotava--Spain/homes">Airbnb La Orotava</a>
           </div>
+        </div>
+      </div>
+      <div class="curatedIntel">
+        <h3>Curated Intel</h3>
+        <div class="intelCategories">
+          <div class="intelCategory"><h4>Beaches / Water</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Garachico+natural+pools+Tenerife" target="_blank"><span>Garachico pools<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Playa+Jardin+Puerto+de+la+Cruz" target="_blank"><span>Playa Jardín<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Tenerife+North+beaches+family" target="_blank"><span>North beaches<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Coffee / Culture</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=La+Orotava+cafes" target="_blank"><span>La Orotava cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Puerto+de+la+Cruz+cafes" target="_blank"><span>Puerto de la Cruz<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Tenerife+specialty+coffee" target="_blank"><span>Specialty coffee<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Shops / Design</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Tenerife+North+artisan+shops" target="_blank"><span>Artisan shops<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=La+Orotava+design+shops" target="_blank"><span>La Orotava design<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Climbing / Outdoor</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Teide+National+Park+family" target="_blank"><span>Teide National Park<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Anaga+hiking+family" target="_blank"><span>Anaga hikes<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/maps/search/Teide+hiking+trails" target="_blank"><span>Hiking trails<small>Maps</small></span></a></div></div>
+          <div class="intelCategory"><h4>Family / Kids</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Tenerife+family+activities+kids" target="_blank"><span>Family activities<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Tenerife+aquarium+animals" target="_blank"><span>Aquarium<small>Search</small></span></a></div></div>
+          <div class="intelCategory"><h4>Airbnb Strategy</h4><div class="intelLinks"><a class="intelLink" href="https://www.airbnb.com/s/La-Orotava--Spain/homes" target="_blank"><span>La Orotava<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Garachico--Spain/homes" target="_blank"><span>Garachico<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Puerto-de-la-Cruz--Spain/homes" target="_blank"><span>Puerto de la Cruz<small>Airbnb</small></span></a></div></div>
+          <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#tenerife" style="pointer-events:none;cursor:default"><span>Most magical wildcard +<small>no long drive</small></span></a></div></div>
         </div>
       </div>
     </section>
@@ -442,6 +503,18 @@
             </div>
           </div>
         </div>
+        <div class="curatedIntel">
+          <h3>Curated Intel</h3>
+          <div class="intelCategories">
+            <div class="intelCategory"><h4>Beaches / Water</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Amager+Beach+Copenhagen+family" target="_blank"><span>Amager Beach<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Copenhagen+harbour+baths" target="_blank"><span>Harbour baths<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Copenhagen+beaches+family" target="_blank"><span>City beaches<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Coffee / Culture</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Copenhagen+specialty+coffee" target="_blank"><span>Coffee culture<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Nørrebro+cafes" target="_blank"><span>Nørrebro cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Copenhagen+best+bakeries" target="_blank"><span>Bakeries<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Shops / Design</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Copenhagen+vintage+shops" target="_blank"><span>Vintage shops<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Copenhagen+design+shops" target="_blank"><span>Design shops<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Culture / Art</h4><div class="intelLinks"><a class="intelLink" href="https://louisiana.dk/en/" target="_blank"><span>Louisiana Museum<small>Official</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Designmuseum+Danmark" target="_blank"><span>Design Museum<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Copenhagen+family+museums" target="_blank"><span>Museums<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Family / Kids</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Copenhagen+family+bike+routes" target="_blank"><span>Bike routes<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Copenhagen+family+activities" target="_blank"><span>Activities<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Airbnb Strategy</h4><div class="intelLinks"><a class="intelLink" href="https://www.airbnb.com/s/Copenhagen--Denmark/homes" target="_blank"><span>Copenhagen<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Amager--Copenhagen--Denmark/homes" target="_blank"><span>Amager<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Osterbro--Copenhagen--Denmark/homes" target="_blank"><span>Østerbro<small>Airbnb</small></span></a></div></div>
+            <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#urban-coast" style="pointer-events:none;cursor:default"><span>Strongest Haarlem upgrade +<small>stylish city + water</small></span></a></div></div>
+          </div>
+        </div>
       </div>
 
       <div class="destination" style="border:2px solid rgba(76,111,140,.22)">
@@ -484,6 +557,18 @@
               <a target="_blank" href="https://www.google.com/maps/search/San+Sebastian+La+Concha+Zurriola+Old+Town">Map search</a>
               <a class="secondary" target="_blank" href="https://www.airbnb.com/s/San-Sebastian--Spain/homes">Airbnb San Sebastián</a>
             </div>
+          </div>
+        </div>
+        <div class="curatedIntel">
+          <h3>Curated Intel</h3>
+          <div class="intelCategories">
+            <div class="intelCategory"><h4>Beaches / Water</h4><div class="intelLinks"><a class="intelLink" href="https://sansebastianturismoa.eus/en/to-do/let-s-go-to-the-beach/" target="_blank"><span>Official beaches<small>Tourism</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Zurriola+surf+beach" target="_blank"><span>Zurriola surf<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/maps/search/San+Sebastian+La+Concha" target="_blank"><span>La Concha<small>Maps</small></span></a></div></div>
+            <div class="intelCategory"><h4>Coffee / Culture</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=San+Sebastian+cafes+specialty+coffee" target="_blank"><span>Coffee scene<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=San+Sebastian+pintxos+family" target="_blank"><span>Pintxos tour<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/maps/search/San+Sebastian+restaurants" target="_blank"><span>Food guide<small>Maps</small></span></a></div></div>
+            <div class="intelCategory"><h4>Shops / Design</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=San+Sebastian+vintage+shops" target="_blank"><span>Vintage shops<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=San+Sebastian+design+shops" target="_blank"><span>Design shops<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Culture / Art</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=San+Telmo+Museum" target="_blank"><span>San Telmo Museum<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=San+Sebastian+aquarium+family" target="_blank"><span>Aquarium<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/maps/search/San+Sebastian+galleries" target="_blank"><span>Galleries<small>Maps</small></span></a></div></div>
+            <div class="intelCategory"><h4>Family / Kids</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Monte+Urgull+family+walk" target="_blank"><span>Monte Urgull walk<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=San+Sebastian+kids+activities" target="_blank"><span>Kids activities<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Airbnb Strategy</h4><div class="intelLinks"><a class="intelLink" href="https://www.airbnb.com/s/San-Sebastian--Spain/homes" target="_blank"><span>San Sebastián<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Gros--San-Sebastian--Spain/homes" target="_blank"><span>Gros district<small>Airbnb</small></span></a></div></div>
+            <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#urban-coast" style="pointer-events:none;cursor:default"><span>Best city-beach mix +<small>strong Basque identity</small></span></a></div></div>
           </div>
         </div>
       </div>
@@ -530,6 +615,18 @@
             </div>
           </div>
         </div>
+        <div class="curatedIntel">
+          <h3>Curated Intel</h3>
+          <div class="intelCategories">
+            <div class="intelCategory"><h4>Beaches / Water</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Ribersborg+Beach+Malmo+family" target="_blank"><span>Ribersborg Beach<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Malmö+beaches+family" target="_blank"><span>City beaches<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Scania+coast+family" target="_blank"><span>South coast<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Coffee / Culture</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Malmö+specialty+coffee+cafes" target="_blank"><span>Coffee scene<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Malmö+cafes+Old+Town" target="_blank"><span>Old Town cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Malmö+Swedish+design+cafes" target="_blank"><span>Design culture<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Shops / Design</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Malmö+vintage+shops" target="_blank"><span>Vintage shops<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Malmö+design+shops" target="_blank"><span>Design shops<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Culture / Art</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Malmö+Konsthall+museum" target="_blank"><span>Konsthall<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Malmö+family+museums" target="_blank"><span>Family museums<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/maps/search/Malmö+galleries+art" target="_blank"><span>Galleries<small>Maps</small></span></a></div></div>
+            <div class="intelCategory"><h4>Family / Kids</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Malmö+family+bike+routes" target="_blank"><span>Bike routes<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Malmö+family+activities+kids" target="_blank"><span>Activities<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Airbnb Strategy</h4><div class="intelLinks"><a class="intelLink" href="https://www.airbnb.com/s/Malmo--Sweden/homes" target="_blank"><span>Malmö<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Ribersborg--Malmo--Sweden/homes" target="_blank"><span>Ribersborg<small>Airbnb</small></span></a><a class="intelLink" href="https://www.google.com/maps/search/Copenhagen+Oresund+Bridge" target="_blank"><span>Copenhagen bridge<small>Maps</small></span></a></div></div>
+            <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#urban-coast" style="pointer-events:none;cursor:default"><span>Scandi design + beach +<small>Copenhagen easy reach</small></span></a></div></div>
+          </div>
+        </div>
       </div>
 
       <div class="destination" style="border:2px solid rgba(76,111,140,.22)">
@@ -572,6 +669,19 @@
               <a target="_blank" href="https://www.google.com/maps/search/Lisbon+Cascais+Ericeira+Costa+da+Caparica">Map search</a>
               <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Cascais--Portugal/homes">Airbnb Cascais</a>
             </div>
+          </div>
+        </div>
+        <div class="curatedIntel">
+          <h3>Curated Intel</h3>
+          <div class="intelCategories">
+            <div class="intelCategory"><h4>Beaches / Water</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Cascais+beach+family" target="_blank"><span>Cascais beaches<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Ericeira+surf+beach" target="_blank"><span>Ericeira coast<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Costa+da+Caparica+family+beach" target="_blank"><span>Costa da Caparica<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Coffee / Culture</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Lisbon+specialty+coffee+cafes" target="_blank"><span>Coffee scene<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Lisbon+Alfama+old+town+cafes" target="_blank"><span>Alfama cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Lisbon+design+culture+creative" target="_blank"><span>Creative energy<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Shops / Design</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Lisbon+vintage+shops" target="_blank"><span>Vintage shops<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Lisbon+design+shops+Chiado" target="_blank"><span>Design shops<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Culture / Art</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Lisbon+MAAT+museum" target="_blank"><span>MAAT<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Lisbon+museums+family" target="_blank"><span>Family museums<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/maps/search/Lisbon+galleries" target="_blank"><span>Galleries<small>Maps</small></span></a></div></div>
+            <div class="intelCategory"><h4>Outdoor / Adventure</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Lisbon+coastal+hikes" target="_blank"><span>Coastal hikes<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Lisbon+family+outdoor+activities" target="_blank"><span>Activities<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Family / Kids</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Lisbon+family+activities+kids+tram+28" target="_blank"><span>Tram 28 + more<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Lisbon+parks+playgrounds+family" target="_blank"><span>Parks & play<small>Search</small></span></a></div></div>
+            <div class="intelCategory"><h4>Airbnb Strategy</h4><div class="intelLinks"><a class="intelLink" href="https://www.airbnb.com/s/Lisbon--Portugal/homes" target="_blank"><span>Lisbon<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Cascais--Portugal/homes" target="_blank"><span>Cascais<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Ericeira--Portugal/homes" target="_blank"><span>Ericeira<small>Airbnb</small></span></a></div></div>
+            <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#urban-coast" style="pointer-events:none;cursor:default"><span>Surf + city energy +<small>Atlantic creative vibe</small></span></a></div></div>
           </div>
         </div>
       </div>
