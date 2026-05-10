@@ -273,3 +273,45 @@ h1{max-width:760px;color:#fff;font-size:clamp(50px,7vw,92px);line-height:.94}
   .rateRow{grid-template-columns:1fr;gap:12px}
   .matrixRowDetail{grid-template-columns:1fr}
 }
+
+/* ============ Chip variants ============ */
+a.chip,.chip--link,.chip--toggle{cursor:pointer;text-decoration:none;border-style:solid}
+a.chip:hover,.chip--link:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip--light.chip--link:hover,a.chip--light:hover{background:rgba(255,255,255,.32);border-color:rgba(255,255,255,.5);color:#fff}
+.chip--toggle{border:1px solid var(--line);background:#fff;color:var(--muted)}
+.chip--toggle:hover{border-color:var(--ink);color:var(--ink)}
+.chip--toggle.is-active{background:var(--ink);border-color:var(--ink);color:#fff}
+.iconButton--link{text-decoration:none}
+.iconButton--link:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ============ Destination hero climate row ============ */
+.detail__heroClimate{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:14px}
+.climateChip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(255,255,255,.24);border-radius:14px;background:rgba(255,255,255,.14);color:#fff;backdrop-filter:blur(8px)}
+.climateChip > span:not(.climateChip__icon){display:flex;flex-direction:column;line-height:1}
+.climateChip strong{font-family:Newsreader,Georgia,serif;font-size:22px;letter-spacing:-.03em}
+.climateChip small{font-size:10px;font-weight:850;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:3px}
+.climateChip__icon{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.18);color:#fff}
+.climateChip--feel{font-size:12px;font-weight:800;letter-spacing:.05em;color:rgba(255,255,255,.85);padding:10px 14px}
+
+/* ============ Profile view ============ */
+.profileGrid{display:grid;gap:18px;margin-top:14px}
+.profileCard{background:var(--paper);border:1px solid rgba(255,255,255,.92);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+.profileCard__head{display:flex;gap:14px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+.profileCard__head > div:not(.fieldGrid){flex:1;min-width:0}
+.profileCard__head strong{display:block;font-size:18px}
+.profileCard__head p{margin:3px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+.profileCard__head .primaryLink{align-self:flex-start;background:var(--ink);color:#fff;border:0;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.profileCard__head .primaryLink .material-symbols-outlined{font-size:18px}
+.profileBaseFields{grid-template-columns:1.2fr 1fr 1fr}
+.profileBaseFields input{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px}
+.peopleList{display:grid;gap:12px}
+.personCard{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fff,#f8faf9);padding:16px}
+.personCard__head{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.personCard__fields{flex:1;grid-template-columns:1.2fr .6fr 1fr;gap:10px}
+.personCard__fields input{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px}
+.personCard__interests label{display:block;margin-bottom:8px;color:var(--muted);font-size:11px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+
+@media(max-width:780px){
+  .profileBaseFields,.personCard__fields{grid-template-columns:1fr}
+  .climateChip strong{font-size:18px}
+}

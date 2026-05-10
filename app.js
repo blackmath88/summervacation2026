@@ -3,8 +3,19 @@
   const FAV_KEY = "sv26.favorites";
   const CONTROL_KEY = "sv26.control";
   const RATINGS_KEY = "sv26.ratings";
-  const VIEWS = ["overview", "compare", "destination", "decide", "map"];
+  const PROFILE_KEY = "sv26.profile";
+  const VIEWS = ["overview", "compare", "destination", "decide", "map", "profile"];
   const CATEGORY_KEYS = Object.keys(data.preferences);
+
+  const DEFAULT_PROFILE = {
+    homeBase: { name: "Basel", lat: 47.5596, lng: 7.5886 },
+    people: [
+      { id: "achim", name: "Achim", age: 38, role: "dad", interests: ["climbing", "special", "weather"] },
+      { id: "fiona", name: "Fiona", age: 37, role: "wife", interests: ["urbanity", "familyEase", "calm"] },
+      { id: "ida", name: "Ida", age: 11, role: "kid", interests: ["beach", "familyEase"] },
+      { id: "miro", name: "Miro", age: 6, role: "kid", interests: ["beach", "calm", "familyEase"] }
+    ]
+  };
 
   let portfolioView = "all";
   let controlFilter = "all";
@@ -12,6 +23,7 @@
   let favorites = readJson(FAV_KEY, []);
   let control = readJson(CONTROL_KEY, {});
   let ratings = readJson(RATINGS_KEY, {});
+  let profile = normalizeProfile(readJson(PROFILE_KEY, null));
   let map;
   let mapInitialized = false;
   let summaryRendered = false;
@@ -23,6 +35,15 @@
 
   function save(key, value){
     localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  function normalizeProfile(p){
+    const fallback = JSON.parse(JSON.stringify(DEFAULT_PROFILE));
+    if (!p || typeof p !== "object") return fallback;
+    return {
+      homeBase: { ...fallback.homeBase, ...(p.homeBase || {}) },
+      people: Array.isArray(p.people) && p.people.length ? p.people : fallback.people
+    };
   }
 
   function ensureControl(id){
@@ -92,6 +113,43 @@
     return escapeHtml(value).replace(/"/g, "&quot;");
   }
 
+  // ============ TRAVEL HELPERS ============
+
+  function haversineKm(a, b){
+    const R = 6371;
+    const toRad = d => d * Math.PI / 180;
+    const dLat = toRad(b[0] - a[0]);
+    const dLon = toRad(b[1] - a[1]);
+    const aa = Math.sin(dLat/2) ** 2 + Math.cos(toRad(a[0])) * Math.cos(toRad(b[0])) * Math.sin(dLon/2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(aa), Math.sqrt(1 - aa));
+  }
+
+  function driveHours(destCoords){
+    const km = haversineKm([profile.homeBase.lat, profile.homeBase.lng], destCoords) * 1.3;
+    return km / 80;
+  }
+
+  function formatHours(hours){
+    if (!isFinite(hours) || hours <= 0) return "—";
+    if (hours < 1) return `~${Math.round(hours * 60)} min`;
+    if (hours < 10) return `~${hours.toFixed(1)} h`;
+    return `~${Math.round(hours)} h`;
+  }
+
+  function mapsRouteUrl(destCoords){
+    const o = `${profile.homeBase.lat},${profile.homeBase.lng}`;
+    const d = `${destCoords[0]},${destCoords[1]}`;
+    return `https://www.google.com/maps/dir/?api=1&origin=${o}&destination=${d}&travelmode=driving`;
+  }
+
+  function travelChip(destination){
+    const home = escapeHtml(profile.homeBase.name);
+    if (destination.travel === "Flight") {
+      return `<span class="chip chip--light">${icon("flight")} Flight from ${home}</span>`;
+    }
+    return `<span class="chip chip--light">${icon("directions_car")} ${formatHours(driveHours(destination.coords))} from ${home}</span>`;
+  }
+
   // ============ ROUTER ============
 
   function getRoute(){
@@ -121,6 +179,7 @@
     else if (view === "compare") renderPortfolio();
     else if (view === "destination") renderDestination(param);
     else if (view === "decide") renderMatrix();
+    else if (view === "profile") renderProfile();
     else if (view === "map") {
       if (!mapInitialized) initMap();
       else if (map) setTimeout(() => map.invalidateSize(), 50);
@@ -130,6 +189,15 @@
   function renderActive(){
     const { view, param } = getRoute();
     renderView(view, param);
+  }
+
+  function resetMap(){
+    if (map) {
+      map.remove();
+      map = null;
+    }
+    mapInitialized = false;
+    if (getRoute().view === "map") initMap();
   }
 
   // ============ OVERVIEW ============
@@ -199,9 +267,9 @@
           </div>
           <p class="card__text">${destination.vibe}</p>
           <div class="chips">
-            <span class="chip">${icon("route")} ${destination.travel}</span>
+            ${travelChip(destination)}
             <span class="chip">${icon("payments")} ${destination.budget}</span>
-            <span class="chip">${icon("thermostat")} ${destination.climate.feel}</span>
+            <span class="chip">${icon("thermostat")} ${destination.climate.avg}° avg</span>
           </div>
           <div class="climate">
             <div class="climate__bar" aria-hidden="true">
@@ -213,6 +281,7 @@
           </div>
           <div class="card__actions">
             <a class="primaryLink" href="#/destination/${destination.id}">Open details</a>
+            <a class="iconButton iconButton--link" href="${mapsRouteUrl(destination.coords)}" target="_blank" rel="noreferrer" aria-label="Driving route from ${escapeAttr(profile.homeBase.name)} to ${escapeAttr(destination.title)}">${icon("directions")}</a>
             <button class="iconButton ${active ? "is-active" : ""}" type="button" data-favorite="${destination.id}" aria-label="Toggle favourite for ${destination.title}" aria-pressed="${active}">${icon("star")}</button>
           </div>
         </div>
@@ -280,6 +349,8 @@
     const next = list[(idx + 1) % list.length];
     const active = favorites.includes(destination.id);
     const state = ensureControl(destination.id);
+    const route = mapsRouteUrl(destination.coords);
+    const home = escapeHtml(profile.homeBase.name);
 
     document.getElementById("destinationView").innerHTML = `
       <div class="breadcrumbBar">
@@ -297,11 +368,17 @@
             <h3>${destination.title}</h3>
             <p>${destination.vibe}</p>
             <div class="detail__heroMeta">
-              <span class="chip chip--light">${icon("route")} ${destination.travel}</span>
+              ${travelChip(destination)}
+              <a class="chip chip--light chip--link" href="${route}" target="_blank" rel="noreferrer">${icon("open_in_new")} Open route in Maps</a>
               <span class="chip chip--light">${icon("payments")} ${destination.budget}</span>
-              <span class="chip chip--light">${icon("thermostat")} ${destination.climate.feel}</span>
               <span class="fit fit--solid"><strong>${fitScore(destination)}%</strong> fit</span>
               <button class="iconButton iconButton--solid ${active ? "is-active" : ""}" type="button" data-favorite="${destination.id}" aria-label="Toggle favourite">${icon("star")}</button>
+            </div>
+            <div class="detail__heroClimate">
+              <span class="climateChip"><span class="climateChip__icon">${icon("ac_unit")}</span><span><strong>${destination.climate.low}°</strong><small>Low</small></span></span>
+              <span class="climateChip"><span class="climateChip__icon">${icon("thermostat")}</span><span><strong>${destination.climate.avg}°</strong><small>Avg</small></span></span>
+              <span class="climateChip"><span class="climateChip__icon">${icon("wb_sunny")}</span><span><strong>${destination.climate.high}°</strong><small>High</small></span></span>
+              <span class="climateChip climateChip--feel">${destination.climate.feel}</span>
             </div>
           </div>
         </div>
@@ -339,7 +416,10 @@
           </div>
           <div class="infoBox">
             <h4>Useful Links</h4>
-            <div class="links">${destination.links.map(([label, href]) => `<a target="_blank" rel="noreferrer" href="${href}">${label}</a>`).join("")}</div>
+            <div class="links">
+              <a target="_blank" rel="noreferrer" href="${route}">Driving route from ${home}</a>
+              ${destination.links.map(([label, href]) => `<a target="_blank" rel="noreferrer" href="${href}">${label}</a>`).join("")}
+            </div>
           </div>
 
           <div class="infoBox infoBox--full notesBox">
@@ -423,6 +503,7 @@
               <div class="matrixDest">
                 <span class="card__kicker">${destination.category}</span>
                 <a href="#/destination/${destination.id}" class="matrixDest__title">${destination.title}</a>
+                <span class="matrixDest__meta">${destination.travel === "Flight" ? "Flight" : formatHours(driveHours(destination.coords))} · ${destination.climate.avg}° avg</span>
               </div>
               <button class="iconButton ${fav ? "is-active" : ""}" type="button" data-favorite="${destination.id}" aria-label="Toggle favourite for ${destination.title}">${icon("star")}</button>
             </div>
@@ -475,6 +556,82 @@
     renderActive();
   }
 
+  // ============ PROFILE ============
+
+  function renderProfile(){
+    const container = document.getElementById("profileView");
+    if (!container) return;
+    container.innerHTML = `
+      <section class="section">
+        <div class="sectionHead">
+          <div>
+            <p class="eyebrow">Profile</p>
+            <h2>Travellers & Home Base</h2>
+          </div>
+          <p>Drives the travel-time calculation, route links, and per-person interests across the app.</p>
+        </div>
+
+        <div class="profileGrid">
+          <article class="profileCard">
+            <div class="profileCard__head">
+              <span class="prefIcon">${icon("home")}</span>
+              <div>
+                <strong>Home base</strong>
+                <p>Used as the origin for drive-time estimates and Maps route links.</p>
+              </div>
+            </div>
+            <div class="fieldGrid profileBaseFields">
+              <div class="field"><label>City</label><input data-profile-base="name" value="${escapeAttr(profile.homeBase.name)}" placeholder="Basel"></div>
+              <div class="field"><label>Latitude</label><input data-profile-base="lat" type="number" step="0.0001" value="${profile.homeBase.lat}"></div>
+              <div class="field"><label>Longitude</label><input data-profile-base="lng" type="number" step="0.0001" value="${profile.homeBase.lng}"></div>
+            </div>
+          </article>
+
+          <article class="profileCard">
+            <div class="profileCard__head">
+              <span class="prefIcon">${icon("group")}</span>
+              <div>
+                <strong>Travellers</strong>
+                <p>Each traveller's interests are tagged from the same 8 categories used to rate destinations.</p>
+              </div>
+              <button type="button" class="primaryLink" data-profile-add-person>${icon("add")} Add person</button>
+            </div>
+            <div class="peopleList">
+              ${profile.people.map(person => personCard(person)).join("")}
+              ${profile.people.length === 0 ? `<p class="empty">No travellers yet. Add one above.</p>` : ""}
+            </div>
+          </article>
+        </div>
+      </section>
+    `;
+  }
+
+  function personCard(person){
+    const interests = Array.isArray(person.interests) ? person.interests : [];
+    return `
+      <article class="personCard">
+        <div class="personCard__head">
+          <div class="fieldGrid personCard__fields">
+            <div class="field"><label>Name</label><input data-person="${person.id}:name" value="${escapeAttr(person.name)}"></div>
+            <div class="field"><label>Age</label><input data-person="${person.id}:age" type="number" min="0" max="120" value="${person.age || ""}"></div>
+            <div class="field"><label>Role</label><input data-person="${person.id}:role" value="${escapeAttr(person.role || "")}" placeholder="dad / kid / friend"></div>
+          </div>
+          <button type="button" class="iconButton" data-person-delete="${person.id}" aria-label="Remove ${escapeAttr(person.name)}">${icon("delete")}</button>
+        </div>
+        <div class="personCard__interests">
+          <label>Interests</label>
+          <div class="chips">
+            ${CATEGORY_KEYS.map(cat => {
+              const pref = data.preferences[cat];
+              const on = interests.includes(cat);
+              return `<button type="button" class="chip chip--toggle ${on ? "is-active" : ""}" data-person-interest="${person.id}:${cat}">${icon(pref.icon)} ${pref.label}</button>`;
+            }).join("")}
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
   // ============ MAP ============
 
   function initMap(){
@@ -485,16 +642,20 @@
       attribution: "&copy; OpenStreetMap contributors"
     }).addTo(map);
 
-    const base = L.circleMarker([47.5596, 7.5886], { radius:9, color:"#b68a38", fillColor:"#b68a38", fillOpacity:.85 }).addTo(map);
-    base.bindPopup(`<div class="popup"><h3>Basel</h3><p>Starting point for the comparison.</p></div>`);
+    const homeCoords = [profile.homeBase.lat, profile.homeBase.lng];
+    const base = L.circleMarker(homeCoords, { radius:9, color:"#b68a38", fillColor:"#b68a38", fillOpacity:.85 }).addTo(map);
+    base.bindPopup(`<div class="popup"><h3>${escapeHtml(profile.homeBase.name)}</h3><p>Home base. Drive estimates and route links use this as the origin.</p></div>`);
 
     data.destinations.forEach(destination => {
       const color = destination.type === "urban" ? "#526c5a" : "#173955";
       const marker = L.circleMarker(destination.coords, { radius:8, color, fillColor:color, fillOpacity:.82 }).addTo(map);
-      marker.bindPopup(`<div class="popup"><h3>${destination.title}</h3><p>${destination.vibe}</p><p><strong>${fitScore(destination)}% fit</strong> · ${destination.travel}</p><a href="#/destination/${destination.id}">Open details</a></div>`);
+      const travel = destination.travel === "Flight"
+        ? `Flight from ${escapeHtml(profile.homeBase.name)}`
+        : `${formatHours(driveHours(destination.coords))} from ${escapeHtml(profile.homeBase.name)}`;
+      marker.bindPopup(`<div class="popup"><h3>${destination.title}</h3><p>${destination.vibe}</p><p><strong>${fitScore(destination)}% fit</strong> · ${travel}</p><a href="#/destination/${destination.id}">Open details</a> · <a href="${mapsRouteUrl(destination.coords)}" target="_blank" rel="noreferrer">Driving route ↗</a></div>`);
     });
 
-    const bounds = L.latLngBounds([[47.5596, 7.5886], ...data.destinations.map(destination => destination.coords)]);
+    const bounds = L.latLngBounds([homeCoords, ...data.destinations.map(destination => destination.coords)]);
     map.fitBounds(bounds.pad(.18));
     mapInitialized = true;
     setTimeout(() => map.invalidateSize(), 50);
@@ -535,6 +696,38 @@
       matrixSort = sortBtn.dataset.matrixSort;
       renderMatrix();
     }
+
+    const interest = event.target.closest("[data-person-interest]");
+    if (interest) {
+      const [id, cat] = interest.dataset.personInterest.split(":");
+      const person = profile.people.find(p => p.id === id);
+      if (person) {
+        person.interests = Array.isArray(person.interests) ? person.interests : [];
+        person.interests = person.interests.includes(cat)
+          ? person.interests.filter(c => c !== cat)
+          : [...person.interests, cat];
+        save(PROFILE_KEY, profile);
+        renderProfile();
+      }
+    }
+
+    const del = event.target.closest("[data-person-delete]");
+    if (del) {
+      const id = del.dataset.personDelete;
+      const person = profile.people.find(p => p.id === id);
+      if (person && confirm(`Remove ${person.name}?`)) {
+        profile.people = profile.people.filter(p => p.id !== id);
+        save(PROFILE_KEY, profile);
+        renderProfile();
+      }
+    }
+
+    if (event.target.closest("[data-profile-add-person]")) {
+      const newId = "person-" + Date.now();
+      profile.people.push({ id: newId, name: "New person", age: null, role: "", interests: [] });
+      save(PROFILE_KEY, profile);
+      renderProfile();
+    }
   });
 
   document.addEventListener("change", event => {
@@ -548,10 +741,31 @@
 
   document.addEventListener("input", event => {
     const field = event.target.closest("[data-control-field]");
-    if (!field) return;
-    const [id, key] = field.dataset.controlField.split(":");
-    ensureControl(id)[key] = field.value;
-    save(CONTROL_KEY, control);
+    if (field) {
+      const [id, key] = field.dataset.controlField.split(":");
+      ensureControl(id)[key] = field.value;
+      save(CONTROL_KEY, control);
+      return;
+    }
+
+    const base = event.target.closest("[data-profile-base]");
+    if (base) {
+      const key = base.dataset.profileBase;
+      profile.homeBase[key] = (key === "lat" || key === "lng") ? Number(base.value) : base.value;
+      save(PROFILE_KEY, profile);
+      if (key === "lat" || key === "lng" || key === "name") resetMap();
+      return;
+    }
+
+    const person = event.target.closest("[data-person]");
+    if (person) {
+      const [id, key] = person.dataset.person.split(":");
+      const p = profile.people.find(pp => pp.id === id);
+      if (p) {
+        p[key] = key === "age" ? (person.value === "" ? null : Number(person.value)) : person.value;
+        save(PROFILE_KEY, profile);
+      }
+    }
   });
 
   window.addEventListener("hashchange", route);
