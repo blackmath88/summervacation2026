@@ -64,6 +64,40 @@
     .sectionHead p{color:var(--muted);max-width:520px;line-height:1.6;margin:0}
     .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     .summaryCard{border-radius:24px;padding:24px;background:#fff;box-shadow:var(--shadow2);border:1px solid rgba(255,255,255,.9);min-height:230px;display:flex;flex-direction:column;justify-content:space-between}
+    .portfolioSection{margin-top:34px}
+    .portfolioToolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:18px 0 16px}
+    .portfolioSwitch{display:flex;gap:8px;flex-wrap:wrap}
+    .portfolioToggle{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:10px 14px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s ease}
+    .portfolioToggle.is-active,.portfolioToggle:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .portfolioHint{font-size:13px;color:var(--muted);line-height:1.5}
+    .portfolioGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .destinationCard{position:relative;border-radius:28px;background:#fff;border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow2);overflow:hidden;display:flex;flex-direction:column;min-height:100%}
+    .destinationCard.is-favorite{border-color:rgba(182,138,56,.45);box-shadow:0 18px 56px rgba(182,138,56,.14)}
+    .destinationCard__body{padding:22px;display:grid;gap:14px}
+    .destinationCard__top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .destinationCard__eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:800;color:var(--muted)}
+    .destinationCard h3{font-family:Newsreader,Georgia,serif;font-size:30px;line-height:1;margin:4px 0 0;letter-spacing:-.035em}
+    .destinationCard__vibe{color:var(--muted);line-height:1.55;font-size:14px;margin:0}
+    .destinationCard__meta{display:flex;gap:8px;flex-wrap:wrap}
+    .destinationCard__chip{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;background:var(--soft);color:var(--muted);padding:7px 9px;border-radius:999px;border:1px solid var(--line)}
+    .destinationCard__chip--budget{color:var(--ink)}
+    .destinationCard__actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center;margin-top:4px}
+    .favoriteButton{width:42px;height:42px;border-radius:14px;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);transition:all .2s ease;flex:0 0 auto}
+    .favoriteButton .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 450,'GRAD' 0,'opsz' 24}
+    .favoriteButton.is-active{background:rgba(182,138,56,.12);border-color:rgba(182,138,56,.28);color:var(--gold)}
+    .favoriteButton.is-active .material-symbols-outlined{font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24}
+    .destinationCard__link{display:inline-flex;align-items:center;justify-content:center;padding:11px 14px;border-radius:14px;background:var(--ink);color:#fff;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:all .2s ease}
+    .destinationCard__link:hover{background:var(--blue)}
+    .climateMini{border-radius:20px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#f8fafb);padding:14px;display:grid;gap:10px}
+    .climateMini__head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .climateMini__title{font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:800;color:var(--muted)}
+    .climateMini__feel{font-size:13px;line-height:1.45;color:var(--ink);font-weight:700}
+    .climateMini__bar{position:relative;height:12px;border-radius:999px;background:linear-gradient(90deg,rgba(76,111,140,.16),rgba(182,138,56,.16));margin:2px 0 0}
+    .climateMini__dot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);background:var(--ink);border:2px solid #fff;box-shadow:0 8px 18px rgba(17,19,21,.14)}
+    .climateMini__scale{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:800;color:var(--muted)}
+    .climateMini__scale span{display:flex;gap:4px;align-items:center}
+    .climateMini__scale strong{color:var(--ink)}
+    .portfolioEmpty{margin-top:8px;border-radius:22px;padding:18px;background:rgba(15,43,70,.05);border:1px solid rgba(15,43,70,.12);color:var(--muted);font-size:14px;line-height:1.6}
     .summaryCard .icon{width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:white;background:var(--blue)}
     .summaryCard:nth-child(2) .icon{background:var(--green)}
     .summaryCard:nth-child(3) .icon{background:var(--terra)}
@@ -170,8 +204,8 @@
     .num{width:36px;height:36px;border-radius:12px;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-weight:900}
     .rank small{color:var(--muted);display:block;margin-top:3px}
     .footer{padding:36px;text-align:center;color:var(--muted);font-size:13px}
-    @media(max-width:1000px){.hero,.winner,.destBody{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.argumentGrid{grid-template-columns:1fr}.links,.score{grid-template-columns:1fr 1fr}.nav{border-radius:24px;align-items:flex-start}.navlinks{justify-content:flex-start}.hero{padding:34px}}
-    @media(max-width:640px){.wrap{padding:16px}.cards{grid-template-columns:1fr}.hero{min-height:620px}.destHero{min-height:420px;padding:24px}.destBody{padding:18px}.sectionHead{display:block}.nav{position:relative}.navlinks a{font-size:12px;padding:8px}}
+    @media(max-width:1000px){.hero,.winner,.destBody{grid-template-columns:1fr}.cards,.portfolioGrid{grid-template-columns:repeat(2,1fr)}.argumentGrid{grid-template-columns:1fr}.links,.score{grid-template-columns:1fr 1fr}.nav{border-radius:24px;align-items:flex-start}.navlinks{justify-content:flex-start}.hero{padding:34px}}
+    @media(max-width:640px){.wrap{padding:16px}.cards,.portfolioGrid{grid-template-columns:1fr}.hero{min-height:620px}.destHero{min-height:420px;padding:24px}.destBody{padding:18px}.sectionHead{display:block}.nav{position:relative}.navlinks a{font-size:12px;padding:8px}}
   </style>
 </head>
 <body>
@@ -179,8 +213,9 @@
     <nav class="nav glass">
       <div class="brand"><span class="dot"></span> Summer 2026 Family Portfolio</div>
       <div class="navlinks">
+        <a href="#portfolio">Portfolio</a>
         <a href="#achim-track">Achim Track</a>
-        <a href="#urban-coast">Urban Coast</a>
+        <a href="#urban-coast">Urban Coast / Daughter + Fiona Track</a>
         <a href="#map">Map</a>
         <a href="#decision">Decision</a>
         <a href="javascript:void(0)" onclick="switchLang('en')">EN</a>
@@ -192,8 +227,8 @@
     <header class="hero">
       <div>
         <div class="eyebrow" data-en="Family mediation · Sunday presentation" data-de="Familienmediation · Sonntagspräsentation">Family mediation · Sunday presentation</div>
-        <h1 data-en="Four strong summer options. One calm decision." data-de="Vier starke Sommeroptionen. Eine ruhige Entscheidung.">Four strong summer options. One calm decision.</h1>
-        <p data-en="We removed the too-long options. This shortlist compares realistic, beautiful family trips through the eyes of Achim, Fiona and the kids — plus a new Urban Coast track inspired by our daughter’s Haarlem argument." data-de="Wir haben die zu langen Optionen entfernt. Diese Auswahl vergleicht realistische, schöne Familienferien aus Sicht von Achim, Fiona und den Kindern — plus einen neuen Urban-Coast-Track inspiriert vom Haarlem-Argument unserer Tochter.">We removed the too-long options. This shortlist compares realistic, beautiful family trips through the eyes of Achim, Fiona and the kids — plus a new Urban Coast track inspired by our daughter’s Haarlem argument.</p>
+        <h1 data-en="Ten strong summer options. One calm decision." data-de="Zehn starke Sommeroptionen. Eine ruhige Entscheidung.">Ten strong summer options. One calm decision.</h1>
+        <p data-en="This portfolio compares realistic, beautiful family trips through the eyes of Achim, Fiona and the kids — plus the daughter-led urban coast logic and Fiona's calmer seaside propositions for Leigh-on-Sea and Texel." data-de="Dieses Portfolio vergleicht realistische, schöne Familienferien aus Sicht von Achim, Fiona und den Kindern — plus die von der Tochter geprägte Urban-Coast-Logik und Fionas ruhigere Küstenvorschläge für Leigh-on-Sea und Texel.">This portfolio compares realistic, beautiful family trips through the eyes of Achim, Fiona and the kids — plus the daughter-led urban coast logic and Fiona's calmer seaside propositions for Leigh-on-Sea and Texel.</p>
       </div>
       <aside class="heroPanel">
         <h3>The shared goal</h3>
@@ -205,6 +240,22 @@
         </ul>
       </aside>
     </header>
+
+    <section id="portfolio" class="section portfolioSection">
+      <div class="sectionHead">
+        <h2 data-en="Destination Portfolio" data-de="Zielportfolio">Destination Portfolio</h2>
+        <p data-en="Show all destinations, star favourites, and filter the shortlist down to the places that feel most likely to work." data-de="Alle Ziele anzeigen, Favoriten markieren und die Auswahl auf die Orte reduzieren, die am ehesten passen.">Show all destinations, star favourites, and filter the shortlist down to the places that feel most likely to work.</p>
+      </div>
+      <div class="portfolioToolbar">
+        <div class="portfolioSwitch">
+          <button type="button" class="portfolioToggle is-active" data-favorites-mode="all" onclick="setFavoritesMode('all')" data-en="Show all" data-de="Alle anzeigen">Show all</button>
+          <button type="button" class="portfolioToggle" data-favorites-mode="favorites" onclick="setFavoritesMode('favorites')" data-en="Show favourites only" data-de="Nur Favoriten">Show favourites only</button>
+        </div>
+        <div class="portfolioHint" data-en="Star any card to build the shortlist." data-de="Markiere Karten mit dem Stern, um die Shortlist zu bauen.">Star any card to build the shortlist.</div>
+      </div>
+      <div id="portfolioEmpty" class="portfolioEmpty" hidden data-en="No favourites yet — mark destinations with the star to build the shortlist." data-de="Noch keine Favoriten — markiere Ziele mit dem Stern, um die Shortlist zu bauen.">No favourites yet — mark destinations with the star to build the shortlist.</div>
+      <div id="portfolioGrid" class="portfolioGrid"></div>
+    </section>
 
     <section id="achim-track" class="section">
       <div class="sectionHead">
@@ -457,8 +508,8 @@
 
     <section id="urban-coast" class="section">
       <div class="sectionHead">
-        <h2 style="color:#4c6f8c" data-en="Urban Coast — Daughter Perspective" data-de="Urban Coast — Perspektive der Tochter">Urban Coast — Daughter Perspective</h2>
-        <p data-en="This is her Haarlem logic: city atmosphere, cafés, urban style and still easy beach access. Not isolated villa life — more like a beautiful temporary local life." data-de="Das ist ihre Haarlem-Logik: Stadtatmosphäre, Cafés, urbaner Stil und trotzdem einfacher Zugang zum Strand. Nicht isoliertes Villenleben — eher ein schönes temporäres lokales Leben.">This is her Haarlem logic: city atmosphere, cafés, urban style and still easy beach access. Not isolated villa life — more like a beautiful temporary local life.</p>
+        <h2 style="color:#4c6f8c" data-en="Urban Coast — Daughter + Fiona Track" data-de="Urban Coast — Tochter + Fiona-Track">Urban Coast — Daughter + Fiona Track</h2>
+        <p data-en="This track includes the daughter’s Haarlem-like urban beach logic plus Fiona propositions such as Leigh-on-Sea and Texel: city atmosphere, cafés, urban style and still easy beach access." data-de="Dieser Track umfasst die Haarlem-ähnliche Urban-Beach-Logik der Tochter plus Fionas Vorschläge wie Leigh-on-Sea und Texel: Stadtatmosphäre, Cafés, urbaner Stil und trotzdem einfacher Strandzugang.">This track includes the daughter’s Haarlem-like urban beach logic plus Fiona propositions such as Leigh-on-Sea and Texel: city atmosphere, cafés, urban style and still easy beach access.</p>
       </div>
 
       <div class="destination" style="border:2px solid rgba(76,111,140,.22)">
@@ -1114,6 +1165,224 @@
       design: 'design'
     };
 
+    const climateJuly = {
+      costaBlanca: {label: 'Costa Blanca North', low: 23, median: 25, high: 29, feel: 'Hot Mediterranean summer', source: 'Altea / Costa Blanca July climate'},
+      northDevon: {label: 'North Devon', low: 14, median: 16, high: 19, feel: 'Mild Atlantic summer', source: 'Woolacombe July climate'},
+      italyLakes: {label: 'Italy Lakes / Dolomites', low: 17, median: 24, high: 28, feel: 'Warm lake and mountain summer', source: 'Arco / Lake Garda July climate'},
+      tenerifeNorth: {label: 'Tenerife North', low: 18, median: 22, high: 25, feel: 'Warm but moderated island climate', source: 'La Orotava / Tenerife North July climate'},
+      copenhagen: {label: 'Copenhagen Coast', low: 14, median: 18, high: 22, feel: 'Mild Nordic summer', source: 'Copenhagen July climate'},
+      sanSebastian: {label: 'San Sebastián', low: 16, median: 21, high: 25, feel: 'Warm Atlantic-Basque summer', source: 'San Sebastián July climate'},
+      malmo: {label: 'Malmö + South Sweden Coast', low: 14, median: 18, high: 22, feel: 'Mild Scandinavian coastal summer', source: 'Malmö July climate'},
+      lisbonCoast: {label: 'Lisbon Coast', low: 18, median: 22, high: 27, feel: 'Warm Atlantic summer', source: 'Cascais / Lisbon Coast July climate'},
+      leighOnSea: {label: 'Leigh-on-Sea', low: 14, median: 18, high: 22, feel: 'Mild English coastal summer', source: 'Leigh-on-Sea July climate'},
+      texel: {label: 'Texel', low: 15, median: 18, high: 21, feel: 'Cool-mild Dutch island summer', source: 'Texel July climate'}
+    };
+
+    const portfolioDestinations = [
+      {id:'costaBlanca', title:'Costa Blanca North', category:'Achim Track', vibe:'Mediterranean limestone coast, white towns and climbing culture.', travelFeel:'Long', budgetFeel:'Medium', climate: climateJuly.costaBlanca, anchor:'#costa'},
+      {id:'northDevon', title:'North Devon', category:'Achim Track', vibe:'Rugged Atlantic coast, surf beaches, cliffs and bouldering.', travelFeel:'Long', budgetFeel:'High', climate: climateJuly.northDevon, anchor:'#devon'},
+      {id:'italyLakes', title:'Italy Lakes / Dolomites', category:'Achim Track', vibe:'Lake + mountain harmony with family infrastructure.', travelFeel:'Easy / medium', budgetFeel:'Medium', climate: climateJuly.italyLakes, anchor:'#italy'},
+      {id:'tenerifeNorth', title:'Tenerife North', category:'Achim Track', vibe:'Volcanic island, lush north coast and dramatic hikes.', travelFeel:'Wildcard / medium', budgetFeel:'Medium / High', climate: climateJuly.tenerifeNorth, anchor:'#tenerife'},
+      {id:'copenhagen', title:'Copenhagen Coast', category:'Urban Coast — Daughter Perspective', vibe:'Design city, bikes, harbour swimming and beach access.', travelFeel:'Medium / long', budgetFeel:'High', climate: climateJuly.copenhagen, anchor:'#urban-coast'},
+      {id:'sanSebastian', title:'San Sebastián', category:'Urban Coast — Daughter Perspective', vibe:'Walkable Basque beach city with surf and food culture.', travelFeel:'Long', budgetFeel:'High', climate: climateJuly.sanSebastian, anchor:'#urban-coast'},
+      {id:'malmo', title:'Malmö + South Sweden Coast', category:'Urban Coast — Daughter Perspective', vibe:'Scandi city life, beaches, design, bikes and south coast ease.', travelFeel:'Long', budgetFeel:'Medium', climate: climateJuly.malmo, anchor:'#urban-coast'},
+      {id:'lisbonCoast', title:'Lisbon Coast', category:'Urban Coast', vibe:'Creative city, surf and beach energy.', travelFeel:'Long', budgetFeel:'High', climate: climateJuly.lisbonCoast, anchor:'#urban-coast'},
+      {id:'leighOnSea', title:'Leigh-on-Sea / London Coast', category:'Urban Coast — Fiona Proposition', vibe:'Small coastal town energy with cafés, seaside and London access.', travelFeel:'Medium / long', budgetFeel:'Medium / High', climate: climateJuly.leighOnSea, anchor:'#leigh-on-sea'},
+      {id:'texel', title:'Texel / Netherlands', category:'Urban Coast — Fiona Proposition', vibe:'Dutch island beaches, bikes, dunes and calm family coastal life.', travelFeel:'Medium', budgetFeel:'Medium', climate: climateJuly.texel, anchor:'#texel'}
+    ];
+
+    let favorites = JSON.parse(localStorage.getItem('destinationFavorites') || '[]');
+    let showFavoritesOnly = false;
+
+    function setFavoritesMode(mode){
+      showFavoritesOnly = mode === 'favorites';
+      document.querySelectorAll('[data-favorites-mode]').forEach(button => {
+        button.classList.toggle('is-active', button.dataset.favoritesMode === mode);
+      });
+      renderPortfolioCards();
+    }
+
+    function toggleFavorite(id){
+      favorites = favorites.includes(id) ? favorites.filter(item => item !== id) : [...favorites, id];
+      localStorage.setItem('destinationFavorites', JSON.stringify(favorites));
+      renderPortfolioCards();
+    }
+
+    function renderPortfolioCards(){
+      const grid = document.getElementById('portfolioGrid');
+      const empty = document.getElementById('portfolioEmpty');
+      if (!grid || !empty) return;
+
+      const visibleDestinations = showFavoritesOnly ? portfolioDestinations.filter(destination => favorites.includes(destination.id)) : portfolioDestinations;
+      empty.hidden = !(showFavoritesOnly && visibleDestinations.length === 0);
+      grid.innerHTML = visibleDestinations.map(destination => {
+        const climate = destination.climate;
+        const barMin = 10;
+        const barMax = 32;
+        const lowPct = Math.max(0, Math.min(100, ((climate.low - barMin) / (barMax - barMin)) * 100));
+        const medianPct = Math.max(0, Math.min(100, ((climate.median - barMin) / (barMax - barMin)) * 100));
+        const highPct = Math.max(0, Math.min(100, ((climate.high - barMin) / (barMax - barMin)) * 100));
+        const favoriteClass = favorites.includes(destination.id) ? 'is-active' : '';
+        const cardFavoriteClass = favorites.includes(destination.id) ? 'is-favorite' : '';
+        return `
+          <article class="destinationCard ${cardFavoriteClass}" data-id="${destination.id}">
+            <button type="button" class="favoriteButton ${favoriteClass}" aria-pressed="${favorites.includes(destination.id)}" aria-label="Toggle favourite for ${destination.title}" onclick="toggleFavorite('${destination.id}')"><span class="material-symbols-outlined">star</span></button>
+            <div class="destinationCard__body">
+              <div class="destinationCard__top">
+                <div>
+                  <div class="destinationCard__eyebrow">${destination.category}</div>
+
+              <div class="destination" id="leigh-on-sea" style="border:2px solid rgba(76,111,140,.22)">
+                <div class="destHero" style="background-image:linear-gradient(180deg,rgba(76,111,140,.08),rgba(15,43,70,.78)),url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80')">
+                  <div class="destHeroInner">
+                    <div class="pillbar"><span class="pill">UK coast</span><span class="pill">Fiona proposition</span><span class="pill">London access</span></div>
+                    <h2>Leigh-on-Sea / London Coast</h2>
+                    <p>Small coastal town energy, cafés, seaside walks, independent shops and easy access to London.</p>
+                  </div>
+                </div>
+                <div class="destBody">
+                  <div class="argumentGrid">
+                    <div class="arg"><h4>Achim</h4><strong>City access + coast</strong><p>Useful if the family wants urban life, easy logistics and a walkable seaside base rather than wilderness.</p></div>
+                    <div class="arg"><h4>Fiona</h4><strong>Her proposition</strong><p>A Haarlem-like argument: beach, cafés, lifestyle streets, vintage shops and London within reach.</p></div>
+                    <div class="arg"><h4>Kids</h4><strong>Seaside variety</strong><p>Beach, arcades, piers, cafés and the novelty of a proper coastal town with things to do every day.</p></div>
+                  </div>
+                  <div class="info">
+                    <h4>Highlights</h4>
+                    <ul>
+                      <li><span class="material-symbols-outlined">location_on</span>Best base areas: Leigh-on-Sea, Old Leigh, Southend edge, Chalkwell and Westcliff-on-Sea.</li>
+                      <li><span class="material-symbols-outlined">coffee</span>Why it fits Fiona: familiar-but-cool coastal life, cafés and local streets instead of remote holiday isolation.</li>
+                      <li><span class="material-symbols-outlined">train</span>Why it fits Achim: coastal walks plus the option of London access if the trip needs more urban energy.</li>
+                      <li><span class="material-symbols-outlined">family_restroom</span>Why it fits the kids: beach, arcades, piers and easy daily variety without long transfers.</li>
+                      <li><span class="material-symbols-outlined">warning</span>Main risks: not a strong climbing destination and UK weather can be mixed.</li>
+                      <li><span class="material-symbols-outlined">house</span>What the Airbnb should have: a walkable location, family rooms and simple access to the coast or station.</li>
+                      <li><span class="material-symbols-outlined">travel_explore</span>Travel from Basel: drive plus ferry or Eurotunnel, roughly 10–12 hours depending on crossing.</li>
+                    </ul>
+                    <div class="distanceCard">
+                      <h5>Distance from Basel</h5>
+                      <div class="distanceGrid"><div class="distanceItem"><span>Travel type</span><b>Drive + ferry</b></div><div class="distanceItem"><span>Approx distance</span><b>~900 km</b></div><div class="distanceItem"><span>Travel feel</span><b>Medium / long</b></div></div>
+                    </div>
+                    <div class="score"><div class="metric"><span>Travel</span><b>Medium</b></div><div class="metric"><span>Budget</span><b>€€</b></div><div class="metric"><span>Urban</span><b>4/5</b></div><div class="metric"><span>Beach</span><b>3/5</b></div></div>
+                    <p class="budget">Budget level: Medium / High</p>
+                  </div>
+                  <div class="info">
+                    <h4>Useful searches</h4>
+                    <div class="links">
+                      <a target="_blank" href="https://www.google.com/search?q=Leigh-on-Sea+beach+family">Google search</a>
+                      <a class="secondary" target="_blank" href="https://www.google.com/search?tbm=isch&q=Leigh-on-Sea+beach+family+shops+cafes">Image search</a>
+                      <a target="_blank" href="https://www.google.com/maps/search/Leigh-on-Sea+Southend+Chalkwell">Map search</a>
+                      <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Leigh~on~Sea--United-Kingdom/homes">Airbnb Leigh-on-Sea</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="curatedIntel">
+                  <h3>Curated Intel</h3>
+                  <div class="intelCategories">
+                    <div class="intelCategory"><h4>Beaches / Water</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Leigh-on-Sea+beach+family" target="_blank"><span>Leigh beaches<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Southend-on-Sea+best+beaches+family" target="_blank"><span>Southend beaches<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Chalkwell+Beach+family" target="_blank"><span>Chalkwell beach<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Coffee / Culture</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Leigh-on-Sea+cafes" target="_blank"><span>Leigh cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Old+Leigh+cafes" target="_blank"><span>Old Leigh cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Leigh-on-Sea+independent+shops" target="_blank"><span>Independent shops<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Shops / Design</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Leigh-on-Sea+vintage+shops" target="_blank"><span>Vintage shops<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Southend+second+hand+shops" target="_blank"><span>Southend second hand<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Leigh-on-Sea+design+shops" target="_blank"><span>Design shops<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Culture / Art</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Southend-on-Sea+museums+family" target="_blank"><span>Southend museums<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=London+museums+family+day+trip" target="_blank"><span>London day trip museums<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Old+Leigh+Leigh-on-Sea" target="_blank"><span>Old Leigh<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Outdoor / Adventure</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Essex+coast+outdoor+family+activities" target="_blank"><span>Essex coast<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=London+bouldering+gyms" target="_blank"><span>London bouldering<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Southend+Leigh-on-Sea+coastal+walks" target="_blank"><span>Coastal walks<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Family / Kids</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Southend+family+activities" target="_blank"><span>Family activities<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Southend+piers+family" target="_blank"><span>Piers + arcades<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Airbnb Strategy</h4><div class="intelLinks"><a class="intelLink" href="https://www.airbnb.com/s/Leigh~on~Sea--United-Kingdom/homes" target="_blank"><span>Leigh-on-Sea<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Southend~on~Sea--United-Kingdom/homes" target="_blank"><span>Southend-on-Sea<small>Airbnb</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#urban-coast" style="pointer-events:none;cursor:default"><span>Haarlem-like beach + city access<small>local life energy</small></span></a></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="destination" id="texel" style="border:2px solid rgba(76,111,140,.22)">
+                <div class="destHero" style="background-image:linear-gradient(180deg,rgba(76,111,140,.08),rgba(15,43,70,.78)),url('https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1800&q=80')">
+                  <div class="destHeroInner">
+                    <div class="pillbar"><span class="pill">Netherlands</span><span class="pill">Fiona proposition</span><span class="pill">Island calm</span></div>
+                    <h2>Texel / Netherlands</h2>
+                    <p>Dutch island beaches, bikes, dunes and family-friendly village life with a very calm coastal rhythm.</p>
+                  </div>
+                </div>
+                <div class="destBody">
+                  <div class="argumentGrid">
+                    <div class="arg"><h4>Achim</h4><strong>Landscape + bikes</strong><p>Not a climbing trip, but the island landscape, dunes and cycling culture keep it interesting and outdoorsy.</p></div>
+                    <div class="arg"><h4>Fiona</h4><strong>Her calmer Dutch version</strong><p>A very practical beach-and-local-life model with good logistics, gentle pace and village feel.</p></div>
+                    <div class="arg"><h4>Kids</h4><strong>Ferry + beach + bikes</strong><p>Seals, dunes, village exploration and an easy family structure that still feels like a proper holiday.</p></div>
+                  </div>
+                  <div class="info">
+                    <h4>Highlights</h4>
+                    <ul>
+                      <li><span class="material-symbols-outlined">location_on</span>Best base areas: De Koog, Den Burg, Oudeschild, De Cocksdorp and beach-adjacent dune areas.</li>
+                      <li><span class="material-symbols-outlined">directions_bike</span>Why it fits Fiona: relaxed, Dutch, practical and very family-friendly without feeling remote.</li>
+                      <li><span class="material-symbols-outlined">waves</span>Why it fits Achim: dunes, landscape, long walks and a simple outdoor rhythm.</li>
+                      <li><span class="material-symbols-outlined">family_restroom</span>Why it fits the kids: bikes, beaches, seals, villages and ferry adventure.</li>
+                      <li><span class="material-symbols-outlined">warning</span>Main risks: cooler weather, no climbing payoff and island pricing or availability in July.</li>
+                      <li><span class="material-symbols-outlined">house</span>What the Airbnb should have: easy bike storage, family beds and quick access to dunes or the beach.</li>
+                      <li><span class="material-symbols-outlined">travel_explore</span>Travel from Basel: drive to the ferry area plus a short ferry crossing, so the feel is medium.</li>
+                    </ul>
+                    <div class="distanceCard">
+                      <h5>Distance from Basel</h5>
+                      <div class="distanceGrid"><div class="distanceItem"><span>Travel type</span><b>Drive + ferry</b></div><div class="distanceItem"><span>Approx distance</span><b>~850 km</b></div><div class="distanceItem"><span>Travel feel</span><b>Medium</b></div></div>
+                    </div>
+                    <div class="score"><div class="metric"><span>Travel</span><b>Medium</b></div><div class="metric"><span>Budget</span><b>€€</b></div><div class="metric"><span>Urban</span><b>3/5</b></div><div class="metric"><span>Beach</span><b>4/5</b></div></div>
+                    <p class="budget">Budget level: Medium</p>
+                  </div>
+                  <div class="info">
+                    <h4>Useful searches</h4>
+                    <div class="links">
+                      <a target="_blank" href="https://www.google.com/search?q=Texel+beaches+dunes+family">Google search</a>
+                      <a class="secondary" target="_blank" href="https://www.google.com/search?tbm=isch&q=Texel+beaches+dunes+family+bikes">Image search</a>
+                      <a target="_blank" href="https://www.google.com/maps/search/Texel+De+Koog+Den+Burg">Map search</a>
+                      <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Texel--Netherlands/homes">Airbnb Texel</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="curatedIntel">
+                  <h3>Curated Intel</h3>
+                  <div class="intelCategories">
+                    <div class="intelCategory"><h4>Beaches / Water</h4><div class="intelLinks"><a class="intelLink" href="https://www.texel.net/en/visit-texel/beach/" target="_blank"><span>Texel beaches<small>Official</small></span></a><a class="intelLink" href="https://www.google.com/search?q=De+Koog+beach+Texel+family" target="_blank"><span>De Koog beach<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?tbm=isch&q=Texel+beaches+dunes+family" target="_blank"><span>Beach images<small>Image search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Coffee / Culture</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Texel+cafes" target="_blank"><span>Texel cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=De+Koog+cafes+Texel" target="_blank"><span>De Koog cafés<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Den+Burg+Texel+cafes" target="_blank"><span>Den Burg coffee<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Shops / Design</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Texel+vintage+shops" target="_blank"><span>Vintage shops<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Texel+design+shops" target="_blank"><span>Design shops<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Texel+markets+local+shops" target="_blank"><span>Markets<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Culture / Art</h4><div class="intelLinks"><a class="intelLink" href="https://www.ecomare.nl/en/" target="_blank"><span>Ecomare<small>Official</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Texel+museums+family" target="_blank"><span>Texel museums<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Texel+lighthouse+family" target="_blank"><span>Lighthouse<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Outdoor / Adventure</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Texel+cycling+routes+family" target="_blank"><span>Cycling routes<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Texel+dunes+hiking+family" target="_blank"><span>Dunes hiking<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Texel+outdoor+family+activities" target="_blank"><span>Outdoor activities<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Family / Kids</h4><div class="intelLinks"><a class="intelLink" href="https://www.google.com/search?q=Texel+family+activities+kids" target="_blank"><span>Family activities<small>Search</small></span></a><a class="intelLink" href="https://www.google.com/search?q=Texel+seals+family" target="_blank"><span>Seals<small>Search</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Airbnb Strategy</h4><div class="intelLinks"><a class="intelLink" href="https://www.airbnb.com/s/Texel--Netherlands/homes" target="_blank"><span>Texel<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/De-Koog--Netherlands/homes" target="_blank"><span>De Koog<small>Airbnb</small></span></a><a class="intelLink" href="https://www.airbnb.com/s/Den-Burg--Netherlands/homes" target="_blank"><span>Den Burg<small>Airbnb</small></span></a></div></div>
+                    <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#urban-coast" style="pointer-events:none;cursor:default"><span>Calm Dutch island logic +<small>beach, bikes, dunes</small></span></a></div></div>
+                  </div>
+                </div>
+              </div>
+                  <h3>${destination.title}</h3>
+                </div>
+              </div>
+              <p class="destinationCard__vibe">${destination.vibe}</p>
+              <div class="destinationCard__meta">
+                <span class="destinationCard__chip">${destination.travelFeel}</span>
+                <span class="destinationCard__chip destinationCard__chip--budget">Budget ${destination.budgetFeel}</span>
+              </div>
+              <div class="climateMini">
+                <div class="climateMini__head">
+                  <div>
+                    <div class="climateMini__title">July climate</div>
+                    <div class="climateMini__feel">${climate.feel}</div>
+                  </div>
+                  <div class="destinationCard__chip">${climate.low}° / ${climate.median}° / ${climate.high}°</div>
+                </div>
+                <div class="climateMini__bar" aria-hidden="true">
+                  <span class="climateMini__dot" style="left:${lowPct}%"></span>
+                  <span class="climateMini__dot" style="left:${medianPct}%"></span>
+                  <span class="climateMini__dot" style="left:${highPct}%"></span>
+                </div>
+                <div class="climateMini__scale"><span><strong>Low</strong> ${climate.low}°</span><span><strong>Avg</strong> ${climate.median}°</span><span><strong>High</strong> ${climate.high}°</span></div>
+              </div>
+              <div class="destinationCard__actions">
+                <a class="destinationCard__link" href="${destination.anchor}">Open details</a>
+                <span class="portfolioHint">${climate.source}</span>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function initPortfolio(){
+      renderPortfolioCards();
+      setFavoritesMode('all');
+    }
+
     const mapDestinations = [
       {name:'Basel home base', category:'Home base', track:'base', descriptor:'Starting point for every comparison', area:'Reference point', zones:['city'], distance:'0 km / local', feel:'Reference point', coords:[47.5596, 7.5886], zoom:7, radius:12000, anchor:'#decision'},
       {name:'Costa Blanca North', category:'Achim Track', track:'achim', descriptor:'Sun, limestone and villa-friendly coast', area:'Beaches, climbing valleys and white hill towns', zones:['beach','climbing','nature'], distance:'~1,500 km / 15–16 h drive', feel:'Long', coords:[38.602, -0.045], zoom:8, radius:50000, anchor:'#costa'},
@@ -1123,7 +1392,9 @@
       {name:'Copenhagen Coast', category:'Urban Coast', track:'urban', descriptor:'Design city with beaches and harbour life', area:'City beaches, harbour baths and design districts', zones:['city','beach','design'], distance:'~1.5–2 h flight', feel:'Medium', coords:[55.676, 12.568], zoom:8.1, radius:35000, anchor:'#urban-coast'},
       {name:'San Sebastián', category:'Urban Coast', track:'urban', descriptor:'Elegant city-beach mix with surf and food', area:'Old town, surf beach and city promenade', zones:['city','beach','surf'], distance:'~2 h flight', feel:'Long', coords:[43.318, -1.981], zoom:8.2, radius:26000, anchor:'#urban-coast'},
       {name:'Malmö', category:'Urban Coast', track:'urban', descriptor:'Scandi city and southern coast access', area:'City beaches, bike lanes and south coast towns', zones:['city','beach','design'], distance:'~1 h 45 min flight to Copenhagen + transfer', feel:'Long', coords:[55.605, 13.003], zoom:8, radius:32000, anchor:'#urban-coast'},
-      {name:'Lisbon Coast', category:'Urban Coast', track:'urban', descriptor:'Creative city plus surf and beach energy', area:'Cascais, surf coast and city neighbourhoods', zones:['city','beach','surf'], distance:'~2.5–3 h flight', feel:'Long', coords:[38.697, -9.421], zoom:8.1, radius:42000, anchor:'#urban-coast'}
+      {name:'Lisbon Coast', category:'Urban Coast', track:'urban', descriptor:'Creative city plus surf and beach energy', area:'Cascais, surf coast and city neighbourhoods', zones:['city','beach','surf'], distance:'~2.5–3 h flight', feel:'Long', coords:[38.697, -9.421], zoom:8.1, radius:42000, anchor:'#urban-coast'},
+      {name:'Leigh-on-Sea / London Coast', category:'Urban Coast / Fiona Proposition', track:'urban', descriptor:'Small coastal town energy with cafés and London access', area:'Leigh-on-Sea, Old Leigh, Southend edge and Chalkwell', zones:['city','beach','design'], distance:'~900 km / 10–12 h drive + crossing', feel:'Medium / long', coords:[51.541, 0.653], zoom:9.2, radius:17000, anchor:'#leigh-on-sea'},
+      {name:'Texel / Netherlands', category:'Urban Coast / Fiona Proposition', track:'urban', descriptor:'Dutch island beaches, bikes, dunes and village calm', area:'De Koog, Den Burg and the dune edges', zones:['beach','nature','design'], distance:'~850 km / drive + ferry', feel:'Medium', coords:[53.079, 4.811], zoom:8.8, radius:20000, anchor:'#texel'}
     ];
 
     const map = L.map('vacationMap', {scrollWheelZoom:false}).setView([47.9, 6.8], 4.2);
@@ -1205,6 +1476,8 @@
 
     const bounds = L.latLngBounds(mapDestinations.map(destination => destination.coords));
     map.fitBounds(bounds.pad(0.2));
+
+    initPortfolio();
   </script>
 </body>
 </html>
