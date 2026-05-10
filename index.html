@@ -99,6 +99,23 @@
     .climateMini__scale strong{color:var(--ink)}
     .portfolioEmpty{margin-top:8px;border-radius:22px;padding:18px;background:rgba(15,43,70,.05);border:1px solid rgba(15,43,70,.12);color:var(--muted);font-size:14px;line-height:1.6}
     .summaryCard .icon{width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:white;background:var(--blue)}
+
+    /* Control Center styles */
+    .controlCenter{margin-top:34px}
+    .controlToolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+    .controlFilters{display:flex;gap:8px;flex-wrap:wrap}
+    .controlFilter{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer}
+    .controlFilter.is-active{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .controlGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .controlCard{border-radius:20px;padding:18px;background:linear-gradient(180deg,#fff,#f8fafb);border:1px solid var(--line);box-shadow:var(--shadow);display:grid;gap:10px}
+    .controlRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .controlLabel{font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase}
+    .controlSelect{padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--soft);font-weight:800}
+    .controlTextarea{width:100%;min-height:64px;border-radius:12px;border:1px solid var(--line);padding:10px;background:#fff}
+    .shortlist{margin-top:18px;border-radius:20px;padding:16px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow2)}
+    .shortlist ol{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+    .shortlist li{display:flex;align-items:center;gap:8px;justify-content:space-between;padding:8px;border-radius:10px;background:var(--soft);border:1px solid var(--line)}
+    .rankButton{border-radius:10px;padding:6px 8px;border:1px solid var(--line);background:#fff;cursor:pointer}
     .summaryCard:nth-child(2) .icon{background:var(--green)}
     .summaryCard:nth-child(3) .icon{background:var(--terra)}
     .summaryCard:nth-child(4) .icon{background:var(--gold)}
@@ -204,6 +221,12 @@
     .num{width:36px;height:36px;border-radius:12px;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-weight:900}
     .rank small{color:var(--muted);display:block;margin-top:3px}
     .footer{padding:36px;text-align:center;color:var(--muted);font-size:13px}
+    /* Lifestyle search chips */
+    .lifestyleCard{border-radius:18px;padding:14px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);margin-top:12px}
+    .lifestyleCard h4{margin:0 0 8px;font-size:13px}
+    .lifestyleChips{display:flex;flex-wrap:wrap;gap:8px}
+    .lifestyleChip{display:inline-flex;align-items:center;justify-content:center;padding:8px 10px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font-weight:800;font-size:12px;color:var(--muted);text-decoration:none}
+    .lifestyleChip:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
     @media(max-width:1000px){.hero,.winner,.destBody{grid-template-columns:1fr}.cards,.portfolioGrid{grid-template-columns:repeat(2,1fr)}.argumentGrid{grid-template-columns:1fr}.links,.score{grid-template-columns:1fr 1fr}.nav{border-radius:24px;align-items:flex-start}.navlinks{justify-content:flex-start}.hero{padding:34px}}
     @media(max-width:640px){.wrap{padding:16px}.cards,.portfolioGrid{grid-template-columns:1fr}.hero{min-height:620px}.destHero{min-height:420px;padding:24px}.destBody{padding:18px}.sectionHead{display:block}.nav{position:relative}.navlinks a{font-size:12px;padding:8px}}
   </style>
@@ -322,6 +345,22 @@
             <a target="_blank" href="https://www.google.com/maps/search/Altea+Benissa+Jalon+Valley+Calpe">Map search</a>
             <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Altea--Spain/homes">Airbnb Altea</a>
           </div>
+            <div class="lifestyleCard">
+              <h4>Lifestyle searches</h4>
+              <div class="lifestyleChips">
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/espresso+bar+Altea">Espresso</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bakery+Altea">Bakery</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Altea+beach">Beaches</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bouldering+Calpe">Bouldering</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/climbing+gym+Calpe">Climbing+gym</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/flea+market+Altea">Fleamarket</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/second+hand+Altea">Second+hand</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Altea+museum">Museum</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/playground+Altea">Playground</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/yoga+Altea">Yoga</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/family+cafe+Altea">Family+cafe</a>
+              </div>
+            </div>
         </div>
       </div>
       <div class="curatedIntel">
@@ -377,6 +416,22 @@
             <a class="secondary" target="_blank" href="https://www.google.com/search?tbm=isch&q=Woolacombe+Croyde+Hartland+Quay+North+Devon+coast+beach+cliffs">Image search</a>
             <a target="_blank" href="https://www.google.com/maps/search/Woolacombe+Croyde+Hartland+Quay+Bude">Map search</a>
             <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Woolacombe--United-Kingdom/homes">Airbnb Woolacombe</a>
+          </div>
+          <div class="lifestyleCard">
+            <h4>Lifestyle searches</h4>
+            <div class="lifestyleChips">
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/espresso+bar+Woolacombe">Espresso</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bakery+Woolacombe">Bakery</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Woolacombe+beach">Beaches</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bouldering+Hartland+Quay">Bouldering</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/climbing+gym+Barnstaple">Climbing+gym</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/flea+market+Barnstaple">Fleamarket</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/second+hand+Barnstaple">Second+hand</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Arlington+Court+museum">Museum</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/playground+Woolacombe">Playground</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/yoga+Woolacombe">Yoga</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/family+cafe+Woolacombe">Family+cafe</a>
+            </div>
           </div>
         </div>
       </div>
@@ -434,6 +489,22 @@
             <a target="_blank" href="https://www.google.com/maps/search/Arco+Riva+del+Garda+Trentino+South+Tyrol">Map search</a>
             <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Arco--Trentino--Italy/homes">Airbnb Arco</a>
           </div>
+          <div class="lifestyleCard">
+            <h4>Lifestyle searches</h4>
+            <div class="lifestyleChips">
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/espresso+bar+Riva+del+Garda">Espresso</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bakery+Arco">Bakery</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Lake+Garda+beach">Beaches</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bouldering+Arco">Bouldering</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/climbing+gym+Arco">Climbing+gym</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/flea+market+Riva+del+Garda">Fleamarket</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/second+hand+Arco">Second+hand</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Arco+museum">Museum</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/playground+Riva+del+Garda">Playground</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/yoga+Riva+del+Garda">Yoga</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/family+cafe+Arco">Family+cafe</a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="curatedIntel">
@@ -489,6 +560,22 @@
             <a class="secondary" target="_blank" href="https://www.google.com/search?tbm=isch&q=Tenerife+North+La+Orotava+Garachico+Anaga+volcano+villa+pool">Image search</a>
             <a target="_blank" href="https://www.google.com/maps/search/Puerto+de+la+Cruz+La+Orotava+Garachico+El+Sauzal+Tenerife">Map search</a>
             <a class="secondary" target="_blank" href="https://www.airbnb.com/s/La-Orotava--Spain/homes">Airbnb La Orotava</a>
+          </div>
+          <div class="lifestyleCard">
+            <h4>Lifestyle searches</h4>
+            <div class="lifestyleChips">
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/espresso+bar+Puerto+de+la+Cruz">Espresso</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bakery+Puerto+de+la+Cruz">Bakery</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Playa+Jardin+Puerto+de+la+Cruz">Beaches</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bouldering+Tenerife+North">Bouldering</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/climbing+gym+Santa+Cruz+Tenerife">Climbing+gym</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/flea+market+Puerto+de+la+Cruz">Fleamarket</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/second+hand+Puerto+de+la+Cruz">Second+hand</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/La+Orotava+museum">Museum</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/playground+Puerto+de+la+Cruz">Playground</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/yoga+Puerto+de+la+Cruz">Yoga</a>
+              <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/family+cafe+Puerto+de+la+Cruz">Family+cafe</a>
+            </div>
           </div>
         </div>
       </div>
@@ -552,6 +639,22 @@
               <a target="_blank" href="https://www.google.com/maps/search/Copenhagen+Amager+Beach+Louisiana+Museum+Helsingor">Map search</a>
               <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Copenhagen--Denmark/homes">Airbnb Copenhagen</a>
             </div>
+            <div class="lifestyleCard">
+              <h4>Lifestyle searches</h4>
+              <div class="lifestyleChips">
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/espresso+Copenhagen">Espresso</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bakery+Copenhagen">Bakery</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Amager+Beach">Beaches</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bouldering+Copenhagen">Bouldering</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/climbing+gym+Copenhagen">Climbing+gym</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/flea+market+Copenhagen">Fleamarket</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/second+hand+Copenhagen">Second+hand</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Louisiana+Museum">Museum</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/playground+Copenhagen">Playground</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/yoga+Copenhagen">Yoga</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/family+cafe+Copenhagen">Family+cafe</a>
+              </div>
+            </div>
           </div>
         </div>
         <div class="curatedIntel">
@@ -607,6 +710,22 @@
               <a class="secondary" target="_blank" href="https://www.google.com/search?tbm=isch&q=San+Sebastian+La+Concha+Zurriola+beach+city+cafes+family">Image search</a>
               <a target="_blank" href="https://www.google.com/maps/search/San+Sebastian+La+Concha+Zurriola+Old+Town">Map search</a>
               <a class="secondary" target="_blank" href="https://www.airbnb.com/s/San-Sebastian--Spain/homes">Airbnb San Sebastián</a>
+            </div>
+            <div class="lifestyleCard">
+              <h4>Lifestyle searches</h4>
+              <div class="lifestyleChips">
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/espresso+San+Sebastian">Espresso</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bakery+San+Sebastian">Bakery</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/La+Concha+beach">Beaches</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bouldering+San+Sebastian">Bouldering</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/climbing+gym+San+Sebastian">Climbing+gym</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/flea+market+San+Sebastian">Fleamarket</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/second+hand+San+Sebastian">Second+hand</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/San+Telmo+Museum">Museum</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/playground+San+Sebastian">Playground</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/yoga+San+Sebastian">Yoga</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/family+cafe+San+Sebastian">Family+cafe</a>
+              </div>
             </div>
           </div>
         </div>
@@ -664,6 +783,22 @@
               <a target="_blank" href="https://www.google.com/maps/search/Malmo+Ribersborg+Lomma+Falsterbo+Skanor">Map search</a>
               <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Malmo--Sweden/homes">Airbnb Malmö</a>
             </div>
+            <div class="lifestyleCard">
+              <h4>Lifestyle searches</h4>
+              <div class="lifestyleChips">
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/espresso+Malmo">Espresso</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bakery+Malmo">Bakery</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Ribersborg+beach">Beaches</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bouldering+Malmo">Bouldering</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/climbing+gym+Malmo">Climbing+gym</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/flea+market+Malmo">Fleamarket</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/second+hand+Malmo">Second+hand</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Konsthall+Malmo">Museum</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/playground+Malmo">Playground</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/yoga+Malmo">Yoga</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/family+cafe+Malmo">Family+cafe</a>
+              </div>
+            </div>
           </div>
         </div>
         <div class="curatedIntel">
@@ -720,6 +855,22 @@
               <a target="_blank" href="https://www.google.com/maps/search/Lisbon+Cascais+Ericeira+Costa+da+Caparica">Map search</a>
               <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Cascais--Portugal/homes">Airbnb Cascais</a>
             </div>
+            <div class="lifestyleCard">
+              <h4>Lifestyle searches</h4>
+              <div class="lifestyleChips">
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/espresso+Cascais">Espresso</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bakery+Cascais">Bakery</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Cascais+beach">Beaches</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bouldering+Ericeira">Bouldering</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/climbing+gym+Lisbon">Climbing+gym</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/flea+market+Cascais">Fleamarket</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/second+hand+Lisbon">Second+hand</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/MAAT+museum+Lisbon">Museum</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/playground+Cascais">Playground</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/yoga+Lisbon">Yoga</a>
+                <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/family+cafe+Cascais">Family+cafe</a>
+              </div>
+            </div>
           </div>
         </div>
         <div class="curatedIntel">
@@ -735,6 +886,30 @@
             <div class="intelCategory"><h4>Why it might win</h4><div class="intelLinks"><a class="intelLink" href="#urban-coast" style="pointer-events:none;cursor:default"><span>Surf + city energy +<small>Atlantic creative vibe</small></span></a></div></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="control-center" class="section controlCenter">
+      <div class="sectionHead">
+        <h2 data-en="Control Center" data-de="Steuerzentrale">Control Center</h2>
+        <p data-en="Manage status, notes and shortlist for every destination. Changes persist locally in your browser." data-de="Status, Notizen und Shortlist für jedes Ziel verwalten. Änderungen werden lokal im Browser gespeichert.">Manage status, notes and shortlist for every destination. Changes persist locally in your browser.</p>
+      </div>
+      <div class="controlToolbar">
+        <div class="controlFilters">
+          <button class="controlFilter is-active" data-filter="all" onclick="setControlFilter('all')">Show all</button>
+          <button class="controlFilter" data-filter="active" onclick="setControlFilter('active')">Active only</button>
+          <button class="controlFilter" data-filter="out" onclick="setControlFilter('out')">Out of race</button>
+          <button class="controlFilter" data-filter="favorites" onclick="setControlFilter('favorites')">Favourites only</button>
+        </div>
+        <div class="controlHint" data-en="Favourite does not mean final. It means: worth discussing again." data-de="Favorit bedeutet nicht final. Es bedeutet: wert, erneut zu besprechen.">Favourite does not mean final. It means: worth discussing again.</div>
+      </div>
+
+      <div id="controlGrid" class="controlGrid"></div>
+
+      <div class="shortlist">
+        <h4 data-en="Current shortlist ranking" data-de="Aktuelle Shortlist-Rangfolge">Current shortlist ranking</h4>
+        <p data-en="Only active + favourited destinations appear here. Use the arrows to reorder and persist the shortlist." data-de="Nur aktive + favorisierte Ziele erscheinen hier. Verwende die Pfeile, um die Reihenfolge zu ändern.">Only active + favourited destinations appear here. Use the arrows to reorder and persist the shortlist.</p>
+        <ol id="shortlistRanking"></ol>
       </div>
     </section>
 
@@ -1272,6 +1447,22 @@
                       <a target="_blank" href="https://www.google.com/maps/search/Leigh-on-Sea+Southend+Chalkwell">Map search</a>
                       <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Leigh~on~Sea--United-Kingdom/homes">Airbnb Leigh-on-Sea</a>
                     </div>
+                    <div class="lifestyleCard">
+                      <h4>Lifestyle searches</h4>
+                      <div class="lifestyleChips">
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/espresso+Leigh-on-Sea">Espresso</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bakery+Leigh-on-Sea">Bakery</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Leigh-on-Sea+beach">Beaches</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bouldering+Southend">Bouldering</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/climbing+gym+Southend">Climbing+gym</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/flea+market+Southend">Fleamarket</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/second+hand+Leigh-on-Sea">Second+hand</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Leigh-on-Sea+museum">Museum</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/playground+Leigh-on-Sea">Playground</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/yoga+Leigh-on-Sea">Yoga</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/family+cafe+Leigh-on-Sea">Family+cafe</a>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="curatedIntel">
@@ -1328,6 +1519,22 @@
                       <a class="secondary" target="_blank" href="https://www.google.com/search?tbm=isch&q=Texel+beaches+dunes+family+bikes">Image search</a>
                       <a target="_blank" href="https://www.google.com/maps/search/Texel+De+Koog+Den+Burg">Map search</a>
                       <a class="secondary" target="_blank" href="https://www.airbnb.com/s/Texel--Netherlands/homes">Airbnb Texel</a>
+                    </div>
+                    <div class="lifestyleCard">
+                      <h4>Lifestyle searches</h4>
+                      <div class="lifestyleChips">
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/espresso+De+Koog">Espresso</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bakery+De+Koog">Bakery</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/De+Koog+beach">Beaches</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/bouldering+Texel">Bouldering</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/climbing+gym+Den+Burg">Climbing+gym</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/flea+market+Texel">Fleamarket</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/second+hand+Texel">Second+hand</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/Ecomare">Museum</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/playground+De+Koog">Playground</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/yoga+Texel">Yoga</a>
+                        <a class="lifestyleChip" target="_blank" href="https://www.google.com/maps/search/family+cafe+De+Koog">Family+cafe</a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1478,6 +1685,109 @@
     map.fitBounds(bounds.pad(0.2));
 
     initPortfolio();
+
+    // Control Center state + rendering
+    const CONTROL_STATE_KEY = 'controlCenterState';
+    const SHORTLIST_KEY = 'shortlistRanking';
+    let controlState = JSON.parse(localStorage.getItem(CONTROL_STATE_KEY) || '{}');
+    let shortlistRanking = JSON.parse(localStorage.getItem(SHORTLIST_KEY) || '[]');
+    let controlFilterMode = 'all';
+
+    function ensureControlEntry(id){
+      if (!controlState[id]){
+        controlState[id] = {status: 'active', note:'', topPro:'', topCon:'', openQuestion:''};
+      }
+    }
+
+    function saveControlState(){
+      localStorage.setItem(CONTROL_STATE_KEY, JSON.stringify(controlState));
+    }
+
+    function setControlFilter(mode){
+      controlFilterMode = mode;
+      document.querySelectorAll('.controlFilter').forEach(btn => btn.classList.toggle('is-active', btn.dataset.filter === mode));
+      renderControlGrid();
+    }
+
+    function setStatus(id, status){
+      ensureControlEntry(id);
+      controlState[id].status = status;
+      saveControlState();
+      renderControlGrid();
+      renderShortlist();
+    }
+
+    function updateControlField(id, field, value){
+      ensureControlEntry(id);
+      controlState[id][field] = value;
+      saveControlState();
+    }
+
+    function renderControlGrid(){
+      const grid = document.getElementById('controlGrid');
+      if (!grid) return;
+      const visible = portfolioDestinations.filter(d => {
+        ensureControlEntry(d.id);
+        const cs = controlState[d.id];
+        if (controlFilterMode === 'all') return true;
+        if (controlFilterMode === 'active') return cs.status === 'active';
+        if (controlFilterMode === 'out') return cs.status === 'out';
+        if (controlFilterMode === 'favorites') return favorites.includes(d.id);
+        return true;
+      });
+      grid.innerHTML = visible.map(d => {
+        const cs = controlState[d.id] || {};
+        const fav = favorites.includes(d.id) ? '★' : '☆';
+        const rankIndex = shortlistRanking.indexOf(d.id);
+        const rankDisplay = rankIndex === -1 ? '' : `#${rankIndex+1}`;
+        return `
+          <div class="controlCard" data-id="${d.id}">
+            <div class="controlRow"><div><strong>${d.title}</strong><div class="controlLabel">${d.category}</div></div><div style="margin-left:auto;font-weight:800">${rankDisplay}</div></div>
+            <div class="controlRow"><label class="controlLabel">Status</label><select class="controlSelect" onchange="setStatus('${d.id}',this.value)"><option value="active" ${cs.status==='active'?'selected':''}>Active</option><option value="out" ${cs.status==='out'?'selected':''}>Out of the race</option></select><button class="favoriteButton ${favorites.includes(d.id)?'is-active':''}" onclick="toggleFavorite('${d.id}');renderControlGrid();renderShortlist();"> <span class="material-symbols-outlined">star</span></button></div>
+            <div><label class="controlLabel">Note</label><textarea class="controlTextarea" oninput="updateControlField('${d.id}','note',this.value)">${cs.note||''}</textarea></div>
+            <div class="controlRow"><div style="flex:1"><label class="controlLabel">Top pro</label><input class="controlSelect" value="${(cs.topPro||'')}" onchange="updateControlField('${d.id}','topPro',this.value)" /></div><div style="flex:1"><label class="controlLabel">Top con</label><input class="controlSelect" value="${(cs.topCon||'')}" onchange="updateControlField('${d.id}','topCon',this.value)" /></div></div>
+            <div><label class="controlLabel">Open question</label><input class="controlSelect" value="${(cs.openQuestion||'')}" onchange="updateControlField('${d.id}','openQuestion',this.value)" /></div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderShortlist(){
+      const ol = document.getElementById('shortlistRanking');
+      if (!ol) return;
+      // shortlist candidates: active + favourited
+      const candidates = portfolioDestinations.filter(d => {
+        ensureControlEntry(d.id);
+        return controlState[d.id].status === 'active' && favorites.includes(d.id);
+      }).map(d => d.id);
+      // If shortlistRanking contains ids not in candidates, remove them
+      shortlistRanking = shortlistRanking.filter(id => candidates.includes(id));
+      // Add any new candidates at the end
+      candidates.forEach(id => { if (!shortlistRanking.includes(id)) shortlistRanking.push(id); });
+      localStorage.setItem(SHORTLIST_KEY, JSON.stringify(shortlistRanking));
+      ol.innerHTML = shortlistRanking.map((id, idx) => {
+        const d = portfolioDestinations.find(x => x.id === id) || {title:id};
+        return `<li data-id="${id}"><div>${idx+1}. ${d.title}</div><div><button class="rankButton" onclick="moveUp('${id}')">↑</button><button class="rankButton" onclick="moveDown('${id}')">↓</button></div></li>`;
+      }).join('');
+    }
+
+    function moveUp(id){
+      const i = shortlistRanking.indexOf(id); if (i>0){ [shortlistRanking[i-1],shortlistRanking[i]] = [shortlistRanking[i],shortlistRanking[i-1]]; localStorage.setItem(SHORTLIST_KEY, JSON.stringify(shortlistRanking)); renderShortlist(); }
+    }
+    function moveDown(id){
+      const i = shortlistRanking.indexOf(id); if (i!==-1 && i<shortlistRanking.length-1){ [shortlistRanking[i+1],shortlistRanking[i]] = [shortlistRanking[i],shortlistRanking[i+1]]; localStorage.setItem(SHORTLIST_KEY, JSON.stringify(shortlistRanking)); renderShortlist(); }
+    }
+
+    function initControlCenter(){
+      // ensure entries exist
+      portfolioDestinations.forEach(d => ensureControlEntry(d.id));
+      // ensure shortlistRanking is an array
+      if (!Array.isArray(shortlistRanking)) shortlistRanking = [];
+      renderControlGrid();
+      renderShortlist();
+    }
+
+    initControlCenter();
   </script>
 </body>
 </html>
