@@ -14,120 +14,143 @@
 <body>
   <div class="app">
     <header class="topbar">
-      <a class="brand" href="#top" aria-label="Summer vacation home">
+      <a class="brand" href="#/" data-route="overview" aria-label="Summer vacation home">
         <span class="brand__mark"></span>
         <span>Summer 2026</span>
       </a>
-      <nav class="nav" aria-label="Page sections">
-        <a href="#compare">Compare</a>
-        <a href="#details">Details</a>
-        <a href="#control">Decide</a>
-        <a href="#map">Map</a>
+      <nav class="nav" aria-label="Pages">
+        <a href="#/" data-route="overview">Overview</a>
+        <a href="#/compare" data-route="compare">Compare</a>
+        <a href="#/decide" data-route="decide">Decide</a>
+        <a href="#/map" data-route="map">Map</a>
       </nav>
     </header>
 
     <main id="top">
-      <section class="hero">
-        <div class="hero__copy">
-          <p class="eyebrow">Family vacation decision board</p>
-          <h1>Pick the trip that actually works.</h1>
-          <p class="hero__text">A focused planning tool for comparing the beautiful options against the real family system: water, scenery, culture, travel effort, house quality, and ease.</p>
-        </div>
-        <aside class="hero__panel" aria-label="Decision principles">
-          <h2>Decision Rule</h2>
-          <p>Choose the best cancellable accommodation in a strong-fit area. A great house can beat a theoretically perfect destination.</p>
-          <div class="hero__checks">
-            <span><span class="material-symbols-outlined">water</span>Daily water</span>
-            <span><span class="material-symbols-outlined">terrain</span>Outdoor payoff</span>
-            <span><span class="material-symbols-outlined">local_cafe</span>Local life</span>
-            <span><span class="material-symbols-outlined">house</span>Easy base</span>
+      <!-- ============ OVERVIEW ============ -->
+      <section data-view="overview">
+        <section class="hero">
+          <div class="hero__copy">
+            <p class="eyebrow">Family vacation decision board</p>
+            <h1>Pick the trip that actually works.</h1>
+            <p class="hero__text">A focused planning tool for comparing the beautiful options against the real family system: water, scenery, culture, travel effort, house quality, and ease.</p>
           </div>
-        </aside>
-      </section>
-
-      <section class="summaryGrid" id="summary" aria-label="Current strategic summary"></section>
-
-      <section class="section" id="compare">
-        <div class="sectionHead">
-          <div>
-            <p class="eyebrow">Compare</p>
-            <h2>Destination Portfolio</h2>
-          </div>
-          <div class="sectionHead__side">
-            <div class="segmented" aria-label="Portfolio filter">
-              <button class="is-active" type="button" data-view="all">All</button>
-              <button type="button" data-view="favorites">Favourites</button>
+          <aside class="hero__panel" aria-label="Decision principles">
+            <h2>Decision Rule</h2>
+            <p>Choose the best cancellable accommodation in a strong-fit area. A great house can beat a theoretically perfect destination.</p>
+            <div class="hero__checks">
+              <span><span class="material-symbols-outlined">water</span>Daily water</span>
+              <span><span class="material-symbols-outlined">terrain</span>Outdoor payoff</span>
+              <span><span class="material-symbols-outlined">local_cafe</span>Local life</span>
+              <span><span class="material-symbols-outlined">house</span>Easy base</span>
             </div>
-          </div>
-        </div>
-        <div id="portfolio" class="portfolio"></div>
-        <p id="emptyPortfolio" class="empty" hidden>No favourites yet. Star a destination to build the shortlist.</p>
-      </section>
-
-      <section class="section preferenceSection" id="preferences">
-        <div class="sectionHead">
-          <div>
-            <p class="eyebrow">Weights</p>
-            <h2>Preference Lab</h2>
-          </div>
-          <p>Set what matters most. Scores update across the portfolio, shortlist, and map popups.</p>
-        </div>
-        <div id="preferencesGrid" class="preferencesGrid"></div>
-      </section>
-
-      <section class="section" id="details">
-        <div class="sectionHead">
-          <div>
-            <p class="eyebrow">Deep Dive</p>
-            <h2>Destination Details</h2>
-          </div>
-          <p>Each section keeps the existing content idea, but with cleaner hierarchy and less repeated visual noise.</p>
-        </div>
-        <div id="detailsList" class="detailsList"></div>
-      </section>
-
-      <section class="section controlSection" id="control">
-        <div class="sectionHead">
-          <div>
-            <p class="eyebrow">Decide</p>
-            <h2>Control Center</h2>
-          </div>
-          <p>Status, notes, favourites, and ranking persist locally in this browser.</p>
-        </div>
-        <div class="controlLayout">
-          <div>
-            <div class="controlFilters" aria-label="Control center filter">
-              <button class="is-active" type="button" data-control-filter="all">All</button>
-              <button type="button" data-control-filter="active">Active</button>
-              <button type="button" data-control-filter="out">Out</button>
-              <button type="button" data-control-filter="favorites">Favourites</button>
-            </div>
-            <div id="controlGrid" class="controlGrid"></div>
-          </div>
-          <aside class="shortlist">
-            <p class="eyebrow">Shortlist</p>
-            <h3>Current Ranking</h3>
-            <ol id="shortlist"></ol>
           </aside>
-        </div>
+        </section>
+
+        <section class="summaryGrid" id="summary" aria-label="Current strategic summary"></section>
+
+        <section class="section">
+          <div class="overviewSplit">
+            <div class="overviewShortlistCard">
+              <p class="eyebrow">Shortlist</p>
+              <h2>Top picks right now</h2>
+              <ol id="overviewShortlist" class="overviewShortlist"></ol>
+              <a class="primaryLink overviewShortlistCta" href="#/compare">Open the portfolio</a>
+            </div>
+            <a class="overviewMapCta" href="#/map" aria-label="Open the full map">
+              <p class="eyebrow">Geography</p>
+              <h3>Open the full map</h3>
+              <p>See all 10 destinations in relation to Basel and to each other.</p>
+              <span class="overviewMapCta__arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
       </section>
 
-      <section class="section mapSection" id="map">
-        <div class="sectionHead">
-          <div>
-            <p class="eyebrow">Geography</p>
-            <h2>Map View</h2>
+      <!-- ============ COMPARE ============ -->
+      <section data-view="compare" hidden>
+        <section class="section">
+          <div class="sectionHead">
+            <div>
+              <p class="eyebrow">Compare</p>
+              <h2>Destination Portfolio</h2>
+            </div>
+            <div class="sectionHead__side">
+              <div class="segmented" aria-label="Portfolio filter">
+                <button class="is-active" type="button" data-view-filter="all">All</button>
+                <button type="button" data-view-filter="favorites">Favourites</button>
+              </div>
+            </div>
           </div>
-          <p>Approximate locations from Basel, grouped by travel feel and destination type.</p>
-        </div>
-        <div class="mapShell">
-          <div class="mapLegend">
-            <span><i class="legend legend--base"></i> Basel</span>
-            <span><i class="legend legend--nature"></i> Nature / coast</span>
-            <span><i class="legend legend--urban"></i> Urban coast</span>
+          <div id="portfolio" class="portfolio"></div>
+          <p id="emptyPortfolio" class="empty" hidden>No favourites yet. Star a destination to build the shortlist.</p>
+        </section>
+
+        <section class="section preferenceSection">
+          <div class="sectionHead">
+            <div>
+              <p class="eyebrow">Weights</p>
+              <h2>Preference Lab</h2>
+            </div>
+            <p>Set what matters most. Scores update across the portfolio, shortlist, and map popups.</p>
           </div>
-          <div id="vacationMap" class="mapFrame" aria-label="Interactive vacation map"></div>
-        </div>
+          <div id="preferencesGrid" class="preferencesGrid"></div>
+        </section>
+      </section>
+
+      <!-- ============ DESTINATION DEEP DIVE ============ -->
+      <section data-view="destination" hidden>
+        <div id="destinationView"></div>
+      </section>
+
+      <!-- ============ DECIDE ============ -->
+      <section data-view="decide" hidden>
+        <section class="section controlSection">
+          <div class="sectionHead">
+            <div>
+              <p class="eyebrow">Decide</p>
+              <h2>Decision Board</h2>
+            </div>
+            <p id="decideSummary" class="decideSummary"></p>
+          </div>
+          <div class="controlLayout">
+            <div>
+              <div class="controlFilters" aria-label="Decide board filter">
+                <button class="is-active" type="button" data-control-filter="all">All</button>
+                <button type="button" data-control-filter="active">Active</button>
+                <button type="button" data-control-filter="out">Out</button>
+                <button type="button" data-control-filter="favorites">Favourites</button>
+              </div>
+              <div id="controlGrid" class="controlGrid"></div>
+            </div>
+            <aside class="shortlist">
+              <p class="eyebrow">Shortlist</p>
+              <h3>Current Ranking</h3>
+              <ol id="shortlist"></ol>
+            </aside>
+          </div>
+        </section>
+      </section>
+
+      <!-- ============ MAP ============ -->
+      <section data-view="map" hidden>
+        <section class="section mapSection">
+          <div class="sectionHead">
+            <div>
+              <p class="eyebrow">Geography</p>
+              <h2>Map View</h2>
+            </div>
+            <p>Approximate locations from Basel, grouped by travel feel and destination type.</p>
+          </div>
+          <div class="mapShell">
+            <div class="mapLegend">
+              <span><i class="legend legend--base"></i> Basel</span>
+              <span><i class="legend legend--nature"></i> Nature / coast</span>
+              <span><i class="legend legend--urban"></i> Urban coast</span>
+            </div>
+            <div id="vacationMap" class="mapFrame" aria-label="Interactive vacation map"></div>
+          </div>
+        </section>
       </section>
     </main>
   </div>
