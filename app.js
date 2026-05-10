@@ -156,6 +156,13 @@
     return `<span class="chip chip--light">${icon("directions_car")} ${formatHours(driveHours(destination.coords))} from ${home}</span>`;
   }
 
+  function poiPopupHtml(poi, cat){
+    const link = poi.maps
+      ? `<a target="_blank" rel="noreferrer" href="${escapeAttr(poi.maps)}">Open in Google Maps &rarr;</a>`
+      : `<small style="color:#999">No verified Maps link yet</small>`;
+    return `<div class="popup"><h3>${escapeHtml(poi.name)}</h3><p style="color:${cat.color};font-weight:850;text-transform:uppercase;font-size:11px;letter-spacing:.08em">${cat.label}</p>${poi.note ? `<p>${escapeHtml(poi.note)}</p>` : ""}${link}</div>`;
+  }
+
   // ============ ROUTER ============
 
   function getRoute(){
@@ -511,7 +518,7 @@
     pois.forEach(poi => {
       const cat = POI_CATEGORIES[poi.type];
       const m = L.circleMarker(poi.coords, { radius: 7, color: cat.color, fillColor: cat.color, fillOpacity: .75, weight: 2 }).addTo(destinationMap);
-      m.bindPopup(`<div class="popup"><h3>${escapeHtml(poi.name)}</h3><p style="color:${cat.color};font-weight:850;text-transform:uppercase;font-size:11px;letter-spacing:.08em">${cat.label}</p>${poi.note ? `<p>${escapeHtml(poi.note)}</p>` : ""}<a target="_blank" rel="noreferrer" href="https://www.google.com/maps/search/?api=1&query=${poi.coords[0]},${poi.coords[1]}">Open in Google Maps &rarr;</a></div>`);
+      m.bindPopup(poiPopupHtml(poi, cat));
     });
 
     if (pois.length > 0) {
@@ -781,7 +788,7 @@
       pois.forEach(poi => {
         const cat = POI_CATEGORIES[poi.type];
         const m = L.circleMarker(poi.coords, { radius: 7, color: cat.color, fillColor: cat.color, fillOpacity: .75, weight: 2 });
-        m.bindPopup(`<div class="popup"><h3>${escapeHtml(poi.name)}</h3><p style="color:${cat.color};font-weight:850;text-transform:uppercase;font-size:11px;letter-spacing:.08em">${cat.label}</p>${poi.note ? `<p>${escapeHtml(poi.note)}</p>` : ""}</div>`);
+        m.bindPopup(poiPopupHtml(poi, cat));
         mainMapPoiLayer.addLayer(m);
       });
     }
