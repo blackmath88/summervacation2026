@@ -116,6 +116,21 @@
     .shortlist ol{margin:0;padding:0;list-style:none;display:grid;gap:8px}
     .shortlist li{display:flex;align-items:center;gap:8px;justify-content:space-between;padding:8px;border-radius:10px;background:var(--soft);border:1px solid var(--line)}
     .rankButton{border-radius:10px;padding:6px 8px;border:1px solid var(--line);background:#fff;cursor:pointer}
+
+    /* Preference Lab styles */
+    .preferenceLab{margin-top:28px}
+    .prefGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .prefCard{border-radius:18px;padding:14px;background:linear-gradient(180deg,#fff,#f8fafb);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+    .prefHead{display:flex;gap:10px;align-items:center}
+    .prefIcon{width:44px;height:44px;border-radius:12px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--muted)}
+    .prefLabel{font-weight:900}
+    .prefDesc{color:var(--muted);font-size:13px}
+    .prefControls{display:flex;gap:8px;align-items:center}
+    .prefButton{padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:var(--soft);cursor:pointer;font-weight:800}
+    .prefButton.is-active{background:var(--ink);color:#fff;border-color:var(--ink)}
+    @media(max-width:1000px){.prefGrid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:640px){.prefGrid{grid-template-columns:1fr}}
+    .destinationScoreBadge{display:inline-flex;align-items:center;gap:8px;margin-left:10px;padding:6px 10px;border-radius:12px;background:linear-gradient(180deg,rgba(15,43,70,.04),#fff);border:1px solid rgba(15,43,70,.06);font-weight:800}
     .summaryCard:nth-child(2) .icon{background:var(--green)}
     .summaryCard:nth-child(3) .icon{background:var(--terra)}
     .summaryCard:nth-child(4) .icon{background:var(--gold)}
@@ -263,6 +278,14 @@
         </ul>
       </aside>
     </header>
+
+    <section id="preference-lab" class="section preferenceLab">
+      <div class="sectionHead">
+        <h2 data-en="Family Preference Lab" data-de="Familien-Präferenzlabor">Family Preference Lab</h2>
+        <p data-en="Set what matters this summer — softly weight each theme and surface overlap across the shortlist." data-de="Lege fest, was diesen Sommer wichtig ist — gewichte sanft jede Kategorie und zeige Überlappungen.">Set what matters this summer — softly weight each theme and surface overlap across the shortlist.</p>
+      </div>
+      <div id="preferenceGrid" class="prefGrid"></div>
+    </section>
 
     <section id="portfolio" class="section portfolioSection">
       <div class="sectionHead">
@@ -1353,6 +1376,39 @@
       texel: {label: 'Texel', low: 15, median: 18, high: 21, feel: 'Cool-mild Dutch island summer', source: 'Texel July climate'}
     };
 
+    const destinationScores = {
+      costaBlanca: {beach:3, urbanity:1, climbing:3, weather:3, coffeeCulture:2, museums:1, familyFlexibility:2, shortDrive:1, scenicBeauty:3, calmness:2, specialFeeling:3, pool:3},
+      northDevon: {beach:3, urbanity:1, climbing:2, weather:1, coffeeCulture:1, museums:1, familyFlexibility:2, shortDrive:1, scenicBeauty:3, calmness:2, specialFeeling:2, pool:1},
+      italyLakes: {beach:1, urbanity:1, climbing:3, weather:2, coffeeCulture:1, museums:1, familyFlexibility:3, shortDrive:2, scenicBeauty:3, calmness:3, specialFeeling:3, pool:2},
+      tenerifeNorth: {beach:3, urbanity:1, climbing:2, weather:2, coffeeCulture:1, museums:1, familyFlexibility:2, shortDrive:0, scenicBeauty:3, calmness:2, specialFeeling:3, pool:2},
+      copenhagen: {beach:2, urbanity:3, climbing:0, weather:2, coffeeCulture:3, museums:2, familyFlexibility:3, shortDrive:1, scenicBeauty:2, calmness:2, specialFeeling:2, pool:1},
+      sanSebastian: {beach:3, urbanity:3, climbing:1, weather:2, coffeeCulture:3, museums:1, familyFlexibility:3, shortDrive:1, scenicBeauty:3, calmness:2, specialFeeling:3, pool:1},
+      malmo: {beach:2, urbanity:3, climbing:0, weather:1, coffeeCulture:3, museums:1, familyFlexibility:3, shortDrive:1, scenicBeauty:2, calmness:2, specialFeeling:1, pool:1},
+      lisbonCoast: {beach:3, urbanity:3, climbing:1, weather:3, coffeeCulture:3, museums:2, familyFlexibility:2, shortDrive:0, scenicBeauty:3, calmness:2, specialFeeling:3, pool:1},
+      leighOnSea: {beach:2, urbanity:3, climbing:1, weather:1, coffeeCulture:3, museums:1, familyFlexibility:3, shortDrive:2, scenicBeauty:2, calmness:2, specialFeeling:2, pool:1},
+      texel: {beach:3, urbanity:1, climbing:0, weather:1, coffeeCulture:1, museums:1, familyFlexibility:3, shortDrive:2, scenicBeauty:2, calmness:3, specialFeeling:1, pool:1}
+    };
+
+    function calculateWeightedScore(destinationId){
+      const weights = preferences || {};
+      const scores = destinationScores[destinationId] || {};
+      let total = 0;
+      let max = 0;
+      Object.keys(weights).forEach(key => {
+        const w = Number(weights[key] || 0);
+        const s = Number(scores[key] || 0);
+        total += w * s;
+        max += w * 3;
+      });
+      if (max === 0) return 0;
+      return Math.round((total / max) * 100);
+    }
+
+    function getTopCategories(destinationId, n=3){
+      const scores = destinationScores[destinationId] || {};
+      return Object.keys(scores).sort((a,b)=>scores[b]-scores[a]).slice(0,n);
+    }
+
     const portfolioDestinations = [
       {id:'costaBlanca', title:'Costa Blanca North', category:'Achim Track', vibe:'Mediterranean limestone coast, white towns and climbing culture.', travelFeel:'Long', budgetFeel:'Medium', climate: climateJuly.costaBlanca, anchor:'#costa'},
       {id:'northDevon', title:'North Devon', category:'Achim Track', vibe:'Rugged Atlantic coast, surf beaches, cliffs and bouldering.', travelFeel:'Long', budgetFeel:'High', climate: climateJuly.northDevon, anchor:'#devon'},
@@ -1399,6 +1455,8 @@
         const highPct = Math.max(0, Math.min(100, ((climate.high - barMin) / (barMax - barMin)) * 100));
         const favoriteClass = favorites.includes(destination.id) ? 'is-active' : '';
         const cardFavoriteClass = favorites.includes(destination.id) ? 'is-favorite' : '';
+        const sharedScore = calculateWeightedScore(destination.id);
+        const scoreBadge = `<span class="destinationScoreBadge"><strong>${sharedScore}%</strong><small>shared fit</small></span>`;
         return `
           <article class="destinationCard ${cardFavoriteClass}" data-id="${destination.id}">
             <button type="button" class="favoriteButton ${favoriteClass}" aria-pressed="${favorites.includes(destination.id)}" aria-label="Toggle favourite for ${destination.title}" onclick="toggleFavorite('${destination.id}')"><span class="material-symbols-outlined">star</span></button>
@@ -1406,6 +1464,7 @@
               <div class="destinationCard__top">
                 <div>
                   <div class="destinationCard__eyebrow">${destination.category}</div>
+                  ${scoreBadge}
 
               <div class="destination" id="leigh-on-sea" style="border:2px solid rgba(76,111,140,.22)">
                 <div class="destHero" style="background-image:linear-gradient(180deg,rgba(76,111,140,.08),rgba(15,43,70,.78)),url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80')">
@@ -1612,7 +1671,13 @@
 
     function makePopupHtml(destination){
       const track = trackStyles[destination.track];
-      const zones = destination.zones.map(zone => `<span class="zoneChip zoneChip--${zoneStyles[zone]}">${zone}</span>`).join('');
+      const zones = (destination.zones||[]).map(zone => `<span class="zoneChip zoneChip--${zoneStyles[zone]}">${zone}</span>`).join('');
+      // try to match with portfolio destination by title
+      const pd = portfolioDestinations.find(p => p.title === destination.name || destination.name.indexOf(p.title) !== -1 || p.title.indexOf(destination.name) !== -1);
+      const destId = pd ? pd.id : null;
+      const sharedScore = destId ? calculateWeightedScore(destId) : null;
+      const strengths = destId ? getTopCategories(destId,3) : [];
+      const strengthsHtml = strengths.map(s => `<li>${s}</li>`).join('');
       return `
         <div class="destinationPopup" style="--accent:${track.color};--accent-soft:${track.fill}">
           <div class="destinationPopup__top">
@@ -1620,9 +1685,10 @@
             <span class="destinationPopup__chip">${track.label}</span>
             <span class="destinationPopup__chip">${destination.feel}</span>
           </div>
-          <h3>${destination.name}</h3>
+          <h3>${destination.name}${sharedScore!==null?` <span style="font-size:13px;margin-left:8px;color:var(--muted)">${sharedScore}% shared fit</span>`:''}</h3>
           <p>${destination.descriptor}</p>
           <div class="destinationPopup__zones">${zones}</div>
+          ${strengths.length?`<div style="margin-top:8px"><strong>Top strengths</strong><ul style="margin:6px 0 0 16px">${strengthsHtml}</ul></div>`:''}
           <div class="destinationPopup__meta"><span>Approx from Basel</span><strong>${destination.distance}</strong></div>
           <div class="destinationPopup__meta" style="border-top:none;padding-top:0;margin-top:0"><span>Area focus</span><strong>${destination.area}</strong></div>
           <div class="destinationPopup__actions">
@@ -1686,6 +1752,94 @@
 
     initPortfolio();
 
+    // Preference Lab
+    const PREF_KEY = 'preferenceWeights';
+    const defaultPrefs = {
+      beach: 3,
+      urbanity: 2,
+      climbing: 3,
+      weather: 3,
+      coffeeCulture: 2,
+      museums: 1,
+      familyFlexibility: 3,
+      shortDrive: 2,
+      scenicBeauty: 3,
+      calmness: 2,
+      specialFeeling: 3,
+      pool: 2
+    };
+
+    const prefDescriptions = {
+      beach: 'Sea, sand and easy water days.',
+      urbanity: 'City life, cafés, walking and local culture.',
+      climbing: 'Access to cliffs, boulders and climbing days.',
+      weather: 'Reliable warm and sunny weather in July.',
+      coffeeCulture: 'Good cafés, specialty coffee and local rituals.',
+      museums: 'Museum and indoor-culture options for rainy days.',
+      familyFlexibility: 'Easy logistics, playful options and low stress.',
+      shortDrive: 'Reasonable driving time from Basel.',
+      scenicBeauty: 'Dramatic landscapes and memorable views.',
+      calmness: 'Low pace, relaxed rhythms and predictability.',
+      specialFeeling: 'A place that feels unique and memorable.',
+      pool: 'Availability of a pool at typical accommodations.'
+    };
+
+    let preferences = JSON.parse(localStorage.getItem(PREF_KEY) || 'null');
+    if (!preferences) { preferences = defaultPrefs; localStorage.setItem(PREF_KEY, JSON.stringify(preferences)); }
+
+    function updatePreference(key, value){
+      preferences[key] = Number(value);
+      localStorage.setItem(PREF_KEY, JSON.stringify(preferences));
+      renderPreferenceGrid();
+    }
+
+    function renderPreferenceGrid(){
+      const container = document.getElementById('preferenceGrid');
+      if (!container) return;
+      const keys = Object.keys(defaultPrefs);
+      container.innerHTML = keys.map(key => {
+        const val = preferences[key] || 1;
+        const desc = prefDescriptions[key] || '';
+        const icon = (() => {
+          switch(key){
+            case 'beach': return 'beach_access';
+            case 'urbanity': return 'location_city';
+            case 'climbing': return 'sports_motorsports';
+            case 'weather': return 'wb_sunny';
+            case 'coffeeCulture': return 'coffee';
+            case 'museums': return 'museum';
+            case 'familyFlexibility': return 'family_restroom';
+            case 'shortDrive': return 'directions_car';
+            case 'scenicBeauty': return 'photo_camera';
+            case 'calmness': return 'spa';
+            case 'specialFeeling': return 'star';
+            case 'pool': return 'pool';
+            default: return 'label';
+          }
+        })();
+        return `
+          <div class="prefCard" data-key="${key}">
+            <div class="prefHead">
+              <div class="prefIcon"><span class="material-symbols-outlined">${icon}</span></div>
+              <div>
+                <div class="prefLabel">${key.replace(/([A-Z])/g, ' $1').replace(/^./, s=>s.toUpperCase())}</div>
+                <div class="prefDesc">${desc}</div>
+              </div>
+            </div>
+            <div class="prefControls">
+              <button class="prefButton ${val===1? 'is-active':''}" onclick="updatePreference('${key}',1)">1 — nice</button>
+              <button class="prefButton ${val===2? 'is-active':''}" onclick="updatePreference('${key}',2)">2 — important</button>
+              <button class="prefButton ${val===3? 'is-active':''}" onclick="updatePreference('${key}',3)">3 — very important</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function initPreferenceLab(){ renderPreferenceGrid(); }
+
+    initPreferenceLab();
+
     // Control Center state + rendering
     const CONTROL_STATE_KEY = 'controlCenterState';
     const SHORTLIST_KEY = 'shortlistRanking';
@@ -1740,9 +1894,11 @@
         const fav = favorites.includes(d.id) ? '★' : '☆';
         const rankIndex = shortlistRanking.indexOf(d.id);
         const rankDisplay = rankIndex === -1 ? '' : `#${rankIndex+1}`;
+        const sharedScore = calculateWeightedScore(d.id);
+        const scoreHtml = `<div style="margin-left:12px;font-weight:900;color:var(--muted)">${sharedScore}% shared fit</div>`;
         return `
           <div class="controlCard" data-id="${d.id}">
-            <div class="controlRow"><div><strong>${d.title}</strong><div class="controlLabel">${d.category}</div></div><div style="margin-left:auto;font-weight:800">${rankDisplay}</div></div>
+            <div class="controlRow"><div><strong>${d.title}</strong><div class="controlLabel">${d.category}</div></div><div style="margin-left:auto;font-weight:800">${rankDisplay}</div>${scoreHtml}</div>
             <div class="controlRow"><label class="controlLabel">Status</label><select class="controlSelect" onchange="setStatus('${d.id}',this.value)"><option value="active" ${cs.status==='active'?'selected':''}>Active</option><option value="out" ${cs.status==='out'?'selected':''}>Out of the race</option></select><button class="favoriteButton ${favorites.includes(d.id)?'is-active':''}" onclick="toggleFavorite('${d.id}');renderControlGrid();renderShortlist();"> <span class="material-symbols-outlined">star</span></button></div>
             <div><label class="controlLabel">Note</label><textarea class="controlTextarea" oninput="updateControlField('${d.id}','note',this.value)">${cs.note||''}</textarea></div>
             <div class="controlRow"><div style="flex:1"><label class="controlLabel">Top pro</label><input class="controlSelect" value="${(cs.topPro||'')}" onchange="updateControlField('${d.id}','topPro',this.value)" /></div><div style="flex:1"><label class="controlLabel">Top con</label><input class="controlSelect" value="${(cs.topCon||'')}" onchange="updateControlField('${d.id}','topCon',this.value)" /></div></div>
