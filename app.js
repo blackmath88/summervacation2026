@@ -42,6 +42,12 @@
     return max ? Math.round((total / max) * 100) : 0;
   }
 
+  function blendedScore(destination){
+    const boardWeight = destination.board?.weight;
+    if (!boardWeight) return fitScore(destination);
+    return Math.round((fitScore(destination) * 0.58) + (boardWeight * 0.42));
+  }
+
   function climateDot(value){
     const min = 10;
     const max = 32;
@@ -71,7 +77,7 @@
   }
 
   function cardTemplate(destination){
-    const score = fitScore(destination);
+    const score = blendedScore(destination);
     const active = favorites.includes(destination.id);
     return `
       <article class="card ${active ? "is-favorite" : ""}" id="card-${destination.id}">
@@ -138,6 +144,7 @@
           </div>
         </div>
         <div class="detail__body">
+          ${boardTemplate(destination)}
           <div class="argumentGrid">
             ${destination.arguments.map(([person, title, text]) => `<div class="argument"><h4>${person}</h4><strong>${title}</strong><p>${text}</p></div>`).join("")}
           </div>
@@ -152,6 +159,31 @@
         </div>
       </article>
     `).join("");
+  }
+
+  function boardTemplate(destination){
+    if (!destination.board) return "";
+    return `
+      <div class="boardRead">
+        <div class="boardRead__head">
+          <div>
+            <h4>Board Read</h4>
+            <p>${destination.board.read}</p>
+          </div>
+          <span class="boardWeight"><strong>${destination.board.weight}</strong><small>/100</small></span>
+        </div>
+        <div class="boardRead__cols">
+          <div>
+            <h5>Pros</h5>
+            <ul>${destination.board.pros.map(item => `<li>${icon("add_circle")}<span>${item}</span></li>`).join("")}</ul>
+          </div>
+          <div>
+            <h5>Cons</h5>
+            <ul>${destination.board.cons.map(item => `<li>${icon("remove_circle")}<span>${item}</span></li>`).join("")}</ul>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
   function renderControl(){
@@ -170,7 +202,7 @@
           <div class="controlCard__top">
             <div>
               <h3>${destination.title}</h3>
-              <span class="chip">${fitScore(destination)}% shared fit</span>
+              <span class="chip">${blendedScore(destination)}% shared fit</span>
             </div>
             <button class="iconButton ${active ? "is-active" : ""}" type="button" data-favorite="${destination.id}" aria-label="Toggle favourite for ${destination.title}">${icon("star")}</button>
           </div>
@@ -245,7 +277,7 @@
     data.destinations.forEach(destination => {
       const color = destination.type === "urban" ? "#526c5a" : "#173955";
       const marker = L.circleMarker(destination.coords, { radius:8, color, fillColor:color, fillOpacity:.82 }).addTo(map);
-      marker.bindPopup(`<div class="popup"><h3>${destination.title}</h3><p>${destination.vibe}</p><p><strong>${fitScore(destination)}% fit</strong> · ${destination.travel}</p><a href="#${destination.id}">Open details</a></div>`);
+      marker.bindPopup(`<div class="popup"><h3>${destination.title}</h3><p>${destination.vibe}</p><p><strong>${blendedScore(destination)}% fit</strong> · ${destination.travel}</p><a href="#${destination.id}">Open details</a></div>`);
     });
 
     const bounds = L.latLngBounds([[47.5596, 7.5886], ...data.destinations.map(destination => destination.coords)]);

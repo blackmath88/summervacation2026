@@ -10,10 +10,10 @@ window.vacationData = {
     calm: { label: "Calm", icon: "spa", description: "Relaxed rhythm, gentle pace, fewer hard edges.", weight: 2 }
   },
   summaries: [
-    { icon: "emoji_events", title: "Safe Win", text: "Italy Lakes / Dolomites still has the best harmony of drive, scenery, water, and family infrastructure." },
-    { icon: "landscape", title: "Best Payoff", text: "Costa Blanca gives the strongest Achim upside if the long travel and heat are acceptable." },
-    { icon: "flight_takeoff", title: "Wildcard", text: "Tenerife North is magical, but only if the flight logic and housing quality line up." },
-    { icon: "home", title: "Booking Rule", text: "Shortlist cancellable homes first. Let the house quality settle close calls." }
+    { icon: "emoji_events", title: "1. Costa Blanca", text: "Current emotional leader: scenery, weather, beach, Airbnb fantasy, climbing and atmosphere overlap strongly." },
+    { icon: "surfing", title: "2. San Sebastian", text: "Strong shared lifestyle candidate: urbanity, beach, cafes, atmosphere and walkable daily life." },
+    { icon: "train", title: "3. Leigh-on-Sea", text: "Unexpectedly strong because the Haarlem logic, London access and daily-life imagination are easy to picture." },
+    { icon: "landscape", title: "4. Dolomites", text: "Strong Achim identity fit, but weaker shared summer-beach identity." }
   ],
   destinations: [
     {
@@ -27,7 +27,13 @@ window.vacationData = {
       coords: [38.602, -0.045],
       type: "nature",
       climate: { low: 23, avg: 25, high: 29, feel: "Hot Mediterranean summer" },
-      scores: { beach: 3, climbing: 3, urbanity: 1, weather: 3, familyEase: 2, shortTravel: 1, special: 3, calm: 2 },
+      scores: { beach: 3, climbing: 3, urbanity: 2, weather: 3, familyEase: 2, shortTravel: 1, special: 3, calm: 2 },
+      board: {
+        weight: 96,
+        read: "Highest emotional overlap. It carries the beach fantasy, southern atmosphere, climbing payoff and beautiful-house imagination at the same time.",
+        pros: ["Pool + beach", "Southern atmosphere", "Palms", "Landscape + beach", "Climbing + beach combination", "Spanish food + coffee", "Warm evenings"],
+        cons: ["Long drive", "Heat in July", "Tourism risk", "Maybe too climbing-focused", "Potentially too hot for relaxed family rhythm"]
+      },
       arguments: [
         ["Achim", "Strong outdoor payoff", "Sea, limestone, valleys and real climbing culture make this the most Achim-coded option."],
         ["Fiona", "Villa comfort matters", "Works best if the house is easy, shaded, beautiful and close to daily water."],
@@ -48,6 +54,12 @@ window.vacationData = {
       type: "nature",
       climate: { low: 14, avg: 16, high: 19, feel: "Mild Atlantic summer" },
       scores: { beach: 3, climbing: 2, urbanity: 1, weather: 1, familyEase: 2, shortTravel: 1, special: 2, calm: 2 },
+      board: {
+        weight: 54,
+        read: "Emotionally attractive but still under-imagined. It has rugged coastal adventure, yet the daily family rhythm is not concrete enough on the board.",
+        pros: ["Scenic", "Rugged", "Coastal adventure", "Emotionally attractive"],
+        cons: ["Not yet concretely imagined", "Fewer detailed arguments on board", "Daily life is harder to picture", "Weather and logistics remain central risks"]
+      },
       arguments: [
         ["Achim", "Wild coast energy", "Cliffs, surf and bouldering give it a strong adventure identity."],
         ["Fiona", "Needs weather backup", "The charm is real, but rain plans and house quality matter more here."],
@@ -67,7 +79,13 @@ window.vacationData = {
       coords: [45.918, 10.88],
       type: "nature",
       climate: { low: 18, avg: 22, high: 27, feel: "Warm lake summer" },
-      scores: { beach: 2, climbing: 3, urbanity: 2, weather: 2, familyEase: 3, shortTravel: 3, special: 3, calm: 3 },
+      scores: { beach: 2, climbing: 3, urbanity: 1, weather: 2, familyEase: 3, shortTravel: 2, special: 3, calm: 2 },
+      board: {
+        weight: 76,
+        read: "Very strong Achim identity fit: glacier, lakes, water, climbing and mountain immersion. The weakness is shared summer identity: no sea, less urbanity, less cafe/beach rhythm.",
+        pros: ["Glacier", "Lakes", "Water", "Climbing + lakes", "Mountain scenery", "Nature immersion"],
+        cons: ["No real sea", "Less urbanity", "Too outdoor-focused", "Long drive", "Maybe missing summer beach life"]
+      },
       arguments: [
         ["Achim", "Mountains without drama", "Climbing, via ferrata, lakes and scenery with manageable logistics."],
         ["Fiona", "Low-friction beauty", "Restaurants, promenades, day trips and reliable holiday infrastructure."],
@@ -87,7 +105,13 @@ window.vacationData = {
       coords: [28.389, -16.523],
       type: "nature",
       climate: { low: 19, avg: 22, high: 26, feel: "Warm island microclimate" },
-      scores: { beach: 2, climbing: 2, urbanity: 2, weather: 3, familyEase: 2, shortTravel: 1, special: 3, calm: 2 },
+      scores: { beach: 2, climbing: 2, urbanity: 2, weather: 3, familyEase: 1, shortTravel: 1, special: 3, calm: 1 },
+      board: {
+        weight: 42,
+        read: "Wildcard fantasy. Very few notes means it is still abstract emotionally and not yet integrated into the family imagination.",
+        pros: ["Volcanic landscape", "Natural pools", "Warm island feeling", "Potentially magical"],
+        cons: ["Very few concrete notes yet", "Still abstract emotionally", "Not yet integrated into family imagination", "Flight and transfer logic need work"]
+      },
       arguments: [
         ["Achim", "Most magical landscape", "Volcano, ravines, coast and hiking make it feel truly different."],
         ["Fiona", "Flight logic required", "Can be brilliant if the base is calm, beautiful and not too car-dependent."],
@@ -108,6 +132,12 @@ window.vacationData = {
       type: "urban",
       climate: { low: 15, avg: 18, high: 22, feel: "Cool Nordic summer" },
       scores: { beach: 2, climbing: 1, urbanity: 3, weather: 1, familyEase: 3, shortTravel: 2, special: 3, calm: 2 },
+      board: {
+        weight: 67,
+        read: "Strong lifestyle option adjacent to the San Sebastian/Leigh logic, but cooler weather and price keep it from the emotional lead.",
+        pros: ["City + water", "Design atmosphere", "Coffee culture", "Museums", "Harbour swimming", "Easy urban rhythm"],
+        cons: ["Expensive", "Cooler weather", "Weak climbing payoff", "Less classic beach-holiday feeling"]
+      },
       arguments: [
         ["Achim", "Urban outdoor mix", "Harbour swims and design city energy, but weak on climbing."],
         ["Fiona", "Strong lifestyle fit", "Cafes, bikes, good food, shops and easy movement are the point."],
@@ -127,7 +157,13 @@ window.vacationData = {
       coords: [43.318, -1.981],
       type: "urban",
       climate: { low: 18, avg: 21, high: 25, feel: "Warm Atlantic city summer" },
-      scores: { beach: 3, climbing: 1, urbanity: 3, weather: 2, familyEase: 2, shortTravel: 1, special: 3, calm: 1 },
+      scores: { beach: 3, climbing: 1, urbanity: 3, weather: 2, familyEase: 3, shortTravel: 1, special: 3, calm: 2 },
+      board: {
+        weight: 88,
+        read: "Second emotional leader from verbal discussion: urbanity, beach, cafes, atmosphere and lifestyle all point in the same direction.",
+        pros: ["Urban beach life", "Cafes", "Atmosphere", "Food culture", "Walkability", "Surf and city combination"],
+        cons: ["Long travel", "Expensive", "Parking/logistics", "Weaker outdoor climbing", "Busy in July"]
+      },
       arguments: [
         ["Achim", "Surf and hills", "Not a climbing trip, but a high-quality city-beach outdoor rhythm."],
         ["Fiona", "Food and walkability", "Excellent if urban coast, eating well and atmosphere matter most."],
@@ -147,7 +183,13 @@ window.vacationData = {
       coords: [55.605, 13.003],
       type: "urban",
       climate: { low: 14, avg: 17, high: 21, feel: "Cool Baltic summer" },
-      scores: { beach: 2, climbing: 1, urbanity: 3, weather: 1, familyEase: 3, shortTravel: 1, special: 2, calm: 3 },
+      scores: { beach: 2, climbing: 1, urbanity: 3, weather: 1, familyEase: 2, shortTravel: 1, special: 2, calm: 2 },
+      board: {
+        weight: 58,
+        read: "Good urban-water lifestyle ingredients, but the board questions whether the vacation payoff is strong enough for the travel and cost.",
+        pros: ["Beach", "City", "Nordic atmosphere", "Second hand", "Coffee culture"],
+        cons: ["Long drive", "Weather uncertainty", "Expensive", "Maybe not enough vacation payoff", "Sea less impressive"]
+      },
       arguments: [
         ["Achim", "Soft outdoor logic", "Bikes, coast and day trips, but not dramatic nature."],
         ["Fiona", "Calm city option", "Design, cafes, beaches and less intensity than Copenhagen."],
@@ -168,6 +210,12 @@ window.vacationData = {
       type: "urban",
       climate: { low: 18, avg: 23, high: 28, feel: "Warm Atlantic summer" },
       scores: { beach: 3, climbing: 1, urbanity: 3, weather: 3, familyEase: 2, shortTravel: 1, special: 3, calm: 1 },
+      board: {
+        weight: 70,
+        read: "Strong on city + beach + culture and Airbnb fantasy, but distance friction and logistics are heavy.",
+        pros: ["Beach", "Cool Airbnb potential", "City + beach", "Museums", "Culture", "Outdoors", "Urban life"],
+        cons: ["Long drive", "Expensive drive", "Food/travel logistics", "Distance friction"]
+      },
       arguments: [
         ["Achim", "Surf and city energy", "Strong Atlantic payoff, weaker climbing, high variety."],
         ["Fiona", "Creative lifestyle", "Cafes, design, culture and beach access can be a strong fit."],
@@ -187,7 +235,13 @@ window.vacationData = {
       coords: [51.541, 0.653],
       type: "urban",
       climate: { low: 15, avg: 18, high: 22, feel: "Mild UK coastal summer" },
-      scores: { beach: 2, climbing: 1, urbanity: 3, weather: 1, familyEase: 3, shortTravel: 2, special: 2, calm: 3 },
+      scores: { beach: 2, climbing: 2, urbanity: 3, weather: 1, familyEase: 3, shortTravel: 2, special: 3, calm: 3 },
+      board: {
+        weight: 82,
+        read: "Unexpectedly strong emotionally because daily life is easy to imagine: Haarlem vibe, London access, cafes, beach and indoor bouldering.",
+        pros: ["England + London", "Urban feeling", "Coffee places", "Indoor bouldering", "Strand / beach", "London access", "Cafes + lifestyle", "Haarlem vibe"],
+        cons: ["Unpredictable weather", "Beaches cold", "Maybe not a real beach holiday", "Weaker outdoor climbing", "England weather risk"]
+      },
       arguments: [
         ["Achim", "City access + coast", "Useful if the family wants urban life, easy logistics and a walkable seaside base."],
         ["Fiona", "Her proposition", "A Haarlem-like argument: beach, cafes, lifestyle streets and London within reach."],
@@ -207,7 +261,13 @@ window.vacationData = {
       coords: [53.079, 4.811],
       type: "urban",
       climate: { low: 15, avg: 18, high: 21, feel: "Mild North Sea summer" },
-      scores: { beach: 3, climbing: 1, urbanity: 2, weather: 1, familyEase: 3, shortTravel: 2, special: 2, calm: 3 },
+      scores: { beach: 3, climbing: 1, urbanity: 1, weather: 1, familyEase: 3, shortTravel: 2, special: 1, calm: 3 },
+      board: {
+        weight: 63,
+        read: "Safe harmony option. It works practically, but the board flags familiarity and lower special feeling.",
+        pros: ["Beach", "Sea", "Holland", "Nature", "Near", "Relaxed family feeling"],
+        cons: ["Little urbanity", "Cooler temperatures", "Weak climbing", "Not again", "Maybe too safe/familiar"]
+      },
       arguments: [
         ["Achim", "Landscape + bikes", "Not a climbing trip, but dunes, cycling and island landscape keep it outdoorsy."],
         ["Fiona", "Calm Dutch version", "Practical beach-and-local-life model with gentle pace and village feel."],
